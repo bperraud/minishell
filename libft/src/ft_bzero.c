@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/08 12:19:06 by jboumal          ###   ########.fr       */
+/*   Created: 2022/01/04 13:06:03 by jboumal           #+#    #+#             */
+/*   Updated: 2022/01/04 13:50:17 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "minishell.h"
-
-int	main(void)
+void	ft_bzero(void *s, size_t n)
 {
-	printf("%d\n", ft_isalpha('5'));
-	return (0);
+	unsigned char	*t;
+
+	t = s;
+	while (n > 0)
+	{
+		*t = 0;
+		t++;
+		n--;
+	}
 }

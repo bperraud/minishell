@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jboumal <jboumal@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/08 12:19:06 by jboumal          ###   ########.fr       */
+/*   Created: 2022/01/08 11:24:30 by jboumal           #+#    #+#             */
+/*   Updated: 2022/01/08 11:24:32 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "minishell.h"
-
-int	main(void)
+void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	printf("%d\n", ft_isalpha('5'));
-	return (0);
+	t_list	*t;
+
+	if (!*alst)
+		*alst = new;
+	else
+	{
+		t = ft_lstlast(*alst);
+		t->next = new;
+	}
 }

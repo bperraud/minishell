@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/08 12:19:06 by jboumal          ###   ########.fr       */
+/*   Created: 2022/01/03 18:13:05 by jboumal           #+#    #+#             */
+/*   Updated: 2022/01/03 18:14:21 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <stdlib.h>
 
-#include "minishell.h"
-
-int	main(void)
+size_t	ft_strlen(const char *str)
 {
-	printf("%d\n", ft_isalpha('5'));
-	return (0);
+	int	i;
+
+	i = 0;
+	while (*str != '\0')
+	{
+		i++;
+		str ++;
+	}
+	return (i);
 }

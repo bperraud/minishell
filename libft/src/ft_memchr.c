@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/08 12:19:06 by jboumal          ###   ########.fr       */
+/*   Created: 2022/01/05 13:10:41 by jboumal           #+#    #+#             */
+/*   Updated: 2022/01/05 17:35:19 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+char	*ft_memchr(const void *s, int c, size_t n)
 {
-	printf("%d\n", ft_isalpha('5'));
+	unsigned char		c2;
+	const unsigned char	*s2;
+
+	s2 = s;
+	c2 = c;
+	while (n > 0)
+	{
+		if (*s2 == c2)
+			return ((char *) s2);
+		s2++;
+		n--;
+	}
 	return (0);
 }

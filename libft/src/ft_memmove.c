@@ -1,19 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/08 12:19:06 by jboumal          ###   ########.fr       */
+/*   Created: 2022/01/04 15:19:08 by jboumal           #+#    #+#             */
+/*   Updated: 2022/01/05 12:47:40 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "minishell.h"
-
-int	main(void)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	printf("%d\n", ft_isalpha('5'));
-	return (0);
+	unsigned char		*dst2;
+	const unsigned char	*src2;
+
+	dst2 = dst;
+	src2 = src;
+	if (!src && !dst)
+		return (dst);
+	if (src > dst)
+	{
+		while (len > 0)
+		{
+			*dst2++ = *src2++;
+			len--;
+		}
+	}
+	else
+	{
+		while (len > 0)
+		{
+			*(dst2 + len - 1) = *(src2 + len - 1);
+			len--;
+		}
+	}
+	return (dst);
 }

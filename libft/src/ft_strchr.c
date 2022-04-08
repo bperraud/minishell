@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/08 12:19:06 by jboumal          ###   ########.fr       */
+/*   Created: 2022/01/04 16:07:51 by jboumal           #+#    #+#             */
+/*   Updated: 2022/01/04 17:26:41 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "minishell.h"
-
-int	main(void)
+char	*ft_strchr(const char *s, int c)
 {
-	printf("%d\n", ft_isalpha('5'));
+	char	c2;
+
+	c2 = c;
+	while (*s)
+	{
+		if (*s == c2)
+			return ((char *) s);
+		s++;
+	}
+	if (*s == c2)
+		return ((char *) s);
 	return (0);
 }

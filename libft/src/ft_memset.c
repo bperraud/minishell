@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/08 12:19:06 by jboumal          ###   ########.fr       */
+/*   Created: 2022/01/03 18:18:45 by jboumal           #+#    #+#             */
+/*   Updated: 2022/01/03 19:33:17 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "minishell.h"
-
-int	main(void)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	printf("%d\n", ft_isalpha('5'));
-	return (0);
+	unsigned char	c2;
+	unsigned char	*t;
+
+	c2 = c;
+	t = b;
+	while (len > 0)
+	{
+		*t = c2;
+		t++;
+		len --;
+	}
+	return (b);
 }
