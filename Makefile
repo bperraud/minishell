@@ -1,21 +1,23 @@
-SRCS		= minishell.c
+SRCS		= minishell.c \
+			  parsing/parsing.c \
+
 SRCS		:= $(addprefix src/,$(SRCS))
 OBJS		= ${SRCS:.c=.o}
 NAME		= minishell
 CC			= gcc
 MAKE		= make
 RM			= rm -f
-CFLAGS		= -Wall -Wextra -Werror -Iinclude -Ilibft/include -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -Iinclude -Ilibft/include
 
 $(NAME):		$(OBJS)
-				$(MAKE) -C libft
-				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) libft/libft.a
+				$(MAKE) -s -C libft
+				$(CC) $(CFLAGS) -lreadline -o $(NAME) $(OBJS) libft/libft.a
 all:			$(NAME)
 clean:
-				$(MAKE) clean -C libft
+				$(MAKE) clean -s -C libft
 				${RM} ${OBJS}
 fclean:			clean
-				$(MAKE) fclean -C libft
+				$(MAKE) fclean -s -C libft
 				${RM} $(NAME)
 re:				fclean all
 .PHONY:			all clean fclean re

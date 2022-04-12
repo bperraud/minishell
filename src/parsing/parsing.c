@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/08 12:19:06 by jboumal          ###   ########.fr       */
+/*   Created: 2022/04/12 19:29:26 by jboumal           #+#    #+#             */
+/*   Updated: 2022/04/12 19:33:29 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
-int	main(int argc, char **argv)
+void	start_shell(void)
 {
-	if (argc == 1)
+	char	*str;
+
+	while (1)
 	{
-		start_shell();
+		str = readline("╰(°▽°)╯~ ");
+		if (!str || !ft_strncmp(str, "exit", 5))
+			break ;
+		printf("%s\n", str);
 	}
-	(void) argv;
-	//system ("leaks minishell");
-	return (0);
 }
