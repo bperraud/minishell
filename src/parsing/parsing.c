@@ -19,14 +19,17 @@ t_cmd	*sh_split(char *s)
 
 	cmd = init_cmd();
 	word = NULL;
-	while (*s && !ft_strchr("()\"\'*<>|$=", *s))
+	while (*s)
 	{
-		if (*s != ' ')
-			word = add_char(word, *s);
-		else
+		if (!ft_strchr("()\"\'*<>|$=", *s))
 		{
-			cmd->cmd = add_string(cmd->cmd, word);
-			word = NULL;
+			if (*s != ' ')
+				word = add_char(word, *s);
+			else
+			{
+				cmd->cmd = add_string(cmd->cmd, word);
+				word = NULL;
+			}
 		}
 		s++;
 	}
