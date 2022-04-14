@@ -12,6 +12,11 @@
 
 #include "minishell.h"
 
+void	sh(t_cmd *cmd)
+{
+	(void) cmd;
+}
+
 static void	start_shell(void)
 {
 	char	*str;

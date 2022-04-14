@@ -45,6 +45,7 @@ void	free_str_list(char **list);
 t_cmd	*parse_cmd(char *str);
 t_cmd	*init_cmd(void);
 /* exec */
+void	sh(t_cmd *cmd);
 char	*get_path(char *cmd, char **envp);
 
 #endif
