@@ -41,11 +41,16 @@ typedef struct s_cmd
 
 /* utils */
 void	free_str_list(char **list);
+char	**add_string(char **lst1, char *str);
+char	*add_char(char *str1, char c);
 /* parsing */
-t_cmd	*parse_cmd(char *str);
+//t_cmd	*parse_cmd(char *str);
+t_cmd	*sh_split(char *s);
 t_cmd	*init_cmd(void);
 /* exec */
-void	sh(t_cmd *cmd);
+void	sh(char *str);
 char	*get_path(char *cmd, char **envp);
 
+/* test */
+void	print_list(char **lst);
 #endif

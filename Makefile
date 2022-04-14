@@ -1,7 +1,8 @@
 SRCS		= minishell.c \
 			  utils/utils.c \
-			  parsing/parsing.c parsing/init.c \
-			  exec/get_path.c 
+			  parsing/parsing.c parsing/init.c parsing/sh_split.c \
+			  exec/get_path.c \
+			  test.c
 
 SRCS		:= $(addprefix src/,$(SRCS))
 OBJS		= ${SRCS:.c=.o}

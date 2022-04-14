@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/12 19:29:26 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/12 19:33:29 by jboumal          ###   ########.fr       */
+/*   Created: 2022/04/14 15:05:48 by jboumal           #+#    #+#             */
+/*   Updated: 2022/04/14 15:05:49 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*t_cmd	*parse_cmd(char *str)
+void	print_list(char **lst)
 {
-	t_cmd	*cmd;
-	(void) str;
-	cmd = init_cmd();
-
-	return (cmd);
+	if (!lst)
+	{
+		perror("error");
+		exit(EXIT_FAILURE);
+	}
+	while (*lst)
+	{
+		printf("%s\n", *lst);
+		lst ++;
+	}
 }
-*/
