@@ -1,5 +1,7 @@
 SRCS		= minishell.c \
-			  parsing/parsing.c \
+			  utils/utils.c \
+			  parsing/parsing.c parsing/init.c \
+			  exec/get_path.c 
 
 SRCS		:= $(addprefix src/,$(SRCS))
 OBJS		= ${SRCS:.c=.o}
@@ -21,3 +23,4 @@ fclean:			clean
 				${RM} $(NAME)
 re:				fclean all
 .PHONY:			all clean fclean re
+.SILENT: 		$(OBJS)

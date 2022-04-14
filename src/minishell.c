@@ -12,6 +12,23 @@
 
 #include "minishell.h"
 
+static void	start_shell(void)
+{
+	char	*str;
+	t_cmd	*cmd;
+
+	while (1)
+	{
+		str = readline("\033[36m╰(°▽°)╯~ \033[0m");
+		if (!str || !ft_strncmp(str, "exit", 5))
+			break ;
+		cmd = parse_cmd(str);
+		//execute the command
+		//free cmd
+		printf("%s\n", str);
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	if (argc == 1)

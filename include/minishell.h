@@ -17,8 +17,34 @@
 # include <readline/history.h>
 # include "libft.h"
 
-/* parsing */
-void	start_shell(void);
+# define FALSE 0
+# define TRUE 1
 
+enum
+{
+	NONE,
+	PIPE,
+	AND,
+	OR
+};
+
+typedef struct s_cmd
+{
+	char			*infile;
+	char			*outfile;
+	uint			here_doc;
+	uint			append_out;
+	uint			mode;
+	char			**cmd;
+	struct s_cmd	*next;
+}				t_cmd;
+
+/* utils */
+void	free_str_list(char **list);
+/* parsing */
+t_cmd	*parse_cmd(char *str);
+t_cmd	*init_cmd(void);
+/* exec */
+char	*get_path(char *cmd, char **envp);
 
 #endif
