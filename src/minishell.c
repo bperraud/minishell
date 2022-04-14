@@ -18,6 +18,9 @@ void	sh(char *str)
 
 	cmd = sh_split(str);
 	print_list(cmd->cmd);
+	// faire une fonction pour free toute la struct
+	free_str_list(cmd->cmd);
+	free(cmd);
 }
 
 static void	start_shell(void)
@@ -30,6 +33,7 @@ static void	start_shell(void)
 		if (!str || !ft_strncmp(str, "exit", 5))
 			break ;
 		sh(str);
+		free(str);
 	}
 }
 

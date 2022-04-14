@@ -25,7 +25,8 @@ enum
 	NONE,
 	PIPE,
 	AND,
-	OR
+	OR,
+	SET
 };
 
 typedef struct s_cmd
@@ -35,6 +36,8 @@ typedef struct s_cmd
 	uint			here_doc;
 	uint			append_out;
 	uint			mode;
+	char			*var;
+	char			*value;
 	char			**cmd;
 	struct s_cmd	*next;
 }				t_cmd;
@@ -44,7 +47,6 @@ void	free_str_list(char **list);
 char	**add_string(char **lst1, char *str);
 char	*add_char(char *str1, char c);
 /* parsing */
-//t_cmd	*parse_cmd(char *str);
 t_cmd	*sh_split(char *s);
 t_cmd	*init_cmd(void);
 /* exec */
