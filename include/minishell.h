@@ -15,26 +15,23 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <stdbool.h>
 # include "libft.h"
-
-# define FALSE 0
-# define TRUE 1
 
 enum
 {
 	NONE,
 	PIPE,
 	AND,
-	OR,
-	SET
+	OR
 };
 
 typedef struct s_cmd
 {
 	char			*infile;
 	char			*outfile;
-	uint			here_doc;
-	uint			append_out;
+	bool			here_doc;
+	bool			append_out;
 	uint			mode;
 	char			*var;
 	char			*value;

@@ -6,8 +6,8 @@ si && -> mode = AND: executer la commande seulement si la precedente est ok
 si || -> mode = OR: executer la commande seulement si la precedente est ko  
 
 ## variables d'environnement (var)
-si VAR=VALUE -> mode = SET: mettre dans var la valeur value
-si il y a un dollar, il faut le remplacer par sa valeur SAUF si il y a un \ avant
+si, dans une commande, il y a un "=", definir la variable d'environnement  
+si il y a un dollar, il faut le remplacer par sa valeur SAUF si l'argument est dans entre dquotes "  
 
 ## pipes
 (<<) si here\_doc != NULL -> lire avec here\_doc  

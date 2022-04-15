@@ -24,8 +24,8 @@ t_cmd	*init_cmd(void)
 	}
 	cmd->infile = NULL;
 	cmd->outfile = NULL;
-	cmd->here_doc = FALSE;
-	cmd->append_out = FALSE;
+	cmd->here_doc = false;
+	cmd->append_out = false;
 	cmd->mode = NONE;
 	cmd->var = NULL;
 	cmd->value = NULL;

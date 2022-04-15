@@ -20,22 +20,31 @@ static char	change_quote(char quote, char c)
 		return ('\0');
 }
 
+/* split string s in list of substrings ;
+	split will ignore spaces if quotes or parenthesis are opened
+*/
 t_cmd	*sh_split(char *s)
 {
 	t_cmd	*cmd;
 	char	*word;
 	char	quote;
+	int		parenthesis;
 
+	parenthesis = 0;
 	quote = '\0';
 	cmd = init_cmd();
 	word = NULL;
 	while (*s)
 	{
-		if ((*s == '\'' || *s == '\"') && (*s == quote || !quote))
+		if ((*s == '\'' || *s == '\"') && (quote == *s || !quote) && !parenthesis)
 			quote = change_quote(quote, *s);
-		else if (!ft_strchr("()*<>|$=", *s))
+		else if (!quote && *s == '(')
+			parenthesis ++;
+		else if (!quote && *s == ')')
+			parenthesis --;
+		if (!ft_strchr("*<>&|$", *s))
 		{
-			if (quote || *s != ' ')
+			if (parenthesis || quote || *s != ' ')
 				word = add_char(word, *s);
 			else
 			{
