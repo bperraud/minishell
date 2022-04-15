@@ -12,14 +12,12 @@
 
 #include "minishell.h"
 
-static char	change_quote(quote, c)
+static char	change_quote(char quote, char c)
 {
 	if (!quote)
 		return (c);
-	else if (quote == c)
-		return ('\0');
 	else
-		return (quote);
+		return ('\0');
 }
 
 t_cmd	*sh_split(char *s)
@@ -33,9 +31,9 @@ t_cmd	*sh_split(char *s)
 	word = NULL;
 	while (*s)
 	{
-		if (*s == '\'' || *s == '\"')
+		if ((*s == '\'' || *s == '\"') && (*s == quote || !quote))
 			quote = change_quote(quote, *s);
-		if (!ft_strchr("()\"\'*<>|$=", *s))
+		else if (!ft_strchr("()*<>|$=", *s))
 		{
 			if (quote || *s != ' ')
 				word = add_char(word, *s);
