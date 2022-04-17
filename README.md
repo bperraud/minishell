@@ -1,7 +1,7 @@
 # 42 minishell
 ## commandes (cmd)
 si fin de ligne -> mode = NONE: executer la commande  
-si | -> mode = pipe: creer un pipe vers la prochaine commande  
+si | -> mode = PIPE: creer un pipe vers la prochaine commande  
 si && -> mode = AND: executer la commande seulement si la precedente est ok  
 si || -> mode = OR: executer la commande seulement si la precedente est ko  
 
@@ -9,7 +9,7 @@ si || -> mode = OR: executer la commande seulement si la precedente est ko
 si, dans une commande, il y a un =, definir la variable d'environnement  
 si il y a un dollar, il faut le remplacer par sa valeur SAUF si l'argument est dans entre squotes '  
 
-## pipes
+## redirections
 (<<) si here\_doc != NULL -> lire avec here\_doc, qui est le delimiteur    
 (<) si infile != NULL -> lire dans infile a la place de stdin  
 (>) si outfile != NULL -> ecrire dans outfile a la place de stdout  
