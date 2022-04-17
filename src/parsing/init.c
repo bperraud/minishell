@@ -40,7 +40,7 @@ t_cmd	*init_cmd(void)
 	}
 	cmd->infile = NULL;
 	cmd->outfile = NULL;
-	cmd->here_doc = false;
+	cmd->here_doc = NULL;
 	cmd->append_out = false;
 	cmd->mode = NONE;
 	cmd->cmd = NULL;

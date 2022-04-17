@@ -10,7 +10,7 @@ si, dans une commande, il y a un =, definir la variable d'environnement
 si il y a un dollar, il faut le remplacer par sa valeur SAUF si l'argument est dans entre squotes '  
 
 ## pipes
-(<<) si here\_doc != NULL -> lire avec here\_doc  
+(<<) si here\_doc != NULL -> lire avec here\_doc, qui est le delimiteur    
 (<) si infile != NULL -> lire dans infile a la place de stdin  
 (>) si outfile != NULL -> ecrire dans outfile a la place de stdout  
 (>>) si, en plus, append\_out == TRUE -> ecrire en mode append  
