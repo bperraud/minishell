@@ -18,9 +18,7 @@ void	sh(char *str)
 
 	cmd = sh_split(str);
 	print_list(cmd->cmd);
-	// faire une fonction pour free toute la struct
-	free_str_list(cmd->cmd);
-	free(cmd);
+	free_t_cmd(cmd);
 }
 
 static void	start_shell(void)
@@ -31,7 +29,10 @@ static void	start_shell(void)
 	{
 		str = readline("\033[36m╰(°▽°)╯~ \033[0m");
 		if (!str || !ft_strncmp(str, "exit", 5))
+		{
+			free(str);
 			break ;
+		}
 		sh(str);
 		free(str);
 	}
@@ -44,6 +45,6 @@ int	main(int argc, char **argv)
 		start_shell();
 	}
 	(void) argv;
-	//system ("leaks minishell");
+	system ("leaks minishell");
 	return (0);
 }

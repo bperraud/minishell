@@ -12,6 +12,22 @@
 
 #include "minishell.h"
 
+t_split	*init_split(void)
+{
+	t_split	*split;
+
+	split = malloc(sizeof(t_split));
+	if (!split)
+	{
+		perror("error");
+		exit(EXIT_FAILURE);
+	}
+	split->par = 0;
+	split->quote = '\0';
+	split->word = NULL;
+	return (split);
+}
+
 t_cmd	*init_cmd(void)
 {
 	t_cmd	*cmd;
@@ -27,8 +43,6 @@ t_cmd	*init_cmd(void)
 	cmd->here_doc = false;
 	cmd->append_out = false;
 	cmd->mode = NONE;
-	cmd->var = NULL;
-	cmd->value = NULL;
 	cmd->cmd = NULL;
 	cmd->next = NULL;
 	return (cmd);

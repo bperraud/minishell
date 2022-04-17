@@ -33,18 +33,25 @@ typedef struct s_cmd
 	bool			here_doc;
 	bool			append_out;
 	uint			mode;
-	char			*var;
-	char			*value;
 	char			**cmd;
 	struct s_cmd	*next;
 }				t_cmd;
 
+typedef struct s_split
+{
+	char	*word;
+	char	quote;
+	int		par;
+}				t_split;
+
 /* utils */
 void	free_str_list(char **list);
+void	free_t_cmd(t_cmd *cmd);
 char	**add_string(char **lst1, char *str);
 char	*add_char(char *str1, char c);
 /* parsing */
 t_cmd	*sh_split(char *s);
+t_split	*init_split(void);
 t_cmd	*init_cmd(void);
 /* exec */
 void	sh(char *str);

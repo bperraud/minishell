@@ -41,6 +41,8 @@ char	**add_string(char **lst1, char *str)
 	char	**lst2;
 	int		len;
 
+	if (!str)
+		return (lst1);
 	if (lst1)
 		len = lst_len(lst1);
 	else
@@ -84,19 +86,4 @@ char	*add_char(char *str1, char c)
 	s2[len] = c;
 	s2[len + 1] = '\0';
 	return (s2);
-}
-
-void	free_str_list(char **list)
-{
-	char	**t;
-
-	if (!list)
-		return ;
-	t = list;
-	while (*t)
-	{
-		free(*t);
-		t++;
-	}
-	free(list);
 }

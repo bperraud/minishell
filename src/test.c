@@ -14,14 +14,19 @@
 
 void	print_list(char **lst)
 {
+	int	i;
+
 	if (!lst)
 	{
 		perror("error");
 		exit(EXIT_FAILURE);
 	}
+	i = 0;
 	while (*lst)
 	{
 		printf("%s\n", *lst);
 		lst ++;
+		i++;
 	}
+	printf("printed %d elements\n", i);
 }

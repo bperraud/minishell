@@ -12,12 +12,33 @@
 
 #include "minishell.h"
 
-static char	change_quote(char quote, char c)
+static void	change_quote(t_split *split, char c)
 {
-	if (!quote)
-		return (c);
+	if (!split->quote)
+		split->quote = c;
 	else
-		return ('\0');
+		split->quote = '\0';
+}
+
+static void	handle_quotes_and_parenthesis(t_cmd *cmd, t_split *split, char *s)
+{
+	if ((*s == '\'' || *s == '\"')
+		&& (split->quote == *s || !split->quote) && !split->par)
+		change_quote(split, *s);
+	else if (!split->quote && *s == '(')
+	{
+		if (!split->par)
+		{
+			cmd->cmd = add_string(cmd->cmd, split->word);
+			split->word = NULL;
+		}
+		split->par ++;
+	}
+	else if (!split->quote && *s == ')')
+	{
+		split->word = add_char(split->word, *s);
+		split->par --;
+	}
 }
 
 /* split string s in list of substrings ;
@@ -26,34 +47,26 @@ static char	change_quote(char quote, char c)
 t_cmd	*sh_split(char *s)
 {
 	t_cmd	*cmd;
-	char	*word;
-	char	quote;
-	int		parenthesis;
+	t_split	*split;
 
-	parenthesis = 0;
-	quote = '\0';
+	split = init_split();
 	cmd = init_cmd();
-	word = NULL;
 	while (*s)
 	{
-		if ((*s == '\'' || *s == '\"') && (quote == *s || !quote) && !parenthesis)
-			quote = change_quote(quote, *s);
-		else if (!quote && *s == '(')
-			parenthesis ++;
-		else if (!quote && *s == ')')
-			parenthesis --;
-		if (!ft_strchr("*<>&|$", *s))
+		handle_quotes_and_parenthesis(cmd, split, s);
+		if (!ft_strchr("&|", *s))
 		{
-			if (parenthesis || quote || *s != ' ')
-				word = add_char(word, *s);
+			if (split->par || split->quote || !ft_strchr(" )", *s))
+				split->word = add_char(split->word, *s);
 			else
 			{
-				cmd->cmd = add_string(cmd->cmd, word);
-				word = NULL;
+				cmd->cmd = add_string(cmd->cmd, split->word);
+				split->word = NULL;
 			}
 		}
 		s++;
 	}
-	cmd->cmd = add_string(cmd->cmd, word);
+	cmd->cmd = add_string(cmd->cmd, split->word);
+	free(split);
 	return (cmd);
 }
