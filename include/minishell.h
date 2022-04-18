@@ -28,6 +28,8 @@ enum
 
 typedef struct s_cmd
 {
+	int				fd_in;
+	int				fd_out;
 	char			*infile;
 	char			*outfile;
 	char			*here_doc;
