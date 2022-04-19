@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 15:23:43 by bperraud          #+#    #+#             */
-/*   Updated: 2022/04/20 00:01:35 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/04/20 00:17:04 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,8 @@
 char	*get_next_line(int fd);
 char	*true_gnl(int fd);
 char	*true_gnl_2(long ret, char *line, char *buff, char *temp);
-void	*ft_memchr_gnl(const void *s, int c, long n);
-char	*ft_strjoin_gnl(char const *s1, char const *s2);
 char	*ft_strncpy_gnl(char *dest, const char *src, long n);
 char	**ft_split_gnl(char const *s, const char c);
-size_t	ft_strlen_gnl(const char *s);
 char	*end_of_line(char *line, char *buff);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 01:29:58 by bperraud          #+#    #+#              #
-#    Updated: 2022/04/20 00:01:47 by bperraud         ###   ########.fr        #
+#    Updated: 2022/04/20 00:19:15 by bperraud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,13 +28,22 @@ CFLAGS		= -Wall -Wextra -Werror -Iinclude -Ilibft/include
 $(NAME):		$(OBJS)
 				$(MAKE) -s -C libft
 				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lreadline libft/libft.a
-all:			$(NAME)
+
+all:			tmp $(NAME)
+
+tmp:
+				mkdir -p temp
+
 clean:
 				$(MAKE) clean -s -C libft
 				${RM} ${OBJS}
+
 fclean:			clean
 				$(MAKE) fclean -s -C libft
 				${RM} $(NAME)
+
 re:				fclean all
+
 .PHONY:			all clean fclean re
+
 .SILENT: 		$(OBJS)

@@ -6,11 +6,11 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 15:22:45 by bperraud          #+#    #+#             */
-/*   Updated: 2022/04/20 00:01:19 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/04/20 00:16:52 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "minishell.h"
 
 char	*get_next_line(int fd)
 {
@@ -33,10 +33,10 @@ char	*true_gnl(int fd)
 	if (!line)
 		return (NULL);
 	line[0] = '\0';
-	while (ret == BUFFER_SIZE && ft_memchr_gnl(buff, '\n', BUFFER_SIZE) == NULL)
+	while (ret == BUFFER_SIZE && ft_memchr(buff, '\n', BUFFER_SIZE) == NULL)
 	{
 		temp = line;
-		line = ft_strjoin_gnl(line, buff);
+		line = ft_strjoin(line, buff);
 		free(temp);
 		ret = read(fd, buff, BUFFER_SIZE);
 	}
@@ -58,11 +58,11 @@ char	*true_gnl_2(long ret, char *line, char *buff, char *temp)
 	}
 	else
 	{
-		if (ft_memchr_gnl(buff, '\n', BUFFER_SIZE) != NULL)
+		if (ft_memchr(buff, '\n', BUFFER_SIZE) != NULL)
 			line = end_of_line(line, buff);
 		else
 		{
-			line = ft_strjoin_gnl(line, buff);
+			line = ft_strjoin(line, buff);
 			while (ret--)
 				*buff++ = 0;
 		}
@@ -78,7 +78,7 @@ char	*end_of_line(char *line, char *buff)
 	split = ft_split_gnl(buff, '\n');
 	if (split)
 	{
-		line = ft_strjoin_gnl(line, split[0]);
+		line = ft_strjoin(line, split[0]);
 		ft_strncpy_gnl(buff, split[1], BUFFER_SIZE);
 		free(split[0]);
 		free(split[1]);
