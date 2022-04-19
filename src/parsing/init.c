@@ -38,12 +38,10 @@ t_cmd	*init_cmd(void)
 		perror("error");
 		exit(EXIT_FAILURE);
 	}
-	cmd->infile = NULL;
-	cmd->outfile = NULL;
+	cmd->fd_in = 0;
+	cmd->fd_out = 1;
 	cmd->here_doc = NULL;
-	cmd->append_out = false;
 	cmd->mode = NONE;
 	cmd->cmd = NULL;
-	cmd->next = NULL;
 	return (cmd);
 }

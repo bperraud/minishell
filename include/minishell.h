@@ -13,6 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <stdio.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
@@ -30,13 +31,9 @@ typedef struct s_cmd
 {
 	int				fd_in;
 	int				fd_out;
-	char			*infile;
-	char			*outfile;
 	char			*here_doc;
-	bool			append_out;
 	uint			mode;
 	char			**cmd;
-	struct s_cmd	*next;
 }				t_cmd;
 
 typedef struct s_split
@@ -52,6 +49,8 @@ void	free_t_cmd(t_cmd *cmd);
 char	**add_string(char **lst1, char *str);
 char	*add_char(char *str1, char c);
 /* parsing */
+char	*handle_in_redirections(t_cmd *cmd, t_split *split, char *s_orig);
+char	*handle_out_redirections(t_cmd *cmd, t_split *split, char *s_orig);
 t_split	*init_split(void);
 t_cmd	*init_cmd(void);
 t_cmd	*sh_split(char *s);

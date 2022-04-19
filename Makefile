@@ -1,6 +1,6 @@
 SRCS		= minishell.c \
 			  utils/utils.c utils/free.c \
-			  parsing/parsing.c parsing/init.c \
+			  parsing/parsing.c parsing/init.c parsing/redirections.c \
 			  exec/get_path.c \
 			  test.c
 
