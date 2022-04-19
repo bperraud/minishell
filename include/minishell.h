@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:18:55 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/08 12:18:57 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/04/19 23:59:33 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <readline/history.h>
 # include <stdbool.h>
 # include "libft.h"
+# include "get_next_line.h"
+# include "pipex.h"
 
 enum
 {
