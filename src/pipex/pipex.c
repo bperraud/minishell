@@ -64,7 +64,7 @@ int	here_doc(char *limiter)
 	return (f1);
 }
 
-void	pipex_alone(char *cmd, char**envp)
+void	pipex(char *cmd, char**envp)
 {
 	int		pid;
 	int		pipe_fd[2];
@@ -96,9 +96,9 @@ void	multiple_cmd(int fd[3], int argc, char **argv, char **envp)
 	i = fd[2];
 	dup2(fd_in, 0);
 	close(fd_in);
-	pipex_alone(argv[i], envp);
+	pipex(argv[i], envp);
 	while (++i < argc - 2)
-		pipex_alone(argv[i], envp);
+		pipex(argv[i], envp);
 	while (waitpid(-1, NULL, 0) > 0)
 		;
 	dup2(fd_out, 1);
