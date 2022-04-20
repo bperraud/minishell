@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include "get_next_line.h"
+#include "minishell.h"
 
 void	exec_cmd(char *arg, char **envp)
 {
