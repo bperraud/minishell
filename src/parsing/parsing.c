@@ -52,7 +52,7 @@ static void	cmd_list_add(t_cmd *cmd, t_split *split, char *s)
 	}
 }
 
-t_cmd	*sh_split(char *s)
+t_cmd	*sh_split(char **s)
 {
 	t_cmd	*cmd;
 	t_split	*split;
@@ -60,18 +60,19 @@ t_cmd	*sh_split(char *s)
 
 	split = init_split();
 	cmd = init_cmd();
-	while (*s)
+	t = handle_operator(cmd, *s);
+	while (**s && (split->quote || !ft_strchr("&|", **s)))
 	{
-		t = handle_in_redirections(cmd, split, s);
-		t = handle_out_redirections(cmd, split, s);
-		if (t == s)
+		t = handle_in_redirections(cmd, split, *s);
+		t = handle_out_redirections(cmd, split, *s);
+		if (t == *s)
 		{
-			handle_quotes_and_parenthesis(cmd, split, s);
-			cmd_list_add(cmd, split, s);
-			s++;
+			handle_quotes_and_parenthesis(cmd, split, *s);
+			cmd_list_add(cmd, split, *s);
+			(*s)++;
 		}
 		else
-			s = t;
+			*s = t;
 	}
 	cmd->cmd = add_string(cmd->cmd, split->word);
 	free(split);

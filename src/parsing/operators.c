@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   operators.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <jboumal@student.s19.be>           +#+  +:+       +#+        */
+/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/17 10:04:18 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/17 10:04:21 by jboumal          ###   ########.fr       */
+/*   Created: 2022/04/21 12:15:04 by jboumal           #+#    #+#             */
+/*   Updated: 2022/04/21 12:15:06 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_t_cmd(t_cmd *cmd)
+char	*handle_operator (t_cmd *cmd, char *s)
 {
-	if (!cmd)
-		return ;
-	if (cmd->cmd)
-		free_str_list(cmd->cmd);
-	free(cmd);
-}
-
-void	free_str_list(char **list)
-{
-	char	**t;
-
-	if (!list)
-		return ;
-	t = list;
-	while (*t)
+	while (*s == ' ')
+		s++;
+	if (*s == '|')
 	{
-		free(*t);
-		t++;
+		s++;
+		if (*s == '|')
+		{
+			cmd->mode = OR;
+			s++;
+		}
+		else
+			cmd->mode = PIPE;
 	}
-	free(list);
+	else if (*s == '&')
+	{
+		s += 2;
+		cmd->mode = AND;
+	}
+	return (s);
 }

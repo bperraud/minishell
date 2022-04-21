@@ -49,11 +49,12 @@ void	free_t_cmd(t_cmd *cmd);
 char	**add_string(char **lst1, char *str);
 char	*add_char(char *str1, char c);
 /* parsing */
+char	*handle_operator(t_cmd *cmd, char *s);
 char	*handle_in_redirections(t_cmd *cmd, t_split *split, char *s_orig);
 char	*handle_out_redirections(t_cmd *cmd, t_split *split, char *s_orig);
 t_split	*init_split(void);
 t_cmd	*init_cmd(void);
-t_cmd	*sh_split(char *s);
+t_cmd	*sh_split(char **s);
 /* exec */
 void	sh(char *str);
 char	*get_path(char *cmd, char **envp);

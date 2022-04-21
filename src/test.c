@@ -14,12 +14,13 @@
 
 void	print_cmd_args(t_cmd *cmd)
 {
-	if (cmd->fd_in)
-		printf("infile is \033[32m%d\n\033[0m", cmd->fd_in);
-	if (cmd->fd_out)
-		printf("outfile is \033[32m%d\n\033[0m", cmd->fd_out);
+	if (!cmd)
+		return ;
+	printf("infile is \033[32m%d\n\033[0m", cmd->fd_in);
+	printf("outfile is \033[32m%d\n\033[0m", cmd->fd_out);
 	if (cmd->here_doc)
 		printf("here_doc is \033[32m%s\n\033[0m", cmd->here_doc);
+	printf("mode is \033[32m%d\n\033[0m", cmd->mode);
 }
 
 void	print_list(char **lst)
@@ -28,8 +29,8 @@ void	print_list(char **lst)
 
 	if (!lst)
 	{
-		perror("error");
-		exit(EXIT_FAILURE);
+		printf("cmd is empty\n");
+		return ;
 	}
 	i = 0;
 	while (*lst)
