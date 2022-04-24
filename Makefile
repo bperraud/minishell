@@ -17,15 +17,10 @@ SRC				= minishell.c \
 				test.c  \
 				pipex/files.c pipex/get_next_line.c pipex/get_next_line_utils.c pipex/pipex.c pipex/utils_pipex.c pipex/split_arg.c
 
-SDIR			= src
 TMP				= temp
 
 SRCS			:= $(addprefix src/,$(SRC))
-
-#SRCS	  		= $(addprefix $(ODIR)/, $(addprefix $(SDIR)/,$(SRC)))
-
 OBJS			= ${SRCS:.c=.o}
-#OBJS	  		= $(addprefix $(SDIR)/,$(SRC))
 
 NAME			= minishell
 CC				= gcc
