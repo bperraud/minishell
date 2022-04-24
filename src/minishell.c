@@ -17,10 +17,14 @@ void	sh(char *str)
 {
 	t_cmd	*cmd;
 
-	cmd = sh_split(str);
-	print_list(cmd->cmd);
-	print_cmd_args(cmd);
-	free_t_cmd(cmd);
+	cmd = sh_split(&str);
+	while (*str)
+	{
+		print_list(cmd->cmd);
+		print_cmd_args(cmd);
+		free_t_cmd(cmd);
+		cmd = sh_split(&str);
+	}
 }
 
 static void	start_shell(void)
@@ -29,7 +33,9 @@ static void	start_shell(void)
 
 	while (1)
 	{
-		str = readline("\033[36m╰(°▽°)╯~ \033[0m");
+		str = readline("\033[33m               __\n              /o_)\n     \
+_/\\/\\/\\_/ /\n   _|minishell/\n _|  (  | (  |\n/__.-'|_|--|_| ~ \033[0m");
+
 		if (!str || !ft_strncmp(str, "exit", 5))
 		{
 			free(str);

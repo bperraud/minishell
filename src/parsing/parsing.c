@@ -38,34 +38,6 @@ static void	handle_quotes_and_parenthesis(t_cmd *cmd, t_split *split, char *s)
 	}
 }
 
-static char	*handle_in_redirections(t_cmd *cmd, t_split *split, char *s_orig)
-{
-	char	*s;
-
-	s = s_orig;
-	if (split->quote || split->par)
-		return (s_orig);
-	while (*s == ' ')
-		s++;
-	if (*s == '<' && *(s + 1) == '<')
-	{
-		s += 2;
-		cmd->here_doc = split->word;
-		split->word = NULL;
-		return (s);
-	}
-	else if (*s == '<')
-	{
-		s++;
-		while (*s == ' ')
-			s++;
-		cmd->infile = split->word;
-		split->word = NULL;
-		return (s);
-	}
-	return (s_orig);
-}
-
 static void	cmd_list_add(t_cmd *cmd, t_split *split, char *s)
 {
 	if (!ft_strchr("&|", *s))
@@ -80,7 +52,7 @@ static void	cmd_list_add(t_cmd *cmd, t_split *split, char *s)
 	}
 }
 
-t_cmd	*sh_split(char *s)
+t_cmd	*sh_split(char **s)
 {
 	t_cmd	*cmd;
 	t_split	*split;
@@ -88,18 +60,19 @@ t_cmd	*sh_split(char *s)
 
 	split = init_split();
 	cmd = init_cmd();
-	while (*s)
+	t = handle_operator(cmd, *s);
+	while (**s && (split->quote || !ft_strchr("&|", **s)))
 	{
-		t = handle_in_redirections(cmd, split, s);
-		//t = handle_out_redirections(cmd, split, s);
-		if (t == s)
+		t = handle_in_redirections(cmd, split, *s);
+		t = handle_out_redirections(cmd, split, *s);
+		if (t == *s)
 		{
-			handle_quotes_and_parenthesis(cmd, split, s);
-			cmd_list_add(cmd, split, s);
-			s++;
+			handle_quotes_and_parenthesis(cmd, split, *s);
+			cmd_list_add(cmd, split, *s);
+			(*s)++;
 		}
 		else
-			s = t;
+			*s = t;
 	}
 	cmd->cmd = add_string(cmd->cmd, split->word);
 	free(split);

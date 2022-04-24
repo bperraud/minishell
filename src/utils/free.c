@@ -16,14 +16,8 @@ void	free_t_cmd(t_cmd *cmd)
 {
 	if (!cmd)
 		return ;
-	if (cmd->infile)
-		free (cmd->infile);
-	if (cmd->outfile)
-		free (cmd->outfile);
 	if (cmd->cmd)
 		free_str_list(cmd->cmd);
-	if (cmd->next)
-		free_t_cmd(cmd->next);
 	free(cmd);
 }
 

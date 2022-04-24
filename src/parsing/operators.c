@@ -1,47 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   operators.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/13 13:40:41 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/13 13:40:42 by jboumal          ###   ########.fr       */
+/*   Created: 2022/04/21 12:15:04 by jboumal           #+#    #+#             */
+/*   Updated: 2022/04/21 12:15:06 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_split	*init_split(void)
+char	*handle_operator (t_cmd *cmd, char *s)
 {
-	t_split	*split;
-
-	split = malloc(sizeof(t_split));
-	if (!split)
+	while (*s == ' ')
+		s++;
+	if (*s == '|')
 	{
-		perror("error");
-		exit(EXIT_FAILURE);
+		s++;
+		if (*s == '|')
+		{
+			cmd->mode = OR;
+			s++;
+		}
+		else
+			cmd->mode = PIPE;
 	}
-	split->par = 0;
-	split->quote = '\0';
-	split->word = NULL;
-	return (split);
-}
-
-t_cmd	*init_cmd(void)
-{
-	t_cmd	*cmd;
-
-	cmd = malloc(sizeof(t_cmd));
-	if (!cmd)
+	else if (*s == '&')
 	{
-		perror("error");
-		exit(EXIT_FAILURE);
+		s += 2;
+		cmd->mode = AND;
 	}
-	cmd->fd_in = 0;
-	cmd->fd_out = 1;
-	cmd->here_doc = NULL;
-	cmd->mode = NONE;
-	cmd->cmd = NULL;
-	return (cmd);
+	return (s);
 }
