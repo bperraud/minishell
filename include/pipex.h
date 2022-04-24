@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 18:34:43 by bperraud          #+#    #+#             */
-/*   Updated: 2022/04/21 01:42:54 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/04/21 02:59:04 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define FILE_NAME "temp/file"
 
 //pipex
-void	multiple_cmd(int fd[3], int argc, char **argv, char **envp);
+int		multiple_cmd(int fd[3], int argc, char **argv, char **envp);
 int		here_doc(char *limiter);
 void	pipex(char *arg, char**envp);
 void	exec_cmd(char *arg, char **envp);

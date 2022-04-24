@@ -6,24 +6,25 @@
 #    By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/18 01:29:58 by bperraud          #+#    #+#              #
-#    Updated: 2022/04/20 00:19:15 by bperraud         ###   ########.fr        #
+#    Updated: 2022/04/20 00:31:04 by bperraud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= minishell.c \
-			  utils/utils.c utils/free.c \
-			  parsing/parsing.c parsing/init.c \
-			  exec/get_path.c \
-			  test.c \
-			  pipex/files.c pipex/get_next_line.c pipex/get_next_line_utils.c pipex/pipex.c pipex/utils_pipex.c pipex/split_arg.c
+SRC				= minishell.c \
+				utils/utils.c utils/free.c \
+				parsing/parsing.c parsing/init.c \
+				exec/get_path.c \
+				test.c \
+				pipex/files.c pipex/get_next_line.c pipex/get_next_line_utils.c pipex/pipex.c pipex/utils_pipex.c pipex/split_arg.c
 
-SRCS		:= $(addprefix src/,$(SRCS))
-OBJS		= ${SRCS:.c=.o}
-NAME		= minishell
-CC			= gcc
-MAKE		= make
-RM			= rm -f
-CFLAGS		= -Wall -Wextra -Werror -Iinclude -Ilibft/include
+SRCS			:= $(addprefix src/,$(SRC))
+OBJS			= ${SRCS:.c=.o}
+
+NAME			= minishell
+CC				= gcc
+MAKE			= make
+RM				= rm -f
+CFLAGS			= -Wall -Wextra -Werror -Iinclude -Ilibft/include
 
 $(NAME):		$(OBJS)
 				$(MAKE) -s -C libft
@@ -32,7 +33,7 @@ $(NAME):		$(OBJS)
 all:			tmp $(NAME)
 
 tmp:
-				mkdir -p temp
+				mkdir -p temp objs
 
 clean:
 				$(MAKE) clean -s -C libft

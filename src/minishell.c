@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/19 23:59:58 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/04/21 03:00:22 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	main(int argc, char **argv)
 int	main(int argc, char **argv, char **envp)
 {
 	int	fd[3];
+	int	exit_status;
 
 	if (argc < 4)
 		return (0);
@@ -63,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 		fd[0] = here_doc(argv[2]);
 		fd[1] = open(argv[argc - 1], O_CREAT | O_RDWR | O_APPEND, 0644);
 		fd[2] = 3;
-		multiple_cmd(fd, argc, argv, envp);
+		exit_status = multiple_cmd(fd, argc, argv, envp);
 		unlink(FILE_NAME);
 	}
 	else
@@ -71,7 +72,8 @@ int	main(int argc, char **argv, char **envp)
 		fd[0] = open_file(argv[1]);
 		fd[1] = open(argv[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 		fd[2] = 2;
-		multiple_cmd(fd, argc, argv, envp);
+		exit_status = multiple_cmd(fd, argc, argv, envp);
 	}
-	return (0);
+	exit(exit_status);
+	//return (0);
 }

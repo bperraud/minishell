@@ -71,24 +71,25 @@ void	pipex(char *cmd, char**envp)
 	if (pipe(pipe_fd) < 0)
 		exit(EXIT_FAILURE);
 	pid = fork();
-	if (!pid)
+	if (pid)
+	{
+		close(pipe_fd[1]);
+		dup2(pipe_fd[0], 0);
+	}
+	else
 	{
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], 1);
 		exec_cmd(cmd, envp);
 	}
-	else
-	{
-		close(pipe_fd[1]);
-		dup2(pipe_fd[0], 0);
-	}
 }
 
-void	multiple_cmd(int fd[3], int argc, char **argv, char **envp)
+int	multiple_cmd(int fd[3], int argc, char **argv, char **envp)
 {
 	int	fd_in;
 	int	fd_out;
 	int	i;
+	int	status;
 
 	fd_in = fd[0];
 	fd_out = fd[1];
@@ -98,10 +99,11 @@ void	multiple_cmd(int fd[3], int argc, char **argv, char **envp)
 	pipex(argv[i], envp);
 	while (++i < argc - 2)
 		pipex(argv[i], envp);
-	while (waitpid(-1, NULL, 0) > 0)
+	while (waitpid(-1, &status, 0) > 0)
 		;
 	dup2(fd_out, 1);
 	close(fd_out);
 	if (!fork())
 		exec_cmd(argv[argc - 2], envp);
+	return (status);
 }
