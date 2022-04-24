@@ -1,8 +1,3 @@
-SRCS		= minishell.c \
-			  utils/utils.c utils/free.c \
-			  parsing/parsing.c parsing/init.c parsing/redirections.c parsing/operators.c \
-			  exec/get_path.c \
-			  test.c
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -22,8 +17,15 @@ SRC				= minishell.c \
 				test.c  \
 				pipex/files.c pipex/get_next_line.c pipex/get_next_line_utils.c pipex/pipex.c pipex/utils_pipex.c pipex/split_arg.c
 
-SRCS			:= $(addprefix src/,$(SRC))
-OBJS			= ${SRCS:.c=.o}
+SDIR			= src
+ODIR			= objs
+
+#SRCS			:= $(addprefix src/,$(SRC))
+
+SRCS	  		= $(addprefix $(ODIR)/, $(addprefix $(SDIR)/,$(SRC)))
+
+#OBJS			= ${SRCS:.c=.o}
+OBJS	  		= $(addprefix $(SDIR)/,$(SRC))
 
 NAME			= minishell
 CC				= gcc
@@ -31,20 +33,24 @@ MAKE			= make
 RM				= rm -f
 CFLAGS			= -Wall -Wextra -Werror -Iinclude -Ilibft/include
 
+all:			tmp $(NAME)
+
 $(NAME):		$(OBJS)
 				$(MAKE) -s -C libft
 				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lreadline libft/libft.a
 
-all:			tmp $(NAME)
+
+$(ODIR)/%.o: 	$(SRCS)
+				$(CC) $(CFLAGS) -c $< -o $@
 
 tmp:
-				mkdir -p temp objs
+				mkdir -p temp ${ODIR}
 
-clean:
+#clean:
 				$(MAKE) clean -s -C libft
 				${RM} ${OBJS}
 
-fclean:			clean
+#fclean:			clean
 				$(MAKE) fclean -s -C libft
 				${RM} $(NAME)
 
