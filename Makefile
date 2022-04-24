@@ -14,7 +14,7 @@ CFLAGS		= -Wall -Wextra -Werror -Iinclude -Ilibft/include
 
 $(NAME):		$(OBJS)
 				$(MAKE) -s -C libft
-				$(CC) $(CFLAGS) -lreadline -o $(NAME) $(OBJS) libft/libft.a
+				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lreadline libft/libft.a
 all:			$(NAME)
 clean:
 				$(MAKE) clean -s -C libft
@@ -24,4 +24,8 @@ fclean:			clean
 				${RM} $(NAME)
 re:				fclean all
 .PHONY:			all clean fclean re
+.SILENT: 		$(OBJS)all
+
+.PHONY:			all clean fclean re
+
 .SILENT: 		$(OBJS)
