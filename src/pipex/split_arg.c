@@ -75,7 +75,7 @@ static char	**split_arg2(char const *s, char c, int i)
 		dest[i] = malloc((word_len + 1) * sizeof(char));
 		if (!dest[i])
 			return (free_word(dest, i + 1));
-		ft_strncpy_split(dest[i++], s, word_len);
+		ft_strncpy(dest[i++], s, word_len);
 		s += word_len;
 	}
 	dest[nbr_word] = NULL;

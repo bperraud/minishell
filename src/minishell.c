@@ -6,18 +6,31 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/25 01:11:49 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/04/26 00:43:12 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	command(t_cmd *cmd, char **envp)
+{
+	if (cmd->mode == PIPE)
+		return (cmd_pipex(cmd, envp));
+	else if (cmd->mode == AND)
+		;
+	else if (cmd->mode == OR)
+		;
+	else if (cmd->mode == NONE)
+		;
+}
 
-void	sh(char *str)
+void	sh(char *str, char **envp)
 {
 	t_cmd	*cmd;
 
 	cmd = sh_split(&str);
+	printf("cmd : %s\n", cmd->cmd[0]);
+	command(cmd, envp);
 	while (*str)
 	{
 		print_list(cmd->cmd);
@@ -27,7 +40,7 @@ void	sh(char *str)
 	}
 }
 
-static void	start_shell(void)
+static void	start_shell(char **envp)
 {
 	char	*str;
 
@@ -35,22 +48,22 @@ static void	start_shell(void)
 	{
 		str = readline("\033[33m               __\n              /o_)\n     \
 _/\\/\\/\\_/ /\n   _|minishell/\n _|  (  | (  |\n/__.-'|_|--|_| ~ \033[0m");
-
 		if (!str || !ft_strncmp(str, "exit", 5))
 		{
 			free(str);
 			break ;
 		}
-		sh(str);
+		sh(str, envp);
 		free(str);
 	}
 }
 
-int	main(int argc, char **argv)
+
+int	main(int argc, char **argv, char **envp)
 {
 	if (argc == 1)
 	{
-		start_shell();
+		start_shell(envp);
 	}
 	(void) argv;
 	system ("leaks minishell");
@@ -61,27 +74,8 @@ int	main(int argc, char **argv)
 /*
 int	main(int argc, char **argv, char **envp)
 {
-	int	fd[3];
-	int	exit_status;
+	start(argc, argv, envp);
 
-	if (argc < 4)
-		return (0);
-	if (!ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])))
-	{
-		fd[0] = here_doc(argv[2]);
-		fd[1] = open(argv[argc - 1], O_CREAT | O_RDWR | O_APPEND, 0644);
-		fd[2] = 3;
-		exit_status = multiple_cmd(fd, argc, argv, envp);
-		unlink(FILE_NAME);
-	}
-	else
-	{
-		fd[0] = open_file(argv[1]);
-		fd[1] = open(argv[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
-		fd[2] = 2;
-		exit_status = multiple_cmd(fd, argc, argv, envp);
-	}
-	exit(exit_status);
-	//return (0);
+	return (0);
 }
 */

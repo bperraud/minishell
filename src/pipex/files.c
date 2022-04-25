@@ -16,9 +16,7 @@ int	open_file(char *file)
 {
 	if (access(file, F_OK) == -1)
 	{
-		ft_putstr_fd("pipex: ", 2);
-		ft_putstr_fd(file, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		perror("minishell");
 		return (-1);
 	}
 	return (open(file, O_RDONLY));
@@ -48,4 +46,33 @@ char	*create_path(char *path, char *arg)
 	cmd = ft_strjoin(temp, arg);
 	free(temp);
 	return (cmd);
+}
+
+void	dup_close(int fd, int std)
+{
+	dup2(fd, std);
+	close(fd);
+}
+
+int	here_doc(char *limiter)
+{
+	int		f1;
+	size_t	len_limiter;
+	char	*buf;
+
+	len_limiter = ft_strlen(limiter);
+	f1 = open(FILE_NAME, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	while (1)
+	{
+		write(STDIN_FILENO, "> ", 2);
+		buf = get_next_line(1);
+		if (buf && (ft_strlen(buf) - 1 != len_limiter
+				|| ft_strncmp(buf, limiter, len_limiter) != 0))
+			write(f1, buf, ft_strlen(buf));
+		else
+			break ;
+	}
+	close(f1);
+	f1 = open_file(FILE_NAME);
+	return (f1);
 }

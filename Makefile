@@ -15,7 +15,8 @@ SRC				= minishell.c \
 				parsing/parsing.c parsing/init.c parsing/operators.c parsing/redirections.c\
 				exec/get_path.c \
 				test.c  \
-				pipex/files.c pipex/get_next_line.c pipex/get_next_line_utils.c pipex/pipex.c pipex/utils_pipex.c pipex/split_arg.c
+				pipex/files.c pipex/get_next_line.c pipex/get_next_line_utils.c pipex/pipex.c pipex/utils_pipex.c \
+				pipex/split_arg.c pipex/start.c pipex/execution.c
 
 TMP				= temp
 
@@ -25,7 +26,8 @@ OBJS			= ${SRCS:.c=.o}
 NAME			= minishell
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -Iinclude -Ilibft/include
+#CFLAGS			= -Wall -Wextra -Werror -Iinclude -Ilibft/include
+CFLAGS			=  -Iinclude -Ilibft/include
 
 all:			tmp $(NAME)
 

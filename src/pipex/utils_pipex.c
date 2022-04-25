@@ -12,7 +12,7 @@
 
 #include "pipex.h"
 
-char	*ft_strncpy_split(char *dest, const char *src, unsigned int n)
+char	*ft_strncpy(char *dest, const char *src, unsigned int n)
 {
 	unsigned int	i;
 
