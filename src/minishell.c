@@ -33,7 +33,6 @@ static void	start_shell(void)
 	{
 		str = readline("\033[33m               __\n              /o_)\n     \
 _/\\/\\/\\_/ /\n   _|minishell/\n _|  (  | (  |\n/__.-'|_|--|_| ~ \033[0m");
-
 		if (!str || !ft_strncmp(str, "exit", 5))
 		{
 			free(str);

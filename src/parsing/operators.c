@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	*handle_operator (t_cmd *cmd, char *s)
+char	*handle_operator(t_cmd *cmd, char *s)
 {
 	while (*s == ' ')
 		s++;

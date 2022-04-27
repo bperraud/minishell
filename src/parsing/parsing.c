@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void	handle_quotes_and_parenthesis(t_cmd *cmd, t_split *split, char *s)
+static char	*handle_quotes_and_parenthesis(t_cmd *cmd, t_split *split, char *s)
 {
 	if ((*s == '\'' || *s == '\"')
 		&& (split->quote == *s || !split->quote) && !split->par)
@@ -21,6 +21,7 @@ static void	handle_quotes_and_parenthesis(t_cmd *cmd, t_split *split, char *s)
 			split->quote = *s;
 		else
 			split->quote = '\0';
+		s++;
 	}
 	else if (!split->quote && *s == '(')
 	{
@@ -36,6 +37,7 @@ static void	handle_quotes_and_parenthesis(t_cmd *cmd, t_split *split, char *s)
 		split->word = add_char(split->word, *s);
 		split->par --;
 	}
+	return (s);
 }
 
 static void	cmd_list_add(t_cmd *cmd, t_split *split, char *s)
@@ -67,8 +69,9 @@ t_cmd	*sh_split(char **s)
 		t = handle_out_redirections(cmd, split, *s);
 		if (t == *s)
 		{
-			handle_quotes_and_parenthesis(cmd, split, *s);
-			cmd_list_add(cmd, split, *s);
+			t = handle_quotes_and_parenthesis(cmd, split, *s);
+			if (t == *s)
+				cmd_list_add(cmd, split, *s);
 			(*s)++;
 		}
 		else
