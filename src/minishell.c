@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/27 14:52:08 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/04/27 22:53:11 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ static int	command(t_cmd *cmd, char **envp)
 	else if (cmd->mode == OR)
 		;
 	else if (cmd->mode == NONE)
-		;
+		return (cmd_pipex(cmd, envp));
 }
 
 void	sh(char *str, char **envp)
 {
 	t_cmd	*cmd;
 
+	printf("exit status = %i", command(cmd, envp));
 	while (*str)
 	{
 		cmd = sh_split(&str);
@@ -52,12 +53,9 @@ _/\\/\\/\\_/ /\n   _|minishell/\n _|  (  | (  |\n/__.-'|_|--|_| ~ \033[0m");
 			break ;
 		}
 		sh(str, envp);
-		//cmd = malloc (sizeof(t_cmd));
-		//cmd->fd_in =
 		free(str);
 	}
 }
-
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -69,13 +67,3 @@ int	main(int argc, char **argv, char **envp)
 	system ("leaks minishell");
 	return (0);
 }
-
-
-/*
-int	main(int argc, char **argv, char **envp)
-{
-	start(argc, argv, envp);
-
-	return (0);
-}
-*/

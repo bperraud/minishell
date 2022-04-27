@@ -29,13 +29,10 @@ int		start(int argc, char **argv, char **envp);
 
 //pipex
 int		multiple_cmd(int fd[3], int argc, char **argv, char **envp);
-//int		pipex(char *arg, char**envp);
-
-int		pipex_minishell(char **arg, char**envp);
-
+int		pipex(char **arg, char**envp);
 void	which_cmd(char **cmd, char **envp);
-
 int		cmd_pipex(t_cmd *command, char **envp);
+int		pipex_last(t_cmd *command, char**envp);
 
 //files
 char	**parsing(char **envp);
@@ -54,10 +51,6 @@ void	free_tab(char **tab);
 char	**split_arg(char const *s, char c);
 
 //execution
-
-void	exec_cmd_minishell(char **cmd_arg, char **envp);
-
-void	exec_cmd(char *arg, char **envp);
-
+void	exec_cmd(char **cmd_arg, char **envp);
 
 #endif

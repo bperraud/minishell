@@ -16,7 +16,7 @@ SRC				= minishell.c \
 				exec/get_path.c \
 				test.c  \
 				pipex/files.c pipex/get_next_line.c pipex/get_next_line_utils.c pipex/pipex.c pipex/utils_pipex.c \
-				pipex/split_arg.c pipex/start.c pipex/execution.c
+				pipex/split_arg.c pipex/execution.c
 
 TMP				= temp
 
