@@ -28,13 +28,12 @@ void	sh(char *str, char **envp)
 {
 	t_cmd	*cmd;
 
-	cmd = sh_split(&str);
 	while (*str)
 	{
+		cmd = sh_split(&str);
 		print_list(cmd->cmd);
 		print_cmd_args(cmd);
 		free_t_cmd(cmd);
-		cmd = sh_split(&str);
 	}
 }
 
