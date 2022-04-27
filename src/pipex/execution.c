@@ -37,6 +37,23 @@ void	exec_cmd(char **cmd_arg, char **envp)
 	exit(128);
 }
 
+int	single_cmd(t_cmd *command, char**envp)
+{
+	int	status;
+
+	if (!fork())
+		exec_cmd(command->cmd, envp);
+	waitpid(-1, &status, 0);
+	return (status);
+}
+
+
+int		cmd_and(t_cmd *command, char **envp)
+{
+	;
+}
+
+
 int	change_directory()
 {
 	return (0);

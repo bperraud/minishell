@@ -36,6 +36,7 @@ typedef struct s_cmd
 	char			*here_doc;
 	uint			mode;
 	char			**cmd;
+	int				exit_value;
 }				t_cmd;
 
 typedef struct s_split

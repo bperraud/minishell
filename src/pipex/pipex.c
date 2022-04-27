@@ -48,27 +48,16 @@ void	which_cmd(char **cmd, char **envp)
 		pipex(cmd, envp);
 }
 
-int	cmd_pipex(t_cmd *command, char **envp)
+int	cmd_pipe(t_cmd *command, char **envp)
 {
 	if (command->fd_in != 0)	// lire l'entrée dans fd_in
 		dup_close(command->fd_in, 0);
 	if (command->fd_out != 1)	// rediriger la sortie vers fd_out
 	{
 		dup_close(command->fd_out, 1);
-		return (pipex_last(command, envp));
+		return (single_cmd(command, envp));
 	}
 	return (pipex(command->cmd, envp));
-}
-
-int	pipex_last(t_cmd *command, char**envp)
-{
-	int	status;
-	int	pid;
-
-	if (!fork())
-		exec_cmd(command->cmd, envp);
-	waitpid(-1, &status, 0);
-	return (status);
 }
 
 /*
