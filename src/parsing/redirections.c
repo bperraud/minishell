@@ -40,6 +40,11 @@ static void	open_outfile(t_cmd *cmd, t_split *split, bool append_mode)
 {
 	if (cmd->fd_out != 0)
 		close(cmd->fd_out);
+	if (split->word)
+	{
+		free(split->word);
+		split->word = NULL;
+	}
 	if (!append_mode)
 		cmd->fd_out = open(split->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else
@@ -49,8 +54,6 @@ static void	open_outfile(t_cmd *cmd, t_split *split, bool append_mode)
 		perror("error");
 		exit(EXIT_FAILURE);
 	}
-	free(split->word);
-	split->word = NULL;
 }
 
 char	*handle_in_redirections(t_cmd *cmd, t_split *split, char *s_orig)

@@ -40,7 +40,7 @@ static char	*handle_quotes_and_parenthesis(t_cmd *cmd, t_split *split, char *s)
 	return (s);
 }
 
-static void	cmd_list_add(t_cmd *cmd, t_split *split, char *s)
+static void	cmd_list_add_char(t_cmd *cmd, t_split *split, char *s)
 {
 	if (!ft_strchr("&|", *s))
 	{
@@ -71,7 +71,7 @@ t_cmd	*sh_split(char **s)
 		{
 			t = handle_quotes_and_parenthesis(cmd, split, *s);
 			if (t == *s)
-				cmd_list_add(cmd, split, *s);
+				cmd_list_add_char(cmd, split, *s);
 			(*s)++;
 		}
 		else
