@@ -62,7 +62,6 @@ t_cmd	*sh_split(char **s)
 
 	split = init_split();
 	cmd = init_cmd();
-	*s = handle_operator(cmd, *s);
 	while (**s && (split->quote || !ft_strchr("&|", **s)))
 	{
 		t = handle_in_redirections(cmd, split, *s);
@@ -78,6 +77,7 @@ t_cmd	*sh_split(char **s)
 			*s = t;
 	}
 	cmd->cmd = add_string(cmd->cmd, split->word);
+	*s = handle_operator(cmd, *s);
 	free(split);
 	return (cmd);
 }
