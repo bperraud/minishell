@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/26 00:43:12 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/04/27 14:35:35 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	sh(char *str, char **envp)
 	t_cmd	*cmd;
 
 	cmd = sh_split(&str);
-	printf("cmd : %s\n", cmd->cmd[0]);
-	command(cmd, envp);
 	while (*str)
 	{
 		print_list(cmd->cmd);
@@ -43,6 +41,7 @@ void	sh(char *str, char **envp)
 static void	start_shell(char **envp)
 {
 	char	*str;
+	t_cmd	*cmd;
 
 	while (1)
 	{
@@ -53,7 +52,9 @@ _/\\/\\/\\_/ /\n   _|minishell/\n _|  (  | (  |\n/__.-'|_|--|_| ~ \033[0m");
 			free(str);
 			break ;
 		}
-		sh(str, envp);
+		//sh(str, envp);
+		//cmd = malloc (sizeof(t_cmd));
+		//cmd->fd_in =
 		free(str);
 	}
 }
