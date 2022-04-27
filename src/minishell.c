@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/27 14:47:38 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/04/27 14:52:08 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ _/\\/\\/\\_/ /\n   _|minishell/\n _|  (  | (  |\n/__.-'|_|--|_| ~ \033[0m");
 			free(str);
 			break ;
 		}
-		//sh(str, envp);
+		sh(str, envp);
 		//cmd = malloc (sizeof(t_cmd));
 		//cmd->fd_in =
 		free(str);
