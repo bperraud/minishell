@@ -65,7 +65,7 @@ t_cmd	*sh_split(char **s)
 	while (**s && (split->quote || split->par || !ft_strchr("&|", **s)))
 	{
 		t = handle_in_redirections(cmd, split, *s);
-		t = handle_out_redirections(cmd, split, *s);
+		t = handle_out_redirections(cmd, split, t);
 		if (t == *s)
 		{
 			t = handle_quotes_and_parenthesis(cmd, split, *s);
