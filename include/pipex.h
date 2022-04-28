@@ -51,11 +51,6 @@ char	**split_arg(char const *s, char c);
 
 //execution
 void	exec_cmd(char **cmd_arg, char **envp);
-
 int		single_cmd(t_cmd *command, char**envp);
-
-
-int		cmd_and(t_cmd *command, char **envp);
-
 
 #endif
