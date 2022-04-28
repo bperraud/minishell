@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/28 02:33:21 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/04/28 18:45:06 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ static int	command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
 
 	else if (cmd->mode == NONE)	// last cmd
 		return (-1);
+
+	return (-1);
 }
 
-static void	sh(char *str, char **envp)
+void	sh(char *str, char **envp)
 {
 	t_cmd	*cmd;
 	t_cmd	*prev_cmd;
@@ -37,9 +39,10 @@ static void	sh(char *str, char **envp)
 		printf("exit status = %i\n", cmd->exit_value);
 		print_list(cmd->cmd);
 		print_cmd_args(cmd);
+		free_t_cmd(prev_cmd);
 		prev_cmd = cmd;
-		//free_t_cmd(prev_cmd);
 	}
+	free_t_cmd(prev_cmd);
 }
 
 static void	start_shell(char **envp)
@@ -71,3 +74,11 @@ int	main(int argc, char **argv, char **envp)
 	system ("leaks minishell");
 	return (0);
 }
+
+/*
+int	main(int argc, char **argv, char **envp)
+{
+	start(argc, argv, envp);
+	return (0);
+}
+*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 15:05:48 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/14 15:05:49 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/04/28 18:45:49 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_cmd_args(t_cmd *cmd)
 	printf("~ outfile is \033[32m%d.\n\033[0m", cmd->fd_out);
 	if (cmd->here_doc)
 		printf("~ here_doc is \033[32m%s.\n\033[0m", cmd->here_doc);
-	printf("~ mode is \033[32m%d.\n\033[0m", cmd->mode);
+	printf("~ mode is \033[32m%d.\n\e[0m", cmd->mode);
 }
 
 void	print_list(char **lst)

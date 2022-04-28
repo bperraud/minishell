@@ -58,6 +58,7 @@ char	*handle_out_redirections(t_cmd *cmd, t_split *split, char *s_orig);
 t_split	*init_split(void);
 t_cmd	*init_cmd(void);
 t_cmd	*sh_split(char **s);
+
 /* exec */
 void	sh(char *str, char **envp);
 char	*get_path(char *cmd, char **envp);
@@ -66,7 +67,5 @@ char	*get_path(char *cmd, char **envp);
 void	print_list(char **lst);
 void	print_cmd_args(t_cmd *cmd);
 
-/* logical */
-int	cmd_and();
 
 #endif
