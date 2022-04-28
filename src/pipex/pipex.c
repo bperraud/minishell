@@ -55,7 +55,6 @@ int	cmd_pipe(t_cmd *command, char **envp)
 		dup_close(command->fd_in, 0);
 	if (command->fd_out != 1)	// rediriger la sortie vers fd_out
 		dup_close(command->fd_out, 1);
-
 }
 
 /*

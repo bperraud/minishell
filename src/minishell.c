@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/28 02:29:16 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/04/28 02:33:21 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,15 @@ static int	command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
 		|| (prev_cmd->mode == OR && prev_cmd->exit_value))
 		return (single_cmd(cmd, envp));
 
-	else if (cmd->mode == NONE)		// last cmd
+	else if (cmd->mode == NONE)	// last cmd
 		return (-1);
 }
 
-void	sh(char *str, char **envp)
+static void	sh(char *str, char **envp)
 {
 	t_cmd	*cmd;
 	t_cmd	*prev_cmd;
-	int		first;
 
-	first = 1;
 	prev_cmd = malloc(sizeof(t_cmd));
 	prev_cmd->exit_value = 0;
 	prev_cmd->mode = AND;
