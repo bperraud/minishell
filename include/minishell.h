@@ -14,6 +14,7 @@
 # define MINISHELL_H
 # include <stdio.h>
 # include <fcntl.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
@@ -29,6 +30,7 @@ enum
 
 enum
 {
+	FILE_ERROR = 127,
 	PARSING_ERROR = 258
 };
 

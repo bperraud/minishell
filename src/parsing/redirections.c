@@ -32,7 +32,7 @@ static char	*get_next_word(char **s)
 	if (!word)
 	{
 		perror("error");
-		exit(EXIT_FAILURE);
+		exit(PARSING_ERROR);
 	}
 	return (word);
 }
@@ -59,7 +59,7 @@ static char	*open_infile(t_cmd *cmd, t_split *split, bool heredoc_mode, char *s)
 		if (cmd->fd_in < 0)
 		{
 			perror("error");
-			exit(EXIT_FAILURE);
+			exit(FILE_ERROR);
 		}
 	}
 	return (s);
@@ -85,7 +85,7 @@ static char	*open_outfile(t_cmd *cmd, t_split *split, bool append_mode, char *s)
 	if (cmd->fd_out < 0)
 	{
 		perror("error");
-		exit(EXIT_FAILURE);
+		exit(FILE_ERROR);
 	}
 	return (s);
 }

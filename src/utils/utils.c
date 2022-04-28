@@ -51,7 +51,7 @@ char	**add_string(char **lst1, char *str)
 	if (!lst2)
 	{
 		perror("error");
-		exit(EXIT_FAILURE);
+		exit(ENOMEM);
 	}
 	if (lst1)
 	{
@@ -76,7 +76,7 @@ char	*add_char(char *str1, char c)
 	if (!s2)
 	{
 		perror("error");
-		exit(EXIT_FAILURE);
+		exit(ENOMEM);
 	}
 	if (str1)
 	{

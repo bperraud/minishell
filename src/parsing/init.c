@@ -20,7 +20,7 @@ t_split	*init_split(void)
 	if (!split)
 	{
 		perror("error");
-		exit(EXIT_FAILURE);
+		exit(ENOMEM);
 	}
 	split->par = 0;
 	split->quote = '\0';
@@ -36,7 +36,7 @@ t_cmd	*init_cmd(void)
 	if (!cmd)
 	{
 		perror("error");
-		exit(EXIT_FAILURE);
+		exit(ENOMEM);
 	}
 	cmd->fd_in = 0;
 	cmd->fd_out = 1;
