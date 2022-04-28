@@ -27,6 +27,11 @@ enum
 	OR
 };
 
+enum
+{
+	PARSING_ERROR = 258
+};
+
 typedef struct s_cmd
 {
 	int				fd_in;

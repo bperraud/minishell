@@ -31,13 +31,15 @@ static void	start_shell(void)
 
 	while (1)
 	{
-		str = readline("\033[33m               __\n              /o_)\n     \
-_/\\/\\/\\_/ /\n   _|minishell/\n _|  (  | (  |\n/__.-'|_|--|_| ~ \033[0m");
+		printf("               __\n              /o_)\n");
+		printf("     _/\\/\\/\\_/ /\n   _|minishell/\n _|  (  | (  |\n");
+		str = readline("/__.-'|_|--|_| ~ ");
 		if (!str || !ft_strncmp(str, "exit", 5))
 		{
 			free(str);
 			break ;
 		}
+		add_history(str);
 		sh(str);
 		free(str);
 	}
