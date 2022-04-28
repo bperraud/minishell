@@ -43,9 +43,14 @@ int	single_cmd(t_cmd *command, char**envp)
 
 	if (command->mode == PIPE)
 		cmd_pipe(command, envp);
-
 	if (!fork())
+	{
+		if (command->fd_in != 0)	// lire l'entrée dans fd_in
+			dup_close(command->fd_in, 0);
+		if (command->fd_out != 1)	// rediriger la sortie vers fd_out
+			dup_close(command->fd_out, 1);
 		exec_cmd(command->cmd, envp);
+	}
 	waitpid(-1, &status, 0);
 	return (status);
 }

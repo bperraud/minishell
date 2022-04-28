@@ -51,10 +51,7 @@ void	which_cmd(char **cmd, char **envp)
 
 int	cmd_pipe(t_cmd *command, char **envp)
 {
-	if (command->fd_in != 0)	// lire l'entrée dans fd_in
-		dup_close(command->fd_in, 0);
-	if (command->fd_out != 1)	// rediriger la sortie vers fd_out
-		dup_close(command->fd_out, 1);
+	return (0);
 }
 
 /*
