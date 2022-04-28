@@ -22,7 +22,7 @@ int	pipex(char **cmd, char**envp)
 	if (pipe(pipe_fd) < 0)
 		exit(EXIT_FAILURE);
 	pid = fork();
-	if (pid)	// parent
+	if (pid)
 	{
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], 0);

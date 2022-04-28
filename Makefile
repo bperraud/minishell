@@ -14,10 +14,9 @@
 SRC				= minishell.c \
 				utils/utils.c utils/free.c \
 				parsing/parsing.c parsing/init.c parsing/operators.c parsing/redirections.c\
-				exec/get_path.c \
 				test.c  \
 				pipex/files.c pipex/get_next_line.c pipex/get_next_line_utils.c pipex/pipex.c pipex/utils_pipex.c \
-				pipex/split_arg.c pipex/execution.c
+				exec/execution.c exec/main_loop.c
 
 TMP				= temp
 

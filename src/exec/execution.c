@@ -18,8 +18,8 @@ void	exec_cmd(char **cmd_arg, char **envp)
 	char	*cmd;
 	char	**paths;
 
-	paths = parsing(envp);
 	i = -1;
+	paths = parsing(envp);
 	while (paths[++i])
 	{
 		cmd = create_path(paths[i], cmd_arg[0]);
@@ -34,7 +34,7 @@ void	exec_cmd(char **cmd_arg, char **envp)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd_arg[0], 2);
 	ft_putstr_fd(": command not found\n", 2);
-	exit(128);
+	exit(127);
 }
 
 int	single_cmd(t_cmd *command, char**envp)
