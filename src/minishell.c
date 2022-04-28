@@ -28,6 +28,8 @@ void	sh(char *str)
 static void	start_shell(void)
 {
 	char	*str;
+	pid_t	pid;
+	int		status;
 
 	while (1)
 	{
@@ -40,7 +42,14 @@ static void	start_shell(void)
 			break ;
 		}
 		add_history(str);
-		sh(str);
+		pid = fork();
+		if (!pid)
+		{
+			sh(str);
+			exit(EXIT_SUCCESS);
+		}
+		else
+			waitpid(pid, &status, 0);
 		free(str);
 	}
 }
