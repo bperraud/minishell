@@ -22,7 +22,7 @@
 
 # define FILE_NAME "temp/file"
 
-typedef struct s_cmd t_cmd;
+typedef struct s_cmd	t_cmd;
 
 //start
 int		start(int argc, char **argv, char **envp);

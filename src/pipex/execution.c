@@ -43,14 +43,13 @@ int	single_cmd(t_cmd *command, char**envp)
 
 	if (command->mode == PIPE)
 		cmd_pipe(command, envp);
-
 	if (!fork())
 		exec_cmd(command->cmd, envp);
 	waitpid(-1, &status, 0);
 	return (status);
 }
 
-int	change_directory()
+int	change_directory(void)
 {
 	return (0);
 }

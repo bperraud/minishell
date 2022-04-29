@@ -72,7 +72,7 @@ char	*get_path(char *cmd, char **envp);
 void	print_list(char **lst);
 void	print_cmd_args(t_cmd *cmd);
 
-/* logical */
-int	cmd_and();
+/* pipex */
+int		cmd_and(void);
 
 #endif

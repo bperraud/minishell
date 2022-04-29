@@ -22,7 +22,7 @@ int	pipex(char **cmd, char**envp)
 	if (pipe(pipe_fd) < 0)
 		exit(EXIT_FAILURE);
 	pid = fork();
-	if (pid)	// parent
+	if (pid) // parent
 	{
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], 0);
@@ -53,9 +53,9 @@ void	which_cmd(char **cmd, char **envp)
 void	cmd_pipe(t_cmd *command, char **envp)
 {
 	(void) envp;
-	if (command->fd_in != 0)	// lire l'entrée dans fd_in
+	if (command->fd_in != 0) // lire l'entrée dans fd_in
 		dup_close(command->fd_in, 0);
-	if (command->fd_out != 1)	// rediriger la sortie vers fd_out
+	if (command->fd_out != 1) // rediriger la sortie vers fd_out
 		dup_close(command->fd_out, 1);
 }
 
