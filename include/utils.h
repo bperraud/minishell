@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 12:18:55 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/08 12:18:57 by jboumal          ###   ########.fr       */
+/*   Created: 2022/04/29 09:05:47 by jboumal           #+#    #+#             */
+/*   Updated: 2022/04/29 09:05:49 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef UTILS_H
+# define UTILS_H
+# include <stdio.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdbool.h>
+# include "libft.h"
 
-# include "get_next_line.h"
-# include "parsing.h"
-# include "exec.h"
-# include "utils.h"
-
-enum e_error
-{
-	FILE_ERROR = 127,
-	PARSING_ERROR = 258
-};
-
-/* test */
-void	print_list(char **lst);
-void	print_cmd_args(t_cmd *cmd);
+/* utils */
+void	free_str_list(char **list);
+char	**add_string(char **lst1, char *str);
+char	*add_char(char *str1, char c);
 
 #endif
