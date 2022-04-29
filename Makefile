@@ -1,7 +1,8 @@
-SRCS		= minishell.c \
+SRCS		= minishell.c test.c\
 			  utils/utils.c utils/free.c utils/get_next_line.c utils/get_next_line_utils.c \
+			  utils/prompt.c \
 			  parsing/parsing.c parsing/init.c parsing/redirections.c parsing/operators.c \
-			  test.c \
+			  parsing/error.c \
 			  pipex/files.c pipex/pipex.c pipex/utils_pipex.c \
 			  exec/execution.c exec/main_loop.c
 SRCS		:= $(addprefix src/,$(SRCS))

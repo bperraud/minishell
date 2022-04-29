@@ -32,7 +32,7 @@ static char	*get_next_word(char **s)
 	if (!word)
 	{
 		perror("error");
-		exit(PARSING_ERROR);
+		exit(SYNTAX_ERROR);
 	}
 	return (word);
 }

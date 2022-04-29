@@ -18,10 +18,13 @@
 # include "exec.h"
 # include "utils.h"
 
+extern int	g_error;
+
 enum e_error
 {
-	FILE_ERROR = 127,
-	PARSING_ERROR = 258
+	FILE_ERROR = 1,
+	COMMAND_NOT_FOUND = 127,
+	SYNTAX_ERROR = 258 //
 };
 
 /* test */

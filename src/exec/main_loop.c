@@ -22,8 +22,8 @@ void	sh(char *str, char **envp)
 	while (*str)
 	{
 		cmd = sh_split(&str);
-		cmd->exit_value = command(cmd, prev_cmd, envp);
 		printf("exit status = %i\n", cmd->exit_value);
+		cmd->exit_value = command(cmd, prev_cmd, envp);
 		print_list(cmd->cmd);
 		print_cmd_args(cmd);
 		free_t_cmd(prev_cmd);
@@ -35,19 +35,29 @@ void	sh(char *str, char **envp)
 void	start_shell(char **envp)
 {
 	char	*str;
+	pid_t	pid;
+	int		status;
 
 	while (1)
 	{
-		printf("               __\n              /o_)\n");
-		printf("      _/\\/\\/\\_/ /\n   _|minishell/\n _|  (  | (  |\n");
-		str = readline("/__.-'|_|--|_| ~ ");
 
+		str = readline(print_prompt());
 		if (!str || !ft_strncmp(str, "exit", 5))
 		{
 			free(str);
 			break ;
 		}
-		sh(str, envp);
+		add_history(str);
+		pid = fork();
+		if (!pid)
+		{
+			sh(str, envp);
+			exit(EXIT_SUCCESS);
+		}
+		else
+			waitpid(pid, &status, 0);
+		g_error = WEXITSTATUS(status);
+		printf("error errno code is \033[32m%d\033[0m\n", g_error);
 		free(str);
 	}
 }
