@@ -1,5 +1,4 @@
 
-
 #include "minishell.h"
 
 static int	command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
@@ -36,12 +35,13 @@ void	sh(char *str, char **envp)
 void	start_shell(char **envp)
 {
 	char	*str;
-	t_cmd	*cmd;
 
 	while (1)
 	{
-		str = readline("\033[33m               __\n              /o_)\n     \
-_/\\/\\/\\_/ /\n   _|minishell/\n _|  (  | (  |\n/__.-'|_|--|_| ~ \033[0m");
+		printf("               __\n              /o_)\n");
+		printf("      _/\\/\\/\\_/ /\n   _|minishell/\n _|  (  | (  |\n");
+		str = readline("/__.-'|_|--|_| ~ ");
+
 		if (!str || !ft_strncmp(str, "exit", 5))
 		{
 			free(str);

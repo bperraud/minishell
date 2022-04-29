@@ -53,7 +53,6 @@ char	**split_arg(char const *s, char c);
 void	exec_cmd(char **cmd_arg, char **envp);
 int		single_cmd(t_cmd *command, char**envp);
 
-
 int		start(int argc, char **argv, char **envp);
 
 #endif

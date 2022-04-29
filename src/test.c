@@ -20,11 +20,7 @@ void	print_cmd_args(t_cmd *cmd)
 	printf("~ outfile is \033[32m%d.\n\033[0m", cmd->fd_out);
 	if (cmd->here_doc)
 		printf("~ here_doc is \033[32m%s.\n\033[0m", cmd->here_doc);
-<<<<<<< HEAD
 	printf("~ mode is \033[32m%d.\033[0m\n", cmd->mode);
-=======
-	printf("~ mode is \033[32m%d.\n\e[0m", cmd->mode);
->>>>>>> pipex
 }
 
 void	print_list(char **lst)

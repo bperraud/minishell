@@ -16,5 +16,8 @@
 
 /* pipex */
 int		cmd_and(void);
+/* exec */
+void	start_shell(char **envp);
+void	sh(char *str, char **envp);
 
 #endif
