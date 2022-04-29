@@ -20,7 +20,7 @@
 # include "sys/wait.h"
 # include "errno.h"
 
-# define FILE_NAME "temp/file"
+# define FILE_NAME ".pipex.temp"
 
 typedef struct s_cmd	t_cmd;
 
