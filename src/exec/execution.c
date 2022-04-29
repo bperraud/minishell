@@ -18,8 +18,8 @@ void	exec_cmd(char **cmd_arg, char **envp)
 	char	*cmd;
 	char	**paths;
 
-	paths = parsing(envp);
 	i = -1;
+	paths = parsing(envp);
 	while (paths[++i])
 	{
 		cmd = create_path(paths[i], cmd_arg[0]);
@@ -34,7 +34,7 @@ void	exec_cmd(char **cmd_arg, char **envp)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd_arg[0], 2);
 	ft_putstr_fd(": command not found\n", 2);
-	exit(128);
+	exit(127);
 }
 
 int	single_cmd(t_cmd *command, char**envp)
@@ -44,7 +44,13 @@ int	single_cmd(t_cmd *command, char**envp)
 	if (command->mode == PIPE)
 		cmd_pipe(command, envp);
 	if (!fork())
+	{
+		if (command->fd_in != 0)	// lire l'entrée dans fd_in
+			dup_close(command->fd_in, 0);
+		if (command->fd_out != 1)	// rediriger la sortie vers fd_out
+			dup_close(command->fd_out, 1);
 		exec_cmd(command->cmd, envp);
+	}
 	waitpid(-1, &status, 0);
 	return (status);
 }
