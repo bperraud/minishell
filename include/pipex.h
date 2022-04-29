@@ -31,7 +31,7 @@ int		start(int argc, char **argv, char **envp);
 int		multiple_cmd(int fd[3], int argc, char **argv, char **envp);
 int		pipex(char **arg, char**envp);
 void	which_cmd(char **cmd, char **envp);
-int		cmd_pipe(t_cmd *command, char **envp);
+void	cmd_pipe(t_cmd *command, char **envp);
 
 //files
 char	**parsing(char **envp);

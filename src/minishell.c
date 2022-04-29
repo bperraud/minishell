@@ -20,6 +20,8 @@ static int	command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
 
 	else if (cmd->mode == NONE)	// last cmd
 		return (-1);
+	else
+		return (-2);
 }
 
 static void	sh(char *str, char **envp)
@@ -47,7 +49,6 @@ static void	start_shell(char **envp)
 	char	*str;
 	pid_t	pid;
 	int		status;
-	t_cmd	*cmd;
 
 	while (1)
 	{

@@ -3,8 +3,8 @@ SRCS		= minishell.c \
 			  parsing/parsing.c parsing/init.c parsing/redirections.c parsing/operators.c \
 			  exec/get_path.c \
 			  test.c \
-			  pipex/files.c pipex/get_next_line.c pipex/get_next_line_utils.c pipex/pipex.c pipex/utils_pipex.c \
-			  pipex/split_arg.c pipex/execution.c
+			  pipex/files.c pipex/get_next_line.c pipex/get_next_line_utils.c pipex/pipex.c \
+			  pipex/utils_pipex.c pipex/split_arg.c pipex/execution.c
 SRCS		:= $(addprefix src/,$(SRCS))
 OBJS		= ${SRCS:.c=.o}
 NAME		= minishell

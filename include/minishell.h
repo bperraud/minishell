@@ -66,7 +66,6 @@ t_split	*init_split(void);
 t_cmd	*init_cmd(void);
 t_cmd	*sh_split(char **s);
 /* exec */
-void	sh(char *str, char **envp);
 char	*get_path(char *cmd, char **envp);
 
 /* test */
