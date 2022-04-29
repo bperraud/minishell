@@ -3,33 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/08 12:19:06 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/04/28 02:33:21 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sh(char *str)
+static int	command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
+{
+	if ((prev_cmd->mode == AND && !prev_cmd->exit_value)
+		|| (prev_cmd->mode == OR && prev_cmd->exit_value))
+		return (single_cmd(cmd, envp));
+
+	else if (cmd->mode == NONE)	// last cmd
+		return (-1);
+}
+
+static void	sh(char *str, char **envp)
 {
 	t_cmd	*cmd;
+	t_cmd	*prev_cmd;
 
+	prev_cmd = malloc(sizeof(t_cmd));
+	prev_cmd->exit_value = 0;
+	prev_cmd->mode = AND;
 	while (*str)
 	{
 		cmd = sh_split(&str);
+		cmd->exit_value = command(cmd, prev_cmd, envp);
+		printf("exit status = %i\n", cmd->exit_value);
 		print_list(cmd->cmd);
 		print_cmd_args(cmd);
-		free_t_cmd(cmd);
+		prev_cmd = cmd;
+		//free_t_cmd(prev_cmd);
 	}
 }
 
-static void	start_shell(void)
+static void	start_shell(char **envp)
 {
 	char	*str;
 	pid_t	pid;
 	int		status;
+	t_cmd	*cmd;
 
 	while (1)
 	{
@@ -45,7 +63,7 @@ static void	start_shell(void)
 		pid = fork();
 		if (!pid)
 		{
-			sh(str);
+			sh(str, envp);
 			exit(EXIT_SUCCESS);
 		}
 		else
@@ -54,11 +72,11 @@ static void	start_shell(void)
 	}
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
 	if (argc == 1)
 	{
-		start_shell();
+		start_shell(envp);
 	}
 	(void) argv;
 	system ("leaks minishell");
