@@ -16,12 +16,13 @@
 /* Dany is a diplodocus-stegosaurus, a very rare kind of dinosaurus */
 char	*print_prompt(void)
 {
-	printf ("               __  \n");
-	printf ("              |  | \n");
-	printf ("             _|__|_\n");
-	printf ("              /o_) \n");
-	printf ("     _/\\/\\/\\_/ /   \n");
-	printf ("   _|minishell/    \n");
-	printf (" _|  (  | (  |     \n");
-	return ("/__.-'|_|--|_| ~ ");
+	printf (GREEN "               __  "    RESET "\n");
+	printf (GREEN "              |  | "    RESET "\n");
+	printf (GREEN "             _|__|_"    RESET "\n");
+	printf (GREEN "              /o_) "    RESET "\n");
+	printf (GREEN "     _/\\/\\/\\_/ /   " RESET "\n");
+	printf (GREEN "   _|minishell/    "    RESET "\n");
+	printf (GREEN " _|  (  | (  |     "    RESET "\n");
+	printf("version=%x\n",RL_READLINE_VERSION);
+	return (GREEN "/__.-'|_|--|_| ~ "      RESET);
 }

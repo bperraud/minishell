@@ -20,6 +20,9 @@
 # include <stdbool.h>
 # include "libft.h"
 
+#define GREEN "\e[32m"
+#define RESET "\e[0m"
+
 /* utils */
 void	free_str_list(char **list);
 char	**add_string(char **lst1, char *str);

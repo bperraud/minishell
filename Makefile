@@ -11,11 +11,12 @@ NAME		= minishell
 CC			= gcc
 MAKE		= make
 RM			= rm -f
-CFLAGS		= -Wall -Wextra -Werror -Iinclude -Ilibft/include
+CFLAGS		+= -Wall -Wextra -Werror -Iinclude -Ilibft/include
+LFLAGS		+= -lreadline libft/libft.a
 
 $(NAME):		$(OBJS)
 				$(MAKE) -s -C libft
-				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lreadline libft/libft.a
+				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LFLAGS)
 all:			$(NAME)
 clean:
 				$(MAKE) clean -s -C libft

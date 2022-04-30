@@ -12,6 +12,7 @@
 
 #ifndef PARSING_H
 # define PARSING_H
+# include "utils.h"
 
 enum e_mode
 {
@@ -50,6 +51,6 @@ t_cmd	*sh_split(char **s);
 /* free */
 void	free_t_cmd(t_cmd *cmd);
 /* error */
-void	check_syntax(char *str);
+bool	check_syntax(char *str);
 
 #endif
