@@ -2,7 +2,8 @@
 ## Installation
 This minishell uses GNU readline. To avoid line wrapping bugs, you should install latest build of readline.  
 On schools' Mac, you night need to install homebrew, and then readline  
-```rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo 'export PATH=$HOME/.brew/bin:$PATH' >> $HOME/.zshrc && source $HOME/.zshrc && brew update
+```
+rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo 'export PATH=$HOME/.brew/bin:$PATH' >> $HOME/.zshrc && source $HOME/.zshrc && brew update
 brew install readline
 ```
 You also need to export compilation and linking flags if readine is installed in your home directory
