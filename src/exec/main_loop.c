@@ -53,12 +53,13 @@ void	start_shell(char **envp, char *str_c)
 		pid = fork();
 		if (!pid)
 		{
+			check_syntax(str);
 			sh(str, envp);
 			exit(EXIT_SUCCESS);
 		}
 		else
 			waitpid(pid, &status, 0);
-		g_error = WEXITSTATUS(status);
+		g_error = exit_to_bash_code(WEXITSTATUS(status));
 		//printf("error errno code is \033[32m%d\033[0m\n", g_error);
 		if (str_c)
 			return ;

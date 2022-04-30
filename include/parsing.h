@@ -51,6 +51,6 @@ t_cmd	*sh_split(char **s);
 /* free */
 void	free_t_cmd(t_cmd *cmd);
 /* error */
-bool	check_syntax(char *str);
+void	check_syntax(char *str);
 
 #endif

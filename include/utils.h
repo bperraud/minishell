@@ -20,8 +20,9 @@
 # include <stdbool.h>
 # include "libft.h"
 
-#define GREEN "\e[32m"
+#define YELLOW "\e[0;33m"
 #define RESET "\e[0m"
+
 
 /* utils */
 void	free_str_list(char **list);
