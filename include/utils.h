@@ -24,6 +24,12 @@
 void	free_str_list(char **list);
 char	**add_string(char **lst1, char *str);
 char	*add_char(char *str1, char c);
+
+/* shell_utils */
+int		exit_to_bash_code(int exit_code);
+char	*skip_spaces(char *str);
+
+/* prompt */
 char	*print_prompt(void);
 
 #endif

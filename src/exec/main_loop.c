@@ -22,17 +22,17 @@ void	sh(char *str, char **envp)
 	while (*str)
 	{
 		cmd = sh_split(&str);
-		printf("exit status = %i\n", cmd->exit_value);
+		//printf("exit status = %i\n", cmd->exit_value);
 		cmd->exit_value = command(cmd, prev_cmd, envp);
-		print_list(cmd->cmd);
-		print_cmd_args(cmd);
+		//print_list(cmd->cmd);
+		//print_cmd_args(cmd);
 		free_t_cmd(prev_cmd);
 		prev_cmd = cmd;
 	}
 	free_t_cmd(prev_cmd);
 }
 
-void	start_shell(char **envp)
+void	start_shell(char **envp, char *str_c)
 {
 	char	*str;
 	pid_t	pid;
@@ -40,8 +40,10 @@ void	start_shell(char **envp)
 
 	while (1)
 	{
-
-		str = readline(print_prompt());
+		if (!str_c)
+			str = readline(print_prompt());
+		else
+			str = str_c;
 		if (!str || !ft_strncmp(str, "exit", 5))
 		{
 			free(str);
@@ -57,7 +59,9 @@ void	start_shell(char **envp)
 		else
 			waitpid(pid, &status, 0);
 		g_error = WEXITSTATUS(status);
-		printf("error errno code is \033[32m%d\033[0m\n", g_error);
+		//printf("error errno code is \033[32m%d\033[0m\n", g_error);
+		if (str_c)
+			return ;
 		free(str);
 	}
 }

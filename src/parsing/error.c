@@ -12,8 +12,20 @@
 
 #include "minishell.h"
 
-void	check_parenthesis(char *str)
+void	check_syntax(char *str)
 {
-	
-	str ++;
+	char	quote;
+	//int		par;
+
+	quote = '\0';
+	str = skip_spaces(str);
+	while (*str)
+	{
+		if (quote)
+		{
+			if (*str == quote)
+				quote = '\0';
+		}
+		str++;
+	}
 }

@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   shell_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/29 08:55:02 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/29 08:55:04 by jboumal          ###   ########.fr       */
+/*   Created: 2022/04/30 16:12:19 by jboumal           #+#    #+#             */
+/*   Updated: 2022/04/30 16:12:20 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
-# include "pipex.h"
+#include "minishell.h"
 
-/* pipex */
-int		cmd_and(void);
-/* exec */
-void	start_shell(char **envp, char *str_c);
-void	sh(char *str, char **envp);
+char	*skip_spaces(char *str)
+{
+	while (*str == ' ')
+		(str ++);
+	return (str);
+}
 
-#endif
+int	exit_to_bash_code(int exit_code)
+{
+	if (exit_code == 2)
+		return (258);
+	else
+		return (exit_code);
+}

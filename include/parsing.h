@@ -49,5 +49,7 @@ t_cmd	*init_cmd(void);
 t_cmd	*sh_split(char **s);
 /* free */
 void	free_t_cmd(t_cmd *cmd);
+/* error */
+void	check_syntax(char *str);
 
 #endif

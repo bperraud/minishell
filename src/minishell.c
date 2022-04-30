@@ -18,9 +18,12 @@ int	main(int argc, char **argv, char **envp)
 {
 	if (argc == 1)
 	{
-		start_shell(envp);
+		start_shell(envp, NULL);
 	}
-	(void) argv;
-	system ("leaks minishell");
+	if (argc == 3 && ft_strncmp(argv[1], "-c", 3) == 0)
+	{
+		start_shell(envp, argv[2]);
+	}
+	//system ("leaks minishell");
 	return (0);
 }
