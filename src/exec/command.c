@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   command.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -31,7 +31,7 @@ void	exec_cmd(char **cmd_arg, char **envp)
 		execve(cmd, cmd_arg, envp);
 		free(cmd);
 	}
-	ft_printf("minishell: %s : command not found\n", cmd_arg[0]);
+	printf("-minishell: %s : command not found\n", cmd_arg[0]);
 	exit(FILE_ERROR);
 }
 
@@ -41,7 +41,7 @@ int	launch_cmd(t_cmd *command, char **envp)
 	if (!ft_strcmp(command->cmd[0], "cd"))
 		return (change_directory(command->cmd));
 	else if (!ft_strcmp(command->cmd[0], "echo"))
-		;
+		return (echo(command->cmd));
 	else if (!ft_strcmp(command->cmd[0], "export"))
 		;
 	else
