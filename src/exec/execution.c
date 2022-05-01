@@ -31,18 +31,31 @@ void	exec_cmd(char **cmd_arg, char **envp)
 		execve(cmd, cmd_arg, envp);
 		free(cmd);
 	}
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd_arg[0], 2);
-	ft_putstr_fd(": command not found\n", 2);
-	exit(127);
+	ft_printf("minishell: %s : command not found\n", cmd_arg[0]);
+	exit(FILE_ERROR);
 }
 
-int	single_cmd(t_cmd *command, char**envp)
+/* redirect to appropriate function for a cmd */
+int	launch_cmd(t_cmd *command, char **envp)
+{
+	if (!ft_strcmp(command->cmd[0], "cd"))
+		return (change_directory(command->cmd));
+	else if (!ft_strcmp(command->cmd[0], "echo"))
+		;
+	else if (!ft_strcmp(command->cmd[0], "export"))
+		;
+	else
+		return (extern_cmd(command, envp));
+	return (-1);
+}
+
+/* not build_in command */
+int	extern_cmd(t_cmd *command, char **envp)
 {
 	int	status;
 
 	if (command->mode == PIPE)
-		cmd_pipe(command, envp);
+		redirect_pipe(command, envp);
 	if (!fork())
 	{
 		if (command->fd_in != 0)	// lire l'entrée dans fd_in
@@ -53,9 +66,4 @@ int	single_cmd(t_cmd *command, char**envp)
 	}
 	waitpid(-1, &status, 0);
 	return (status);
-}
-
-int	change_directory(void)
-{
-	return (0);
 }

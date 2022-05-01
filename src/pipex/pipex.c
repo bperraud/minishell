@@ -33,30 +33,14 @@ int	pipex(char **cmd, char**envp)
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], 1);
 		exec_cmd(cmd, envp);
-		exit(127);
 	}
 	return (status);
 }
 
-/* redirect to appropriate function for a cmd */
-void	which_cmd(char **cmd, char **envp)
-{
-	if (!ft_strcmp(cmd[0], "cd"))
-	{
-		//chdir()
-		;
-	}
-	else
-		pipex(cmd, envp);
-}
-
-void	cmd_pipe(t_cmd *command, char **envp)
+void	redirect_pipe(t_cmd *command, char **envp)
 {
 	(void) envp;
-	if (command->fd_in != 0) // lire l'entrée dans fd_in
-		dup_close(command->fd_in, 0);
-	if (command->fd_out != 1) // rediriger la sortie vers fd_out
-		dup_close(command->fd_out, 1);
+	(void) command;
 }
 
 /*
