@@ -24,6 +24,6 @@ int	main(int argc, char **argv, char **envp)
 	{
 		start_shell(envp, argv[2]);
 	}
-	//system ("leaks minishell");
+	system ("leaks minishell");
 	return (0);
 }

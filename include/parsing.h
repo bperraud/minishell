@@ -32,6 +32,13 @@ typedef struct s_cmd
 	int				exit_value;
 }				t_cmd;
 
+typedef struct s_error
+{
+	char	quote;
+	int		par;
+	bool	is_start_of_cmd;
+}				t_error;
+
 typedef struct s_split
 {
 	char	*word;
@@ -45,6 +52,7 @@ char	*handle_operator(t_cmd *cmd, char *s);
 char	*handle_in_redirections(t_cmd *cmd, t_split *split, char *s_orig);
 char	*handle_out_redirections(t_cmd *cmd, t_split *split, char *s_orig);
 /* init */
+t_error	*init_error(void);
 t_split	*init_split(void);
 t_cmd	*init_cmd(void);
 t_cmd	*sh_split(char **s);

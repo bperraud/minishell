@@ -12,6 +12,19 @@
 
 #include "minishell.h"
 
+t_error	*init_error(void)
+{
+	t_error	*err;
+
+	err = malloc(sizeof(t_error));
+	if (!err)
+		exit(EXIT_FAILURE);
+	err->quote = '\0';
+	err->par = 0;
+	err->is_start_of_cmd = true;
+	return (err);
+}
+
 t_split	*init_split(void)
 {
 	t_split	*split;

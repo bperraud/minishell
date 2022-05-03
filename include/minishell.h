@@ -6,7 +6,7 @@
 /*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:18:55 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/08 12:18:57 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/05/03 17:37:30 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ enum e_error
 {
 	FILE_ERROR = 1,
 	COMMAND_NOT_FOUND = 127,
-	SYNTAX_ERROR = 258 //
+	SYNTAX_ERROR = 258
 };
 
 /* test */

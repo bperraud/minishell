@@ -62,7 +62,7 @@ void	start_shell(char **envp, char *str_c)
 		g_error = exit_to_bash_code(WEXITSTATUS(status));
 		//printf("error errno code is \033[32m%d\033[0m\n", g_error);
 		if (str_c)
-			return ;
+			exit (g_error);
 		free(str);
 	}
 }
