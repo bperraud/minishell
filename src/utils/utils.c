@@ -12,28 +12,17 @@
 
 #include "minishell.h"
 
-void	lstcpy(char **dst, char **src)
+void	*smalloc(int n_bytes)
 {
-	int	i;
+	void	*data;
 
-	i = 0;
-	while (src[i])
+	data = malloc (n_bytes);
+	if (!data)
 	{
-		dst[i] = src[i];
-		i++;
+		perror("error");
+		exit(EXIT_FAILURE);
 	}
-}
-
-int	lst_len(char **lst)
-{
-	int	i;
-
-	if (!lst)
-		return (-1);
-	i = 0;
-	while (lst[i])
-		i++;
-	return (i);
+	return (data);
 }
 
 char	**add_string(char **lst1, char *str)

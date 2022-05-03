@@ -16,6 +16,7 @@
 # include "get_next_line.h"
 # include "parsing.h"
 # include "exec.h"
+# include "builtin.h"
 # include "utils.h"
 
 extern int	g_error;
