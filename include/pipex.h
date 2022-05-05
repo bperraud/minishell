@@ -31,7 +31,7 @@ int		start(int argc, char **argv, char **envp);
 int		multiple_cmd(int fd[3], int argc, char **argv, char **envp);
 int		pipex(char **arg, char**envp);
 void	which_cmd(char **cmd, char **envp);
-void	cmd_pipe(t_cmd *command, char **envp);
+void	redirect_pipe(t_cmd *command, char **envp);
 
 //files
 char	**parsing(char **envp);
@@ -48,11 +48,5 @@ void	free_tab(char **tab);
 
 //split
 char	**split_arg(char const *s, char c);
-
-//execution
-void	exec_cmd(char **cmd_arg, char **envp);
-int		single_cmd(t_cmd *command, char**envp);
-
-int		start(int argc, char **argv, char **envp);
 
 #endif

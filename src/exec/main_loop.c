@@ -5,7 +5,7 @@ static int	command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
 {
 	if ((prev_cmd->mode == AND && !prev_cmd->exit_value)
 		|| (prev_cmd->mode == OR && prev_cmd->exit_value))
-		return (single_cmd(cmd, envp));
+		return (launch_cmd(cmd, envp));
 	else if (cmd->mode == NONE)	// last cmd
 		return (-1);
 	return (-1);
@@ -19,6 +19,7 @@ void	sh(char *str, char **envp)
 	prev_cmd = malloc(sizeof(t_cmd));
 	prev_cmd->exit_value = 0;
 	prev_cmd->mode = AND;
+	prev_cmd->cmd = NULL;
 	while (*str)
 	{
 		cmd = sh_split(&str);

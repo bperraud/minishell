@@ -18,6 +18,8 @@
 # include "exec.h"
 # include "builtin.h"
 # include "utils.h"
+# include "build_in.h"
+# include "pipex.h"
 
 extern int	g_error;
 
