@@ -16,15 +16,24 @@ Then, just compile and run
 make
 ./minishell
 ```
+## TODO
+- Relative or absolute path for executable (in get_path() function)
+- Pipes
+- Export env var and unset
+- Implement error codes after execution
+- Test error codes for parsing
+- Signals (ctrl-C ctrl-D ctrl-\\)
+- Builtins
+- Wildcards
+- Finish
+	- Norme
+	- Tests (with error codes)
+
 ## commandes (cmd)
 si fin de ligne -> mode = NONE: executer la commande  
 si | -> mode = PIPE: creer un pipe vers la prochaine commande  
 si && -> mode = AND: executer la commande seulement si la precedente est ok  
 si || -> mode = OR: executer la commande seulement si la precedente est ko  
-
-## variables d'environnement (var)
-si, dans une commande, il y a un =, definir la variable d'environnement  
-si il y a un dollar, il faut le remplacer par sa valeur SAUF si l'argument est dans entre squotes '  
 
 ## redirections
 (<<) si here\_doc != NULL -> lire avec here\_doc, qui est le delimiteur    
