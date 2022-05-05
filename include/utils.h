@@ -43,7 +43,6 @@ char	**env_dup(char **envp);
 char	**env_add(char **env, char *new_var);
 char	*get_var_value(char *str);
 
-
 /* prompt */
 char	*print_prompt(void);
 
