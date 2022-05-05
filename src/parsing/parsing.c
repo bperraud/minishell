@@ -54,7 +54,53 @@ static void	cmd_list_add_char(t_cmd *cmd, t_split *split, char *s)
 	}
 }
 
-t_cmd	*sh_split(char **s)
+static int	get_var_len(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (ft_isdigit(*s) || *s == '?')
+		return (1);
+	while (s[i] && (ft_isdigit(s[i]) || ft_isalpha(s[i]) || s[i] == '_'))
+	{
+		i++;
+	}
+	return (i);
+}
+
+static void	replace_env_var(char **s, char **env)
+{
+	char	*s2;
+	char	*var;
+	int		i;
+	int		len;
+	bool	squote;
+
+	(void)env;
+	s2 = NULL;
+	i = 0;
+	squote = false;
+	while ((*s)[i])
+	{
+		if(!squote && (*s)[i] != '$')
+			s2 = add_char(s2, (*s)[i]);
+		else if ((*s)[i] == '\'')
+			squote = (squote + 1) % 2;
+		else
+		{
+			len = get_var_len((*s) + i + 1);
+			var = smalloc((len + 1) * sizeof(char));
+			ft_strlcpy(var, (*s) + i + 1, len + 1);
+			i += len;
+			s2 = add_multiple_chars(s2, ft_getenv(var, env));
+		}
+		i++;
+	}
+	free(*s);
+	*s = s2;
+}
+
+t_cmd	*get_next_cmd(char **s, char **env)
 {
 	t_cmd	*cmd;
 	t_split	*split;
@@ -62,6 +108,7 @@ t_cmd	*sh_split(char **s)
 
 	split = init_split();
 	cmd = init_cmd();
+	replace_env_var(s, env);
 	while (**s && (split->quote || split->par || !ft_strchr("&|", **s)))
 	{
 		t = handle_in_redirections(cmd, split, *s);

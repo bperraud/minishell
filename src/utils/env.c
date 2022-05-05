@@ -23,7 +23,7 @@ bool	env_var_name_cmp(char *str, char *var_name)
 			return (false);
 		i++;
 	}
-	if (str[i] == ':')
+	if (str[i] == '=')
 		return (true);
 	else
 		return (false);
@@ -35,12 +35,14 @@ char	*ft_getenv(char *str, char **env)
 	int	j;
 
 	i = 0;
+	if (ft_strcmp(str, "?") == 0)
+		return (ft_itoa(g_error));
 	while(env[i])
 	{
 		if (env_var_name_cmp(env[i], str))
 		{
 			j = 0;
-			while (env[i][j] != ':')
+			while (env[i][j] != '=')
 			{
 				j++;
 			}
@@ -72,7 +74,7 @@ char	**env_unlink(char **env, char *var)
 		if (!new_env[j])
 		{
 			perror("error");
-			exit(EXIT_FAILURE);
+			exit(ENOMEM);
 		}
 		i++;
 		j++;
@@ -94,7 +96,7 @@ char	**env_add(char **env, char *str)
 		if (!new_env[i])
 		{
 			perror("error");
-			exit(EXIT_FAILURE);
+			exit(ENOMEM);
 		}
 		i++;
 	}
@@ -116,7 +118,7 @@ char	**env_dup(char **envp)
 		if (!new_env[i])
 		{
 			perror("error");
-			exit(EXIT_FAILURE);
+			exit(ENOMEM);
 		}
 		i++;
 	}

@@ -31,7 +31,7 @@ void	exec_cmd(char **cmd_arg, char **envp)
 		execve(cmd, cmd_arg, envp);
 		free(cmd);
 	}
-	printf("-minishell: %s : command not found\n", cmd_arg[0]);
+	printf("minishell: %s : command not found\n", cmd_arg[0]);
 	exit(FILE_ERROR);
 }
 

@@ -24,7 +24,7 @@ int	change_directory(char **cmd)
 		arg++;
 	if (arg > 3)
 	{
-		printf("-minishell: cd: too many arguments\n");
+		printf("minishell: cd: too many arguments\n");
 		return (1);
 	}
 	else if (arg == 1)
@@ -33,7 +33,7 @@ int	change_directory(char **cmd)
 		if (home_dir)
 			chdir(getenv("HOME"));
 		else
-			printf("-minishell: cd: HOME not set\n");
+			printf("minishell: cd: HOME not set\n");
 	}
 	else
 		chdir(cmd[1]);

@@ -16,9 +16,7 @@ t_error	*init_error(void)
 {
 	t_error	*err;
 
-	err = malloc(sizeof(t_error));
-	if (!err)
-		exit(EXIT_FAILURE);
+	err = smalloc(sizeof(t_error));
 	err->quote = '\0';
 	err->par = 0;
 	err->is_start_of_cmd = true;
@@ -29,12 +27,7 @@ t_split	*init_split(void)
 {
 	t_split	*split;
 
-	split = malloc(sizeof(t_split));
-	if (!split)
-	{
-		perror("error");
-		exit(ENOMEM);
-	}
+	split = smalloc(sizeof(t_split));
 	split->par = 0;
 	split->quote = '\0';
 	split->word = NULL;
@@ -45,12 +38,7 @@ t_cmd	*init_cmd(void)
 {
 	t_cmd	*cmd;
 
-	cmd = malloc(sizeof(t_cmd));
-	if (!cmd)
-	{
-		perror("error");
-		exit(ENOMEM);
-	}
+	cmd = smalloc(sizeof(t_cmd));
 	cmd->fd_in = 0;
 	cmd->fd_out = 1;
 	cmd->here_doc = NULL;

@@ -12,17 +12,20 @@
 
 #include "minishell.h"
 
-int	g_error;
+int	g_error = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
+	char	**env;
+
+	env = env_dup(envp);
 	if (argc == 1)
 	{
-		start_shell(envp, NULL);
+		start_shell(env, NULL);
 	}
 	if (argc == 3 && ft_strncmp(argv[1], "-c", 3) == 0)
 	{
-		start_shell(envp, argv[2]);
+		start_shell(env, argv[2]);
 	}
 	system ("leaks minishell");
 	return (0);

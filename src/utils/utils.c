@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	*smalloc(int n_bytes)
+void	*smalloc(size_t n_bytes)
 {
 	void	*data;
 
@@ -20,7 +20,7 @@ void	*smalloc(int n_bytes)
 	if (!data)
 	{
 		perror("error");
-		exit(EXIT_FAILURE);
+		exit(ENOMEM);
 	}
 	return (data);
 }
@@ -36,12 +36,7 @@ char	**add_string(char **lst1, char *str)
 		len = lst_len(lst1);
 	else
 		len = 0;
-	lst2 = malloc((len + 2) * sizeof(char *));
-	if (!lst2)
-	{
-		perror("error");
-		exit(ENOMEM);
-	}
+	lst2 = smalloc((len + 2) * sizeof(char *));
 	if (lst1)
 	{
 		lstcpy(lst2, lst1);
@@ -50,6 +45,18 @@ char	**add_string(char **lst1, char *str)
 	lst2[len] = str;
 	lst2[len + 1] = NULL;
 	return (lst2);
+}
+
+char	*add_multiple_chars(char *s1, char *s2)
+{
+	if (!s2)
+		return (s1);
+	while (*s2)
+	{
+		s1 = add_char(s1, *s2);
+		s2++;
+	}
+	return (s1);
 }
 
 char	*add_char(char *str1, char c)
@@ -61,12 +68,7 @@ char	*add_char(char *str1, char c)
 		len = ft_strlen(str1);
 	else
 		len = 0;
-	s2 = malloc((len + 2) * sizeof(char));
-	if (!s2)
-	{
-		perror("error");
-		exit(ENOMEM);
-	}
+	s2 = smalloc((len + 2) * sizeof(char));
 	if (str1)
 	{
 		ft_strlcpy(s2, str1, len + 1);
