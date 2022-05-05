@@ -12,6 +12,15 @@
 
 #include "minishell.h"
 
+char	*ft_strndup(char *src, int n)
+{
+	char	*dst;
+
+	dst = smalloc ((n + 1) * sizeof(char));
+	ft_strlcpy(dst, src, n + 1);
+	return (dst);
+}
+
 void	*smalloc(size_t n_bytes)
 {
 	void	*data;

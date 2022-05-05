@@ -13,7 +13,7 @@ NAME		= minishell
 CC			= gcc
 MAKE		= make
 RM			= rm -f
-CFLAGS		+= -Wall -Wextra -Werror -Iinclude -Ilibft/include -fsanitize=address
+CFLAGS		+= -Wall -Wextra -Werror -Iinclude -Ilibft/include
 LFLAGS		+= -lreadline libft/libft.a
 
 $(NAME):		$(OBJS)

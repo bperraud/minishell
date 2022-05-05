@@ -15,7 +15,6 @@
 
 typedef struct s_cmd	t_cmd;
 
-
 /* exec */
 
 int		launch_cmd(t_cmd *command, char **envp);

@@ -37,7 +37,7 @@ char	*ft_getenv(char *str, char **env)
 	i = 0;
 	if (ft_strcmp(str, "?") == 0)
 		return (ft_itoa(g_error));
-	while(env[i])
+	while (env[i])
 	{
 		if (env_var_name_cmp(env[i], str))
 		{
@@ -58,7 +58,6 @@ char	**env_unlink(char **env, char *var)
 	char	**new_env;
 	int		i;
 	int		j;
-
 
 	new_env = smalloc(lst_len(env) * sizeof (char *));
 	i = 0;

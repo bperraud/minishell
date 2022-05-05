@@ -73,25 +73,21 @@ static void	replace_env_var(char **s, char **env)
 	char	*s2;
 	char	*var;
 	int		i;
-	int		len;
 	bool	squote;
 
-	(void)env;
 	s2 = NULL;
 	i = 0;
 	squote = false;
 	while ((*s)[i])
 	{
-		if(!squote && (*s)[i] != '$')
+		if (!squote && (*s)[i] != '$')
 			s2 = add_char(s2, (*s)[i]);
 		else if ((*s)[i] == '\'')
 			squote = (squote + 1) % 2;
 		else
 		{
-			len = get_var_len((*s) + i + 1);
-			var = smalloc((len + 1) * sizeof(char));
-			ft_strlcpy(var, (*s) + i + 1, len + 1);
-			i += len;
+			var = ft_strndup((*s) + i + 1, get_var_len((*s) + i + 1));
+			i += get_var_len((*s) + i + 1);
 			s2 = add_multiple_chars(s2, ft_getenv(var, env));
 		}
 		i++;

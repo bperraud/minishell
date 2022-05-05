@@ -43,6 +43,7 @@ int		lst_len(char **lst);
 void	free_str_list(char **list);
 
 /* utils */
+char	*ft_strndup(char *src, int n);
 void	*smalloc(size_t n_bytes);
 char	**add_string(char **lst1, char *str);
 char	*add_multiple_chars(char *s1, char *s2);

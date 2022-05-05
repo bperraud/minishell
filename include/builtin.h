@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILT_IN_H
-# define BUILT_IN_H
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
 int		change_directory(char **cmd);
 int		echo(char **cmd);

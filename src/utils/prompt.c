@@ -43,6 +43,7 @@ char	*print_prompt(char *color)
 char	*error_to_color(void)
 {
 	char	*color;
+
 	if (g_error == 0)
 		color = GREEN;
 	else
