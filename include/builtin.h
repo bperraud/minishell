@@ -12,8 +12,8 @@
 
 #ifndef BUILT_IN_H
 # define BUILT_IN_H
-# include "utils.h"
 
-
+int		change_directory(char **cmd);
+int		echo(char **cmd);
 
 #endif

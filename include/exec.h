@@ -24,7 +24,7 @@ int		extern_cmd(t_cmd *command, char**envp);
 
 /* main loop */
 int		start(int argc, char **argv, char **envp);
-void	start_shell(char **envp);
+void	start_shell(char **envp, char *str_c);
 void	sh(char *str, char **envp);
 
 #endif

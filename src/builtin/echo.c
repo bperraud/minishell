@@ -14,8 +14,9 @@
 
 int	echo(char **cmd)
 {
-	int	i;
-	int	option;
+	int		i;
+	int		option;
+	ssize_t	len;
 
 	option = 0;
 	i = 0;
@@ -26,8 +27,8 @@ int	echo(char **cmd)
 	}
 	while (cmd[++i])
 	{
-		if (write(1, cmd[i], ft_strlen(cmd[i])) != ft_strlen(cmd[i])
-			|| (write(1, " ", 1) != 1))
+		len = ft_strlen(cmd[i]);
+		if (write(1, cmd[i], len) != len || (write(1, " ", 1) != 1))
 			return (-1);
 	}
 	if (!option)
