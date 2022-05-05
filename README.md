@@ -21,7 +21,7 @@ make
 - Pipes
 - Export env var and unset
 - Implement error codes after execution
-- Test error codes for parsing
+- Bug: error code gets back to 0 when new_line is entered
 - Signals (ctrl-C ctrl-D ctrl-\\)
 - Builtins
 - Wildcards

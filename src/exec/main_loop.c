@@ -46,7 +46,7 @@ void	start_shell(char **envp, char *str_c)
 			str = readline(print_prompt(error_to_color()));
 		}
 		else
-			str = str_c;
+			str = ft_strdup(str_c);
 		if (!str || !ft_strncmp(str, "exit", 5))
 		{
 			free(str);
@@ -63,8 +63,8 @@ void	start_shell(char **envp, char *str_c)
 		else
 			waitpid(pid, &status, 0);
 		g_error = exit_to_bash_code(WEXITSTATUS(status));
+		free(str);
 		if (str_c)
 			exit (g_error);
-		free(str);
 	}
 }

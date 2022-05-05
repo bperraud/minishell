@@ -73,7 +73,7 @@ char	**env_unlink(char **env, char *var)
 		new_env[j] = ft_strdup(env[i]);
 		if (!new_env[j])
 		{
-			perror("error");
+			perror("minishell");
 			exit(ENOMEM);
 		}
 		i++;
@@ -95,7 +95,7 @@ char	**env_add(char **env, char *str)
 		new_env[i] = ft_strdup(env[i]);
 		if (!new_env[i])
 		{
-			perror("error");
+			perror("minishell");
 			exit(ENOMEM);
 		}
 		i++;
@@ -117,7 +117,7 @@ char	**env_dup(char **envp)
 		new_env[i] = ft_strdup(envp[i]);
 		if (!new_env[i])
 		{
-			perror("error");
+			perror("minishell");
 			exit(ENOMEM);
 		}
 		i++;

@@ -31,6 +31,12 @@
 # define WHITE "\e[0;37m"
 # define RESET "\e[0m"
 
+enum	e_file
+{
+	READ,
+	WRITE
+};
+
 /* list */
 void	lstcpy(char **dst, char **src);
 int		lst_len(char **lst);
@@ -45,6 +51,7 @@ char	*add_char(char *str1, char c);
 /* shell_utils */
 int		exit_to_bash_code(int exit_code);
 char	*skip_spaces(char *str);
+void	test_access(char *str, int file_access);
 
 /* env */
 char	*ft_getenv(char *str, char **env);

@@ -19,7 +19,7 @@ void	*smalloc(size_t n_bytes)
 	data = malloc (n_bytes);
 	if (!data)
 	{
-		perror("error");
+		perror("minishell");
 		exit(ENOMEM);
 	}
 	return (data);
