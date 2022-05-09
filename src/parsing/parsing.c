@@ -102,10 +102,12 @@ t_cmd	*get_next_cmd(char **s, char **env)
 	t_split	*split;
 	char	*t;
 
+	if (!s || !*s)
+		return (NULL);
 	split = init_split();
 	cmd = init_cmd();
 	replace_env_var(s, env);
-	while (**s && (split->quote || split->par || !ft_strchr("&|", **s)))
+	while (*s && **s && (split->quote || split->par || !ft_strchr("&|", **s)))
 	{
 		t = handle_in_redirections(cmd, split, *s);
 		t = handle_out_redirections(cmd, split, t);
@@ -120,7 +122,8 @@ t_cmd	*get_next_cmd(char **s, char **env)
 			*s = t;
 	}
 	cmd->cmd = add_string(cmd->cmd, split->word);
-	*s = handle_operator(cmd, *s);
+	if (*s)
+		*s = handle_operator(cmd, *s);
 	free(split);
 	return (cmd);
 }

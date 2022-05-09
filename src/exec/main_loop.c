@@ -23,6 +23,11 @@ void	sh(char *str, char **envp)
 	while (*str)
 	{
 		cmd = get_next_cmd(&str, envp);
+		if (!cmd->cmd)
+		{
+			free_t_cmd(cmd);
+			exit(EXIT_SUCCESS);
+		}
 		cmd->exit_value = command(cmd, prev_cmd, envp);
 		//print_list(cmd->cmd);
 		//print_cmd_args(cmd);
@@ -47,7 +52,9 @@ void	start_shell(char **envp, char *str_c)
 		}
 		else
 			str = ft_strdup(str_c);
-		if (!str || !ft_strncmp(str, "exit", 5))
+		if (!str)
+			exit(ENOMEM);
+		if (!ft_strncmp(str, "exit", 5))
 		{
 			free(str);
 			break ;

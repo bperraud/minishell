@@ -20,6 +20,11 @@ int	echo(char **cmd)
 
 	option = 0;
 	i = 0;
+	if (!cmd[1])
+	{
+		ft_putstr_fd("\n", 1);
+		return (0);
+	}
 	if (!ft_strcmp(cmd[1], "-n"))
 	{
 		option = 1;
