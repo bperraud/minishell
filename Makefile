@@ -11,12 +11,12 @@
 # **************************************************************************** #
 
 SRCS		= minishell.c \
-			  utils/utils.c utils/free.c utils/get_next_line.c utils/get_next_line_utils.c  utils/printf.c \
+			  utils/utils.c utils/free.c utils/get_next_line.c utils/get_next_line_utils.c \
 			  parsing/parsing.c parsing/init.c parsing/redirections.c parsing/operators.c \
 			  test.c \
 			  pipex/files.c pipex/pipex.c pipex/utils_pipex.c \
-			  exec/execution.c exec/main_loop.c \
-			  buildin/change_directory.c
+			  exec/command.c exec/main_loop.c \
+			  buildin/cd.c buildin/echo.c buildin/unset.c
 
 SRCS		:= $(addprefix src/,$(SRCS))
 OBJS		= ${SRCS:.c=.o}
