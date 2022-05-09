@@ -12,6 +12,7 @@
 
 # include "minishell.h"
 
+/* return status is zero if the directory is successfully changed, non-zero otherwise */
 int	change_directory(char **cmd)
 {
 	int		arg;
@@ -37,6 +38,5 @@ int	change_directory(char **cmd)
 	}
 	else
 		chdir(cmd[1]);
-	// The return status is zero if the directory is successfully changed, non-zero otherwise.
 	return (ft_strcmp(start_dir, getcwd(NULL, 0)));
 }
