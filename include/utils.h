@@ -50,6 +50,7 @@ char	*add_multiple_chars(char *s1, char *s2);
 char	*add_char(char *str1, char c);
 
 /* shell_utils */
+int		get_var_len(char *s);
 int		exit_to_bash_code(int exit_code);
 char	*skip_spaces(char *str);
 void	test_access(char *str, int file_access);

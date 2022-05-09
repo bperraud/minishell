@@ -54,20 +54,6 @@ static void	cmd_list_add_char(t_cmd *cmd, t_split *split, char *s)
 	}
 }
 
-static int	get_var_len(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isdigit(*s) || *s == '?')
-		return (1);
-	while (s[i] && (ft_isdigit(s[i]) || ft_isalpha(s[i]) || s[i] == '_'))
-	{
-		i++;
-	}
-	return (i);
-}
-
 static void	replace_env_var(char **s, char **env)
 {
 	char	*s2;
