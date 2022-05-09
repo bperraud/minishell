@@ -17,6 +17,7 @@ make
 ./minishell
 ```
 ## TODO
+- Permissions on files (lstat)
 - Relative or absolute path for executable (in get_path() function)
 - Pipes
 - Export env var and unset
