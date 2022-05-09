@@ -22,7 +22,8 @@ void	sh(char *str, char **envp)
 	prev_cmd->cmd = NULL;
 	while (*str)
 	{
-		cmd = get_next_cmd(&str, envp);
+		cmd = init_cmd();
+		cmd = get_next_cmd(&str, envp, cmd);
 		if (!cmd->cmd)
 		{
 			free_t_cmd(cmd);

@@ -55,7 +55,7 @@ char	*handle_out_redirections(t_cmd *cmd, t_split *split, char *s_orig);
 t_error	*init_error(void);
 t_split	*init_split(void);
 t_cmd	*init_cmd(void);
-t_cmd	*get_next_cmd(char **s, char **env);
+t_cmd	*get_next_cmd(char **s, char **env, t_cmd *cmd);
 /* free */
 void	free_t_cmd(t_cmd *cmd);
 /* error */

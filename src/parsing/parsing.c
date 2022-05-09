@@ -96,16 +96,12 @@ static void	replace_env_var(char **s, char **env)
 	*s = s2;
 }
 
-t_cmd	*get_next_cmd(char **s, char **env)
+t_cmd	*get_next_cmd(char **s, char **env, t_cmd *cmd)
 {
-	t_cmd	*cmd;
 	t_split	*split;
 	char	*t;
 
-	if (!s || !*s)
-		return (NULL);
 	split = init_split();
-	cmd = init_cmd();
 	replace_env_var(s, env);
 	while (*s && **s && (split->quote || split->par || !ft_strchr("&|", **s)))
 	{

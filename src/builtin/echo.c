@@ -12,22 +12,31 @@
 
 #include "minishell.h"
 
-int	echo(char **cmd)
+static bool	is_empty_no_flag(char **cmd)
 {
-	int		i;
-	int		option;
-	ssize_t	len;
-
-	option = 0;
-	i = 0;
 	if (!cmd[1])
 	{
 		ft_putstr_fd("\n", 1);
-		return (0);
+		return (true);
 	}
+	return (false);
+}
+
+int	echo(char **cmd)
+{
+	int		i;
+	bool	option;
+	ssize_t	len;
+
+	option = false;
+	i = 0;
+	if (is_empty_no_flag(cmd))
+		return (0);
 	if (!ft_strcmp(cmd[1], "-n"))
 	{
-		option = 1;
+		if (!cmd[2])
+			return (0);
+		option = true;
 		i++;
 	}
 	while (cmd[++i])
@@ -37,9 +46,6 @@ int	echo(char **cmd)
 			return (-1);
 	}
 	if (!option)
-	{
-		if (write(1, "\n", 2) != 2)
-			return (-1);
-	}
+		ft_putstr_fd("\n", 1);
 	return (0);
 }
