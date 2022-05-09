@@ -16,5 +16,6 @@
 /* cd */
 int		change_directory(char **cmd);
 int		echo(char **cmd);
+int		unset(char **cmd);
 
 #endif
