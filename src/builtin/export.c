@@ -15,6 +15,6 @@
 char	**export(char *cmd, char **env)
 {
 	if (get_var_len(cmd))
-		return (add_string(env, cmd));
+		return (env_add(env, cmd));
 	return (env);
 }
