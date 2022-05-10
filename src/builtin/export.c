@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_in.h                                         :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/30 22:57:52 by bperraud          #+#    #+#             */
-/*   Updated: 2022/04/30 22:57:52 by bperraud         ###   ########.fr       */
+/*   Created: 2022/05/10 00:44:26 by bperraud          #+#    #+#             */
+/*   Updated: 2022/05/10 00:44:26 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILD_IN_H
-# define BUILD_IN_H
-
-/* cd */
-int		change_directory(char **cmd);
-int		echo(char **cmd);
-int		unset(char **cmd);
-int		export(char **cmd);
-int		env();
-
-#endif
+int	export(char **cmd)
+{
+	return (0);
+}

@@ -43,7 +43,11 @@ int	launch_cmd(t_cmd *command, char **envp)
 	else if (!ft_strcmp(command->cmd[0], "echo"))
 		return (echo(command->cmd));
 	else if (!ft_strcmp(command->cmd[0], "export"))
-		;
+		return (export(command->cmd));
+	else if (!ft_strcmp(command->cmd[0], "unset"))
+		return (unset(command->cmd));
+	else if (!ft_strcmp(command->cmd[0], "env"))
+		return (env());
 	else
 		return (extern_cmd(command, envp));
 	return (-1);
@@ -54,8 +58,6 @@ int	extern_cmd(t_cmd *command, char **envp)
 {
 	int	status;
 
-	if (command->mode == PIPE)
-		redirect_pipe(command, envp);
 	if (!fork())
 	{
 		if (command->fd_in != 0)	// lire l'entrée dans fd_in

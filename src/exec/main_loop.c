@@ -6,8 +6,6 @@ static int	command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
 	if ((prev_cmd->mode == AND && !prev_cmd->exit_value)
 		|| (prev_cmd->mode == OR && prev_cmd->exit_value))
 		return (launch_cmd(cmd, envp));
-	else if (cmd->mode == NONE)	// last cmd
-		return (-1);
 	return (-1);
 }
 
@@ -23,6 +21,13 @@ void	sh(char *str, char **envp)
 	while (*str)
 	{
 		cmd = sh_split(&str);
+
+		while (cmd->mode == PIPE)
+		{
+			// créer une liste des commandes jusqu'à la dernière qui n'est pas un PIPE;
+			// sh_split jusqu'à last + éxecuter
+			// cmd doit contenir la prochaine commande.
+		}
 		cmd->exit_value = command(cmd, prev_cmd, envp);
 		printf("exit status = %i\n", cmd->exit_value);
 		print_list(cmd->cmd);

@@ -14,6 +14,5 @@
 
 int	unset(char **cmd)
 {
-
-
+	;
 }
