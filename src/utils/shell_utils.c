@@ -12,20 +12,6 @@
 
 #include "minishell.h"
 
-int	get_var_len(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isdigit(*s) || *s == '?')
-		return (1);
-	while (s[i] && (ft_isdigit(s[i]) || ft_isalpha(s[i]) || s[i] == '_'))
-	{
-		i++;
-	}
-	return (i);
-}
-
 void	test_access(char *str, int file_access)
 {
 	if (access(str, F_OK) < 0)

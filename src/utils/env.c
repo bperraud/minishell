@@ -53,7 +53,7 @@ char	*ft_getenv(char *str, char **env)
 	return (NULL);
 }
 
-char	**env_unlink(char **env, char *var)
+char	**env_unset(char *var, char **env)
 {
 	char	**new_env;
 	int		i;

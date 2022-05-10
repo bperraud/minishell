@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/05 14:23:15 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/05 14:23:17 by jboumal          ###   ########.fr       */
+/*   Created: 2022/05/10 12:07:49 by jboumal           #+#    #+#             */
+/*   Updated: 2022/05/10 12:07:52 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	env(char **env)
+int	get_var_len(char *s)
 {
 	int	i;
 
-	if (!env)
-		return ;
 	i = 0;
-	while (env[i])
+	if (ft_isdigit(*s) || *s == '?')
+		return (1);
+	while (s[i] && (ft_isdigit(s[i]) || ft_isalpha(s[i]) || s[i] == '_'))
 	{
-		printf("%s\n", env[i]);
 		i++;
 	}
+	return (i);
 }

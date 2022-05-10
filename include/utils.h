@@ -50,7 +50,6 @@ char	*add_multiple_chars(char *s1, char *s2);
 char	*add_char(char *str1, char c);
 
 /* shell_utils */
-int		get_var_len(char *s);
 int		exit_to_bash_code(int exit_code);
 char	*skip_spaces(char *str);
 void	test_access(char *str, int file_access);
@@ -58,8 +57,12 @@ void	test_access(char *str, int file_access);
 /* env */
 char	*ft_getenv(char *str, char **env);
 char	*get_var_value(char *str);
+char	**env_unset(char *var, char **env);
 char	**env_add(char **env, char *new_var);
 char	**env_dup(char **envp);
+
+/* env utils */
+int		get_var_len(char *s);
 
 /* prompt */
 char	*print_prompt(char *color);
