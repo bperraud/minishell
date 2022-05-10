@@ -14,7 +14,15 @@
 
 char	**export(char *cmd, char **env)
 {
-	if (get_var_len(cmd))
+	char	*var;
+	if (!get_var_len(cmd))
+		return (env);
+	else
+	{
+		var = ft_strndup(cmd, get_var_len(cmd));
+		if (ft_getenv(var, env))
+			env = env_unset(var, env);
+		free(var);
 		return (env_add(env, cmd));
-	return (env);
+	}
 }

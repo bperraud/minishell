@@ -12,9 +12,9 @@
 
 # include "minishell.h"
 
-void unset(char *var, char **env)
+char	**unset(char *var, char **env)
 {
 	if (!ft_getenv(var, env))
-		return ;
-	env_unset(var, env);
+		return (env);
+	return (env_unset(var, env));
 }

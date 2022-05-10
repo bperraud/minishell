@@ -67,16 +67,13 @@ char	**env_unset(char *var, char **env)
 		if (env_var_name_cmp(env[i], var))
 		{
 			free(env[i]);
-			i++;
 		}
-		new_env[j] = ft_strdup(env[i]);
-		if (!new_env[j])
+		else
 		{
-			perror("minishell");
-			exit(ENOMEM);
+			new_env[j] = ft_strndup(env[i], ft_strlen(env[i]));
+			j++;
 		}
 		i++;
-		j++;
 	}
 	new_env[j] = NULL;
 	return (new_env);

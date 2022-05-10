@@ -16,6 +16,7 @@
 void	change_directory(char **cmd, char **env);
 void	echo(char **cmd);
 char	**export(char *cmd, char **env);
+char	**unset(char *var, char **env);
 void	ft_env(char **env);
 
 #endif
