@@ -12,8 +12,8 @@
 
 #include "minishell.h"
 
-/* ancien pipex pas utilisé */
-int	pipex(char **cmd, char**envp)
+/* ancien pipex*/
+int	pipex(char **cmd, char **envp)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
@@ -22,6 +22,19 @@ int	pipex(char **cmd, char**envp)
 	if (pipe(pipe_fd) < 0)
 		exit(EXIT_FAILURE);
 	pid = fork();
+	if (!pid)
+	{
+		close(pipe_fd[0]);
+		dup2(pipe_fd[1], 1);
+		exec_cmd(cmd, envp);
+	}
+	else
+	{
+		close(pipe_fd[1]);
+		dup2(pipe_fd[0], 0);
+		waitpid(-1, &status, 0);
+	}
+	/*
 	if (pid)
 	{
 		close(pipe_fd[1]);
@@ -34,39 +47,46 @@ int	pipex(char **cmd, char**envp)
 		dup2(pipe_fd[1], 1);
 		exec_cmd(cmd, envp);
 	}
+	*/
 	return (status);
 }
 
-void	redirect_pipe(t_cmd *command, char **envp)
+int	multiple_cmd(t_list_cmd *list_cmd, char **envp)
 {
-	(void) envp;
-	(void) command;
-}
-
-/*
-int	multiple_cmd(int fd[3], int argc, char **argv, char **envp)
-{
-	int	fd_in;
-	int	fd_out;
 	int	i;
 	int	status;
 
-	fd_in = fd[0];
-	fd_out = fd[1];
-	i = fd[2];
+	//dup_close(fd_in, 0);
 
-	dup_close(fd_in, 0);
-	pipex(argv[i], envp);
-	while (++i < argc - 2)
-		pipex(argv[i], envp);
-	//dup_close(fd_out, 1);
-	close(fd_out);
+	if (list_cmd->command->fd_in != 0)
+		dup_close(list_cmd->command->fd_in, 0);
+
+	//pipex(argv[i], envp);
+	while (1)
+	{
+		pipex(list_cmd->command->cmd, envp);
+		//printf("%s\n", list_cmd->command->cmd[0]);
+		if (!list_cmd->next->next)
+			break;
+		list_cmd = list_cmd->next;
+	}
+	/*
+	if (list_cmd->command->fd_out != 1)
+		dup_close(fd_out, 1);
+		*/
+	//close (fd_out)
 	// ici output est dans pipe_fd[0]
 	if (!fork())
-		exec_cmd(argv[argc - 2], envp);
+	{
+		if (list_cmd->command->fd_out != 1)
+			dup_close(list_cmd->command->fd_out, 1);
+		exec_cmd(list_cmd->command->cmd, envp);
+	}
+	waitpid(-1, &status, 0);
 	return (status);
 }
 
+/*
 int	start(int argc, char **argv, char **envp)
 {
 	int	fd[3];

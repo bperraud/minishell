@@ -22,15 +22,15 @@
 
 # define FILE_NAME ".pipex.temp"
 
-typedef struct s_cmd	t_cmd;
+typedef struct s_cmd		t_cmd;
+typedef struct s_list_cmd	t_list_cmd;
 
 //start
 int		start(int argc, char **argv, char **envp);
 
 //pipex
-int		multiple_cmd(int fd[3], int argc, char **argv, char **envp);
-int		pipex(char **arg, char**envp);
-void	which_cmd(char **cmd, char **envp);
+int		multiple_cmd(t_list_cmd *list_cmd, char **envp);
+int		pipex(char **cmd, char** envp);
 void	redirect_pipe(t_cmd *command, char **envp);
 
 //files
@@ -46,7 +46,6 @@ void	exit_error(char **cmd1, char **cmd2, char **path);
 void	free_all(char **cmd1, char **cmd2, char **path);
 void	free_tab(char **tab);
 
-//split
-char	**split_arg(char const *s, char c);
+
 
 #endif

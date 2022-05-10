@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILD_IN_H
-# define BUILD_IN_H
+#ifndef BUILDIN_H
+# define BUILDIN_H
 
 /* cd */
 int		change_directory(char **cmd);
@@ -19,5 +19,6 @@ int		echo(char **cmd);
 int		unset(char **cmd);
 int		export(char **cmd);
 int		env();
+int		pwd();
 
 #endif

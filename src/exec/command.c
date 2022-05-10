@@ -48,6 +48,8 @@ int	launch_cmd(t_cmd *command, char **envp)
 		return (unset(command->cmd));
 	else if (!ft_strcmp(command->cmd[0], "env"))
 		return (env());
+	else if (!ft_strcmp(command->cmd[0], "pwd"))
+		return (pwd());
 	else
 		return (extern_cmd(command, envp));
 	return (-1);

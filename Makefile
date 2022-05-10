@@ -16,7 +16,7 @@ SRCS		= minishell.c \
 			  test.c \
 			  pipex/files.c pipex/pipex.c pipex/utils_pipex.c \
 			  exec/command.c exec/main_loop.c \
-			  builtin/cd.c builtin/echo.c builtin/unset.c builtin/env.c builtin/export.c
+			  builtin/cd.c builtin/echo.c builtin/unset.c builtin/env.c builtin/export.c builtin/pwd.c
 
 SRCS		:= $(addprefix src/,$(SRCS))
 OBJS		= ${SRCS:.c=.o}
@@ -30,6 +30,7 @@ CFLAGS		= -Iinclude -Ilibft/include
 $(NAME):		$(OBJS)
 				$(MAKE) -s -C libft
 				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lreadline libft/libft.a
+				${RM} ${OBJS}
 
 all:			$(NAME)
 clean:
