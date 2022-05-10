@@ -1,7 +1,7 @@
 # 42 minishell
 ## Installation
-This minishell uses GNU readline. To avoid line wrapping bugs with history, you should install latest build of readline (8.1 or later).  
-On schools' Mac, you need to install homebrew, and then readline.  
+This minishell uses GNU readline. Old builds of readline might cause line wrapping bugs (before 8.1).  
+To install it on schools' Mac, install homebrew, and then readline.  
 ```
 rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo 'export PATH=$HOME/.brew/bin:$PATH' >> $HOME/.zshrc && source $HOME/.zshrc && brew update
 brew install readline
