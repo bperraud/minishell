@@ -15,6 +15,7 @@
 char	**export(char *cmd, char **env)
 {
 	char	*var;
+
 	if (!get_var_len(cmd))
 		return (env);
 	else

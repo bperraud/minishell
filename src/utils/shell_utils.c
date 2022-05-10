@@ -41,6 +41,12 @@ int	test_access(char *str, int file_access)
 	return (0);
 }
 
+int	free_and_return(void *ptr, int r_value)
+{
+	free (ptr);
+	return (r_value);
+}
+
 char	*skip_spaces(char *str)
 {
 	while (*str == ' ')
