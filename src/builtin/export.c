@@ -12,10 +12,8 @@
 
 #include "minishell.h"
 
-
 void	export(char *cmd, char **env)
 {
-	
-	if (cmd)
+	if (get_var_len(cmd))
 		add_string(env, cmd);
 }
