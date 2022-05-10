@@ -20,52 +20,62 @@ static bool	is_cmd_separator(char c)
 		return (false);
 }
 
-static void	check_unclosed_sentence(int par, char quote)
+static int	is_unclosed_sentence(int par, char quote)
 {
 	if (par != 0)
 	{
 		ft_putstr_fd("minishell: unclosed parenthesis\n", 2);
-		exit (SYNTAX_ERROR);
+		g_error = SYNTAX_ERROR;
+		return(SYNTAX_ERROR);
 	}
 	if (quote)
 	{
 		ft_putstr_fd("minishell: unclosed quote\n", 2);
-		exit (SYNTAX_ERROR);
+		g_error = SYNTAX_ERROR;
+		return(SYNTAX_ERROR);
 	}
+	return (0);
 }
 
-static void	check_opening_par(t_error *err)
+static int	check_opening_par(t_error *err)
 {
 	if (!err->is_start_of_cmd)
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token '('\n", 2);
-		exit (SYNTAX_ERROR);
+		g_error = SYNTAX_ERROR;
+		return (SYNTAX_ERROR);
 	}
 	err->par ++;
+	return (0);
 }
 
-static void	check_closing_par(t_error *err, char **str)
+static int	check_closing_par(t_error *err, char **str)
 {
 	*str = skip_spaces(*str);
 	(*str)++;
 	if (!is_cmd_separator(**str) || err->is_start_of_cmd)
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token ')'\n", 2);
-		exit (SYNTAX_ERROR);
+		g_error = SYNTAX_ERROR;
+		return (SYNTAX_ERROR);
 	}
 	err->par--;
 	if (err->par < 0)
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token ')'\n", 2);
-		exit (SYNTAX_ERROR);
+		g_error = SYNTAX_ERROR;
+		return (SYNTAX_ERROR);
 	}
 	err->is_start_of_cmd = true;
+	return (0);
 }
 
-void	check_syntax(char *str)
+int	check_syntax(char *str)
 {
 	t_error	*err;
+	int		r_value;
 
+	r_value = 0;
 	err = init_error();
 	while (*str)
 	{
@@ -78,15 +88,24 @@ void	check_syntax(char *str)
 		else if (*str == '\'' || *str == '\"')
 			err->quote = *str;
 		else if (*str == '(')
-			check_opening_par(err);
+		{
+			r_value = check_opening_par(err);
+			if (r_value != 0)
+				return (r_value);
+		}
 		else if (*str == ')')
-			check_closing_par(err, &str);
+		{
+			r_value = check_closing_par(err, &str);
+			if (r_value != 0)
+				return (r_value);
+		}
 		else if (is_cmd_separator(*str))
 			err->is_start_of_cmd = true;
 		else
 			err->is_start_of_cmd = false;
 		str++;
 	}
-	check_unclosed_sentence(err->par, err->quote);
+	r_value = is_unclosed_sentence(err->par, err->quote);
 	free(err);
+	return (r_value);
 }

@@ -17,6 +17,7 @@ make
 ./minishell
 ```
 ## TODO
+- echo &a ??
 - Permissions on files (lstat)
 - Relative or absolute path for executable (in get_path() function)
 - Pipes

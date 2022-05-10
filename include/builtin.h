@@ -13,8 +13,9 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-int		change_directory(char **cmd);
-int		echo(char **cmd);
-void	export(char *cmd, char **env);
+void	change_directory(char **cmd, char **env);
+void	echo(char **cmd);
+char	**export(char *cmd, char **env);
+void	ft_env(char **env);
 
 #endif

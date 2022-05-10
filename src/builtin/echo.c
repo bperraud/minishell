@@ -22,7 +22,7 @@ static bool	is_empty_no_flag(char **cmd)
 	return (false);
 }
 
-int	echo(char **cmd)
+void	echo(char **cmd)
 {
 	int		i;
 	bool	option;
@@ -31,11 +31,11 @@ int	echo(char **cmd)
 	option = false;
 	i = 0;
 	if (is_empty_no_flag(cmd))
-		return (0);
+		return ;
 	if (!ft_strcmp(cmd[1], "-n"))
 	{
 		if (!cmd[2])
-			return (0);
+			return ;
 		option = true;
 		i++;
 	}
@@ -43,9 +43,9 @@ int	echo(char **cmd)
 	{
 		len = ft_strlen(cmd[i]);
 		if (write(1, cmd[i], len) != len || (write(1, " ", 1) != 1))
-			return (-1);
+			return ;
 	}
 	if (!option)
 		ft_putstr_fd("\n", 1);
-	return (0);
+	return ;
 }

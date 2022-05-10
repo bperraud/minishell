@@ -29,11 +29,6 @@ static char	*get_next_word(char **s)
 			word = add_char(word, **s);
 		(*s)++;
 	}
-	if (!word)
-	{
-		perror("minishell");
-		exit(SYNTAX_ERROR);
-	}
 	return (word);
 }
 
@@ -50,6 +45,12 @@ static char	*open_infile(t_cmd *cmd, t_split *split, bool heredoc_mode, char *s)
 	cmd->here_doc = NULL;
 	split->word = NULL;
 	word = get_next_word(&s);
+	if (!word)
+	{			
+		perror("minishell");
+		g_error = FILE_ERROR;
+		return (NULL);
+	}
 	if (heredoc_mode)
 		cmd->here_doc = word;
 	else
@@ -59,7 +60,8 @@ static char	*open_infile(t_cmd *cmd, t_split *split, bool heredoc_mode, char *s)
 		if (cmd->fd_in < 0)
 		{
 			perror("minishell");
-			exit(FILE_ERROR);
+			g_error = FILE_ERROR;
+			return (NULL);
 		}
 	}
 	return (s);
@@ -77,7 +79,14 @@ static char	*open_outfile(t_cmd *cmd, t_split *split, bool append_mode, char *s)
 		split->word = NULL;
 	}
 	word = get_next_word(&s);
-	test_access(word, WRITE);
+	if (!word)
+	{			
+		perror("minishell");
+		g_error = FILE_ERROR;
+		return (NULL);
+	}
+	if (test_access(word, WRITE))
+		return (NULL);
 	if (!append_mode)
 		cmd->fd_out = open(word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else
@@ -86,7 +95,8 @@ static char	*open_outfile(t_cmd *cmd, t_split *split, bool append_mode, char *s)
 	if (cmd->fd_out < 0)
 	{
 		perror("minishell");
-		exit(FILE_ERROR);
+		g_error = FILE_ERROR;
+		return (NULL);
 	}
 	return (s);
 }

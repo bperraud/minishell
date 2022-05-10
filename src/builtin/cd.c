@@ -12,8 +12,7 @@
 
 #include "minishell.h"
 
-// Returns zero if the directory is successfully changed, non-zero otherwise.
-int	change_directory(char **cmd)
+void	change_directory(char **cmd, char **env)
 {
 	int		arg;
 	char	*home_dir;
@@ -26,17 +25,16 @@ int	change_directory(char **cmd)
 	if (arg > 3)
 	{
 		printf("minishell: cd: too many arguments\n");
-		return (1);
+		return ;
 	}
 	else if (arg == 1)
 	{
-		home_dir = getenv("HOME");
+		home_dir = ft_getenv("HOME", env);
 		if (home_dir)
-			chdir(getenv("HOME"));
+			chdir(ft_getenv("HOME", env));
 		else
 			printf("minishell: cd: HOME not set\n");
 	}
 	else
 		chdir(cmd[1]);
-	return (ft_strcmp(start_dir, getcwd(NULL, 0)));
 }

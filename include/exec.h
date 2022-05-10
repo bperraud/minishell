@@ -17,13 +17,13 @@ typedef struct s_cmd	t_cmd;
 
 /* exec */
 
-int		launch_cmd(t_cmd *command, char **envp);
+char	**launch_cmd(t_cmd *command, char **envp);
 void	exec_cmd(char **cmd_arg, char **envp);
-int		extern_cmd(t_cmd *command, char**envp);
+void	extern_cmd(t_cmd *command, char**envp);
 
 /* main loop */
 int		start(int argc, char **argv, char **envp);
 void	start_shell(char **envp, char *str_c);
-void	sh(char *str, char **envp);
+char	**sh(char *str, char **envp);
 
 #endif

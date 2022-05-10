@@ -1,17 +1,17 @@
 
 #include "minishell.h"
 
-static int	command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
+static char **command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
 {
 	if ((prev_cmd->mode == AND && !prev_cmd->exit_value)
 		|| (prev_cmd->mode == OR && prev_cmd->exit_value))
 		return (launch_cmd(cmd, envp));
 	else if (cmd->mode == NONE)	// last cmd
-		return (-1);
-	return (-1);
+		return (envp);
+	return (envp);
 }
 
-void	sh(char *str, char **envp)
+char	**sh(char *str, char **envp)
 {
 	t_cmd	*cmd;
 	t_cmd	*prev_cmd;
@@ -23,26 +23,26 @@ void	sh(char *str, char **envp)
 	while (*str)
 	{
 		cmd = init_cmd();
-		cmd = get_next_cmd(&str, envp, cmd);
+		str = get_next_cmd(str, envp, cmd);	
 		if (!cmd->cmd)
 		{
 			free_t_cmd(cmd);
-			exit(EXIT_SUCCESS);
+			return(envp);
 		}
-		cmd->exit_value = command(cmd, prev_cmd, envp);
+		envp = command(cmd, prev_cmd, envp);
 		//print_list(cmd->cmd);
 		//print_cmd_args(cmd);
 		free_t_cmd(prev_cmd);
 		prev_cmd = cmd;
 	}
+	free(str);
 	free_t_cmd(prev_cmd);
+	return (envp);
 }
 
 void	start_shell(char **envp, char *str_c)
 {
 	char	*str;
-	pid_t	pid;
-	int		status;
 
 	while (1)
 	{
@@ -52,26 +52,15 @@ void	start_shell(char **envp, char *str_c)
 			str = readline(print_prompt(error_to_color()));
 		}
 		else
-			str = ft_strdup(str_c);
-		if (!str)
-			exit(ENOMEM);
+			str = ft_strndup(str_c, ft_strlen(str_c));
 		if (!ft_strncmp(str, "exit", 5))
 		{
 			free(str);
 			break ;
 		}
 		add_history(str);
-		pid = fork();
-		if (!pid)
-		{
-			check_syntax(str);
-			sh(str, envp);
-			exit(EXIT_SUCCESS);
-		}
-		else
-			waitpid(pid, &status, 0);
-		g_error = exit_to_bash_code(WEXITSTATUS(status));
-		free(str);
+		if (!check_syntax(str))
+			envp = sh(str, envp);
 		if (str_c)
 			exit (g_error);
 	}

@@ -36,24 +36,34 @@ void	exec_cmd(char **cmd_arg, char **envp)
 }
 
 /* redirect to appropriate function for a cmd */
-int	launch_cmd(t_cmd *command, char **envp)
+char **launch_cmd(t_cmd *command, char **envp)
 {
 	if (!ft_strcmp(command->cmd[0], "cd"))
-		return (change_directory(command->cmd));
-	else if (!ft_strcmp(command->cmd[0], "echo"))
-		return (echo(command->cmd));
-	else if (!ft_strcmp(command->cmd[0], "export"))
 	{
-		export(command->cmd[1], envp);
-		return 0;
+		change_directory(command->cmd, envp);
+		return (envp);
+	}
+	else if (!ft_strcmp(command->cmd[0], "echo"))
+	{
+		echo(command->cmd);
+		return (envp);
+	}
+	else if (!ft_strcmp(command->cmd[0], "export"))
+		return (export(command->cmd[1], envp));
+	else if (!ft_strcmp(command->cmd[0], "env"))
+	{
+		ft_env(envp);
+		return (envp);
 	}
 	else
-		return (extern_cmd(command, envp));
-	return (-1);
+	{
+		extern_cmd(command, envp);
+		return (envp);
+	}
 }
 
 /* not build_in command */
-int	extern_cmd(t_cmd *command, char **envp)
+void	extern_cmd(t_cmd *command, char **envp)
 {
 	int	status;
 
@@ -68,5 +78,4 @@ int	extern_cmd(t_cmd *command, char **envp)
 		exec_cmd(command->cmd, envp);
 	}
 	waitpid(-1, &status, 0);
-	return (status);
 }
