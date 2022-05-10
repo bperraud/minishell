@@ -43,7 +43,10 @@ int	launch_cmd(t_cmd *command, char **envp)
 	else if (!ft_strcmp(command->cmd[0], "echo"))
 		return (echo(command->cmd));
 	else if (!ft_strcmp(command->cmd[0], "export"))
-		;
+	{
+		export(command->cmd[1], envp);
+		return 0;
+	}
 	else
 		return (extern_cmd(command, envp));
 	return (-1);

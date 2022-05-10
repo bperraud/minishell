@@ -15,5 +15,6 @@
 
 int		change_directory(char **cmd);
 int		echo(char **cmd);
+void	export(char *cmd, char **env);
 
 #endif
