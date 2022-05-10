@@ -5,12 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 00:44:26 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/10 00:44:26 by bperraud         ###   ########.fr       */
+/*   Created: 2022/05/03 19:05:06 by jboumal           #+#    #+#             */
+/*   Updated: 2022/05/10 18:31:36 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	export(char **cmd)
+#include "minishell.h"
+
+char	**export(char *cmd, char **env)
 {
-	return (0);
+	char	*var;
+	if (!get_var_len(cmd))
+		return (env);
+	else
+	{
+		var = ft_strndup(cmd, get_var_len(cmd));
+		if (ft_getenv(var, env))
+			env = env_unset(var, env);
+		free(var);
+		return (env_add(env, cmd));
+	}
 }

@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
+/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/10 18:32:04 by bperraud         ###   ########.fr       */
+/*   Created: 2022/05/03 20:32:22 by jboumal           #+#    #+#             */
+/*   Updated: 2022/05/03 20:32:23 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_error = 0;
-
-int	main(int argc, char **argv, char **envp)
+void	lstcpy(char **dst, char **src)
 {
-	char	**env;
+	int	i;
 
-	env = env_dup(envp);
-	if (argc == 1)
+	i = 0;
+	while (src[i])
 	{
-		start_shell(env, NULL);
+		dst[i] = src[i];
+		i++;
 	}
-	if (argc == 3 && ft_strncmp(argv[1], "-c", 3) == 0)
-	{
-		start_shell(env, argv[2]);
-	}
-	return (g_error);
+}
+
+int	lst_len(char **lst)
+{
+	int	i;
+
+	if (!lst)
+		return (0);
+	i = 0;
+	while (lst[i])
+		i++;
+	return (i);
 }

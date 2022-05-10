@@ -6,7 +6,7 @@
 /*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:18:55 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/08 12:18:57 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/05/03 17:37:30 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,17 @@
 # include "get_next_line.h"
 # include "parsing.h"
 # include "exec.h"
-# include "utils.h"
 # include "builtin.h"
+# include "utils.h"
 # include "pipex.h"
+
+extern int	g_error;
 
 enum e_error
 {
-	FILE_ERROR = 127,
-	PARSING_ERROR = 258
+	FILE_ERROR = 1,
+	COMMAND_NOT_FOUND = 127,
+	SYNTAX_ERROR = 258
 };
 
 /* test */

@@ -5,12 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 00:59:08 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/10 00:59:08 by bperraud         ###   ########.fr       */
+/*   Created: 2022/05/05 14:23:15 by jboumal           #+#    #+#             */
+/*   Updated: 2022/05/10 18:31:41 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	env()
+#include "minishell.h"
+
+void	ft_env(char **env)
 {
-	return (0);
+	int	i;
+
+	if (!env)
+		return ;
+	i = 0;
+	while (env[i])
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
 }

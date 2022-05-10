@@ -12,28 +12,26 @@
 
 #include "minishell.h"
 
-void	lstcpy(char **dst, char **src)
+char	*ft_strndup(char *src, int n)
 {
-	int	i;
+	char	*dst;
 
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
+	dst = smalloc ((n + 1) * sizeof(char));
+	ft_strlcpy(dst, src, n + 1);
+	return (dst);
 }
 
-int	lst_len(char **lst)
+void	*smalloc(size_t n_bytes)
 {
-	int	i;
+	void	*data;
 
-	if (!lst)
-		return (-1);
-	i = 0;
-	while (lst[i])
-		i++;
-	return (i);
+	data = malloc (n_bytes);
+	if (!data)
+	{
+		perror("minishell");
+		exit(ENOMEM);
+	}
+	return (data);
 }
 
 char	**add_string(char **lst1, char *str)
@@ -47,12 +45,7 @@ char	**add_string(char **lst1, char *str)
 		len = lst_len(lst1);
 	else
 		len = 0;
-	lst2 = malloc((len + 2) * sizeof(char *));
-	if (!lst2)
-	{
-		perror("error");
-		exit(ENOMEM);
-	}
+	lst2 = smalloc((len + 2) * sizeof(char *));
 	if (lst1)
 	{
 		lstcpy(lst2, lst1);
@@ -61,6 +54,18 @@ char	**add_string(char **lst1, char *str)
 	lst2[len] = str;
 	lst2[len + 1] = NULL;
 	return (lst2);
+}
+
+char	*add_multiple_chars(char *s1, char *s2)
+{
+	if (!s2)
+		return (s1);
+	while (*s2)
+	{
+		s1 = add_char(s1, *s2);
+		s2++;
+	}
+	return (s1);
 }
 
 char	*add_char(char *str1, char c)
@@ -72,12 +77,7 @@ char	*add_char(char *str1, char c)
 		len = ft_strlen(str1);
 	else
 		len = 0;
-	s2 = malloc((len + 2) * sizeof(char));
-	if (!s2)
-	{
-		perror("error");
-		exit(ENOMEM);
-	}
+	s2 = smalloc((len + 2) * sizeof(char));
 	if (str1)
 	{
 		ft_strlcpy(s2, str1, len + 1);

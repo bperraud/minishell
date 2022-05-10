@@ -10,30 +10,42 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
-int	echo(char **cmd)
+static bool	is_empty_no_flag(char **cmd)
 {
-	int	i;
-	int	option;
+	if (!cmd[1])
+	{
+		ft_putstr_fd("\n", 1);
+		return (true);
+	}
+	return (false);
+}
 
-	option = 0;
+void	echo(char **cmd)
+{
+	int		i;
+	bool	option;
+	ssize_t	len;
+
+	option = false;
 	i = 0;
+	if (is_empty_no_flag(cmd))
+		return ;
 	if (!ft_strcmp(cmd[1], "-n"))
 	{
-		option = 1;
+		if (!cmd[2])
+			return ;
+		option = true;
 		i++;
 	}
 	while (cmd[++i])
 	{
-		if (write(1, cmd[i], ft_strlen(cmd[i])) != ft_strlen(cmd[i])
-			|| (write(1, " ", 1) != 1))
-			return (-1);
+		len = ft_strlen(cmd[i]);
+		if (write(1, cmd[i], len) != len || (write(1, " ", 1) != 1))
+			return ;
 	}
 	if (!option)
-	{
-		if (write(1, "\n", 2) != 2)
-			return (-1);
-	}
-	return (0);
+		ft_putstr_fd("\n", 1);
+	return ;
 }

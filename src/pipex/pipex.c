@@ -46,6 +46,7 @@ int	pipex(char **cmd, char **envp)
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], 1);
 		exec_cmd(cmd, envp);
+		exit(EXIT_FAILURE);
 	}
 	*/
 	return (status);

@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
+/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/02 01:16:54 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/02 01:16:54 by bperraud         ###   ########.fr       */
+/*   Created: 2022/05/03 19:05:11 by jboumal           #+#    #+#             */
+/*   Updated: 2022/05/03 19:05:13 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-int	unset(char **cmd)
+char	**unset(char *var, char **env)
 {
-	;
+	if (!ft_getenv(var, env))
+		return (env);
+	return (env_unset(var, env));
 }

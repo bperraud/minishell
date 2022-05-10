@@ -54,30 +54,63 @@ static void	cmd_list_add_char(t_cmd *cmd, t_split *split, char *s)
 	}
 }
 
-t_cmd	*sh_split(char **s)
+static char	*replace_env_var(char *s, char **env)
 {
-	t_cmd	*cmd;
+	char	*s2;
+	char	*var;
+	int		i;
+	bool	squote;
+
+	s2 = NULL;
+	i = 0;
+	squote = false;
+	while (s[i])
+	{
+		if (!squote && s[i] != '$')
+			s2 = add_char(s2, s[i]);
+		else if (s[i] == '\'')
+			squote = (squote + 1) % 2;
+		else
+		{
+			var = ft_strndup(s + i + 1, get_var_len(s + i + 1));
+			i += get_var_len(s + i + 1);
+			s2 = add_multiple_chars(s2, ft_getenv(var, env));
+			free(var);
+		}
+		i++;
+	}
+	free(s);
+	return (s2);
+}
+
+char	*get_next_cmd(char *s, char **env, t_cmd *cmd)
+{
 	t_split	*split;
 	char	*t;
+	char	*s_ini;
 
 	split = init_split();
-	cmd = init_cmd();
-	while (**s && (split->quote || split->par || !ft_strchr("&|", **s)))
+	s = replace_env_var(s, env);
+	s_ini = s;
+	while (s && *s && (split->quote || split->par || !ft_strchr("&|", *s)))
 	{
-		t = handle_in_redirections(cmd, split, *s);
+		t = handle_in_redirections(cmd, split, s);
 		t = handle_out_redirections(cmd, split, t);
-		if (t == *s)
+		if (t == s)
 		{
-			t = handle_quotes_and_parenthesis(cmd, split, *s);
-			if (t == *s)
-				cmd_list_add_char(cmd, split, *s);
-			(*s)++;
+			t = handle_quotes_and_parenthesis(cmd, split, s);
+			if (t == s)
+				cmd_list_add_char(cmd, split, s);
+			s++;
 		}
 		else
-			*s = t;
+			s = t;
 	}
 	cmd->cmd = add_string(cmd->cmd, split->word);
-	*s = handle_operator(cmd, *s);
+	if (s)
+		s = handle_operator(cmd, s);
 	free(split);
-	return (cmd);
+	s = ft_strndup(s, ft_strlen(s));
+	free(s_ini);
+	return (s);
 }

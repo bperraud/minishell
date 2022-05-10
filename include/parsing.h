@@ -12,6 +12,7 @@
 
 #ifndef PARSING_H
 # define PARSING_H
+# include "utils.h"
 
 enum e_mode
 {
@@ -30,6 +31,13 @@ typedef struct s_cmd
 	char			**cmd;
 	int				exit_value;
 }				t_cmd;
+
+typedef struct s_error
+{
+	char	quote;
+	int		par;
+	bool	is_start_of_cmd;
+}				t_error;
 
 typedef struct s_split
 {
@@ -52,10 +60,13 @@ char	*handle_operator(t_cmd *cmd, char *s);
 char	*handle_in_redirections(t_cmd *cmd, t_split *split, char *s_orig);
 char	*handle_out_redirections(t_cmd *cmd, t_split *split, char *s_orig);
 /* init */
+t_error	*init_error(void);
 t_split	*init_split(void);
 t_cmd	*init_cmd(void);
-t_cmd	*sh_split(char **s);
+char	*get_next_cmd(char *s, char **env, t_cmd *cmd);
 /* free */
 void	free_t_cmd(t_cmd *cmd);
+/* error */
+int	check_syntax(char *str);
 
 #endif

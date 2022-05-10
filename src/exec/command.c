@@ -31,32 +31,41 @@ void	exec_cmd(char **cmd_arg, char **envp)
 		execve(cmd, cmd_arg, envp);
 		free(cmd);
 	}
-	printf("-minishell: %s : command not found\n", cmd_arg[0]);
+	printf("minishell: %s : command not found\n", cmd_arg[0]);
 	exit(FILE_ERROR);
 }
 
 /* redirect to appropriate function for a cmd */
-int	launch_cmd(t_cmd *command, char **envp)
+char **launch_cmd(t_cmd *command, char **envp)
 {
 	if (!ft_strcmp(command->cmd[0], "cd"))
-		return (change_directory(command->cmd));
+	{
+		change_directory(command->cmd, envp);
+		return (envp);
+	}
 	else if (!ft_strcmp(command->cmd[0], "echo"))
-		return (echo(command->cmd));
+	{
+		echo(command->cmd);
+		return (envp);
+	}
 	else if (!ft_strcmp(command->cmd[0], "export"))
-		return (export(command->cmd));
+		return (export(command->cmd[1], envp));
 	else if (!ft_strcmp(command->cmd[0], "unset"))
-		return (unset(command->cmd));
+		return (unset(command->cmd[1], envp));
 	else if (!ft_strcmp(command->cmd[0], "env"))
-		return (env());
-	else if (!ft_strcmp(command->cmd[0], "pwd"))
-		return (pwd());
+	{
+		ft_env(envp);
+		return (envp);
+	}
 	else
-		return (extern_cmd(command, envp));
-	return (-1);
+	{
+		extern_cmd(command, envp);
+		return (envp);
+	}
 }
 
 /* not build_in command */
-int	extern_cmd(t_cmd *command, char **envp)
+void	extern_cmd(t_cmd *command, char **envp)
 {
 	int	status;
 
@@ -69,5 +78,4 @@ int	extern_cmd(t_cmd *command, char **envp)
 		exec_cmd(command->cmd, envp);
 	}
 	waitpid(-1, &status, 0);
-	return (status);
 }

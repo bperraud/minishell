@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
+/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/10 18:32:04 by bperraud         ###   ########.fr       */
+/*   Created: 2022/05/10 12:07:49 by jboumal           #+#    #+#             */
+/*   Updated: 2022/05/10 12:07:52 by jboumal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_error = 0;
-
-int	main(int argc, char **argv, char **envp)
+int	get_var_len(char *s)
 {
-	char	**env;
+	int	i;
 
-	env = env_dup(envp);
-	if (argc == 1)
+	i = 0;
+	if (ft_isdigit(*s) || *s == '?')
+		return (1);
+	while (s[i] && (ft_isdigit(s[i]) || ft_isalpha(s[i]) || s[i] == '_'))
 	{
-		start_shell(env, NULL);
+		i++;
 	}
-	if (argc == 3 && ft_strncmp(argv[1], "-c", 3) == 0)
-	{
-		start_shell(env, argv[2]);
-	}
-	return (g_error);
+	return (i);
 }
