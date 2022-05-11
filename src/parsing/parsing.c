@@ -52,17 +52,17 @@ static char	*replace_env_var(char *s, char **env)
 	squote = false;
 	while (s[i])
 	{
-		if (!squote && s[i] != '$')
-			s2 = add_char(s2, s[i]);
-		else if (s[i] == '\'')
-			squote = (squote + 1) % 2;
-		else
+		if (!squote && s[i] == '$')
 		{
 			var = ft_strndup(s + i + 1, get_var_len(s + i + 1));
 			i += get_var_len(s + i + 1);
 			s2 = add_multiple_chars(s2, ft_getenv(var, env));
 			free(var);
 		}
+		else if (s[i] == '\'')
+			squote = (squote + 1) % 2;
+		else
+			s2 = add_char(s2, s[i]);
 		i++;
 	}
 	free(s);
