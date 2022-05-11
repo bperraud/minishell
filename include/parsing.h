@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 08:54:56 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/10 16:07:12 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:16:14 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ char	*get_next_cmd(char *s, char **env, t_cmd *cmd);
 /* free */
 void	free_t_cmd(t_cmd *cmd);
 /* error */
-int	check_syntax(char *str);
+int		check_syntax(char *str);
 
 #endif

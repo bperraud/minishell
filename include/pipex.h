@@ -47,5 +47,8 @@ void	free_all(char **cmd1, char **cmd2, char **path);
 void	free_tab(char **tab);
 
 
-
+//list_cmd
+void		print_cmd(t_list_cmd *list_cmd);
+t_list_cmd	*lst_last(t_list_cmd *list_cmd);
+void		add_back(t_list_cmd **list_cmd, t_cmd *new);
 #endif

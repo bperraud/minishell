@@ -19,34 +19,34 @@ int	pipex(char **cmd, char **envp)
 	int		pipe_fd[2];
 	int		status;
 
-	if (pipe(pipe_fd) < 0)
+	if (pipe(pipe_fd) < 0)		// gérer cette erreur
 		exit(EXIT_FAILURE);
+	pipe(pipe_fd);
 	pid = fork();
-	if (!pid)
-	{
-		close(pipe_fd[0]);
-		dup2(pipe_fd[1], 1);
-		exec_cmd(cmd, envp);
-	}
-	else
+	if (pid != 0)		// parent
 	{
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], 0);
 		waitpid(-1, &status, 0);
+	}
+	else				// enfant
+	{
+		close(pipe_fd[0]);
+		dup2(pipe_fd[1], 1);
+		exec_cmd(cmd, envp);
 	}
 	/*
-	if (pid)
-	{
-		close(pipe_fd[1]);
-		dup2(pipe_fd[0], 0);
-		waitpid(-1, &status, 0);
-	}
-	else
+	if (pid == 0)	// child
 	{
 		close(pipe_fd[0]);
-		dup2(pipe_fd[1], 1);
+		dup2(pipe_fd[1], STDOUT);
 		exec_cmd(cmd, envp);
-		exit(EXIT_FAILURE);
+	}
+	else		    // parent
+	{
+		close(pipe_fd[1]);
+		dup2(pipe_fd[0], STDIN);
+		waitpid(-1, &status, 0);
 	}
 	*/
 	return (status);
@@ -58,17 +58,21 @@ int	multiple_cmd(t_list_cmd *list_cmd, char **envp)
 	int	status;
 
 	//dup_close(fd_in, 0);
-
+	/*
 	if (list_cmd->command->fd_in != 0)
 		dup_close(list_cmd->command->fd_in, 0);
-
-	//pipex(argv[i], envp);
-	while (1)
+		*/
+	//pipex(list_cmd->command->cmd, envp);
+	while (list_cmd)
 	{
+		//pipex(list_cmd->command->cmd, envp);
+		printf("cmd : %s\n", list_cmd->command->cmd[0]);
 		pipex(list_cmd->command->cmd, envp);
-		//printf("%s\n", list_cmd->command->cmd[0]);
-		if (!list_cmd->next->next)
+		if (!list_cmd->next)
+		{
+			list_cmd = list_cmd->next;
 			break;
+		}
 		list_cmd = list_cmd->next;
 	}
 	/*
@@ -77,12 +81,14 @@ int	multiple_cmd(t_list_cmd *list_cmd, char **envp)
 		*/
 	//close (fd_out)
 	// ici output est dans pipe_fd[0]
+	/*
 	if (!fork())
 	{
 		if (list_cmd->command->fd_out != 1)
 			dup_close(list_cmd->command->fd_out, 1);
 		exec_cmd(list_cmd->command->cmd, envp);
 	}
+	*/
 	waitpid(-1, &status, 0);
 	return (status);
 }

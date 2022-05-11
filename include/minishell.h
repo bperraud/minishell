@@ -20,6 +20,9 @@
 # include "utils.h"
 # include "pipex.h"
 
+# define STDIN 1
+# define STDOUT 2
+
 extern int	g_error;
 
 enum e_error
