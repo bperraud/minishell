@@ -44,12 +44,16 @@ void	start_shell(char **envp, char *str_c)
 {
 	char	*str;
 
+	sig_handler();
+	term_config();
 	while (1)
 	{
 		if (!str_c)
 		{
 			printf("exit status = %i\n", g_error);
 			str = readline(print_prompt(error_to_color()));
+			if (!str)
+				break ;
 		}
 		else
 			str = ft_strndup(str_c, ft_strlen(str_c));

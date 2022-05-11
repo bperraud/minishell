@@ -16,28 +16,15 @@
 /* Dany is a diplodocus-stegosaurus, a very rare kind of dinosaurus */
 char	*print_prompt(char *color)
 {
-	if (RL_READLINE_VERSION > 0x800)
-	{
-		printf ("%s               __  \n", color);
-		printf ("              |  | \n");
-		printf ("             _|__|_\n");
-		printf ("              /o_) \n");
-		printf ("     _/\\/\\/\\_/ /   \n");
-		printf ("   _|minishell/    \n");
-		printf (" _|  (  | (  |     \n");
-		return ("/__.-'|_|--|_| ~ " RESET);
-	}
-	else
-	{
-		printf ("               __  \n");
-		printf ("              |  | \n");
-		printf ("             _|__|_\n");
-		printf ("              /o_) \n");
-		printf ("     _/\\/\\/\\_/ /   \n");
-		printf ("   _|minishell/    \n");
-		printf (" _|  (  | (  |     \n");
-		return ("/__.-'|_|--|_| ~ ");
-	}
+	ft_putstr_fd (color, 1);
+	ft_putstr_fd ("               __  \n", 1);
+	ft_putstr_fd ("              |  | \n", 1);
+	ft_putstr_fd ("             _|__|_\n", 1);
+	ft_putstr_fd ("              /o_) \n", 1);
+	ft_putstr_fd ("     _/\\/\\/\\_/ /   \n", 1);
+	ft_putstr_fd ("   _|minishell/    \n", 1);
+	ft_putstr_fd (" _|  (  | (  |     \n", 1);
+	return ("/__.-'|_|--|_| ~ " RESET);
 }
 
 char	*error_to_color(void)
