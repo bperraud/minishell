@@ -27,7 +27,7 @@ typedef struct s_cmd
 	int				fd_in;
 	int				fd_out;
 	char			*here_doc;
-	unsigned int	mode;
+	int				mode;
 	char			**cmd;
 	int				exit_value;
 }				t_cmd;

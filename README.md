@@ -17,7 +17,6 @@ make
 ./minishell
 ```
 ## TODO
-- Fix error on redirections
 - Permissions on files (lstat)
 - Relative or absolute path for executable (in get_path() function)
 - Pipes
@@ -25,7 +24,7 @@ make
 - Signals (ctrl-C ctrl-D ctrl-\\)
 - Builtins
 - Wildcards
-- Handle parenthesis
+- Handle parenthesis on execution
 - Here doc
 - Finish
 	- Norme

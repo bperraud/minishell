@@ -45,7 +45,7 @@ int	free_and_return(char *str, void *ptr, int r_value)
 {
 	if (str)
 		free(str);
-	free (ptr);
+	free(ptr);
 	return (r_value);
 }
 

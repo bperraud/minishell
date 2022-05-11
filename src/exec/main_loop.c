@@ -16,16 +16,16 @@ char	**sh(char *str, char **envp)
 	t_cmd	*cmd;
 	t_cmd	*prev_cmd;
 
-	prev_cmd = smalloc(sizeof(t_cmd));
+	prev_cmd = init_cmd();
 	prev_cmd->exit_value = 0;
 	prev_cmd->mode = AND;
-	prev_cmd->cmd = NULL;
 	while (*str)
 	{
 		cmd = init_cmd();
 		str = get_next_cmd(str, envp, cmd);
 		if (!str || !cmd->cmd)
 		{
+			free_t_cmd(prev_cmd);
 			free_t_cmd(cmd);
 			return(envp);
 		}
@@ -37,7 +37,6 @@ char	**sh(char *str, char **envp)
 	}
 	free_t_cmd(prev_cmd);
 	free(str);
-	system("leaks minishell");
 	return (envp);
 }
 

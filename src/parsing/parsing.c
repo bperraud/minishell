@@ -72,7 +72,8 @@ static char	*replace_env_var(char *s, char **env)
 static char	*free_and_dup(t_split *split, char *s_ini, char *s)
 {
 	free(split);
-	s = ft_strndup(s, ft_strlen(s));
+	if (s)
+		s = ft_strndup(s, ft_strlen(s));
 	free(s_ini);
 	return (s);
 }
@@ -90,10 +91,10 @@ char	*get_next_cmd(char *s, char **env, t_cmd *cmd)
 	{
 		t = handle_in_redirections(cmd, split, s);
 		if (!t)
-			return (NULL);
+			return (free_and_dup(split, s_ini, NULL));
 		t = handle_out_redirections(cmd, split, t);
 		if (!t)
-			return (NULL);
+			return (free_and_dup(split, s_ini, NULL));
 		if (t == s)
 		{
 			t = handle_quotes_and_parenthesis(cmd, split, s);

@@ -39,10 +39,12 @@ static char	*open_infile(t_cmd *cmd, t_split *split, bool heredoc_mode, char *s)
 	if (cmd->fd_in != 0)
 		close(cmd->fd_in);
 	if (cmd->here_doc)
+	{
 		free(cmd->here_doc);
+		cmd->here_doc = NULL;
+	}
 	if (split->word)
 		cmd->cmd = add_string(cmd->cmd, split->word);
-	cmd->here_doc = NULL;
 	split->word = NULL;
 	word = get_next_word(&s);
 	if (!word)
@@ -74,7 +76,10 @@ static char	*open_outfile(t_cmd *cmd, t_split *split, bool append_mode, char *s)
 	if (!word)
 		return (file_error());
 	if (test_access(word, WRITE))
+	{
+		free(word);
 		return (NULL);
+	}
 	if (!append_mode)
 		cmd->fd_out = open(word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else

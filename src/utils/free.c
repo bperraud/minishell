@@ -18,6 +18,8 @@ void	free_t_cmd(t_cmd *cmd)
 		return ;
 	if (cmd->cmd)
 		free_str_list(cmd->cmd);
+	if (cmd->here_doc)
+		free(cmd->here_doc);
 	free(cmd);
 }
 
