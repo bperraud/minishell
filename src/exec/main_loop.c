@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_loop.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
+/*   Updated: 2022/05/12 01:29:48 by bperraud         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-static char **command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
+static char	**command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
 {
 	if ((prev_cmd->mode == AND && !prev_cmd->exit_value)
 		|| (prev_cmd->mode == OR && prev_cmd->exit_value))
@@ -19,17 +30,13 @@ char	**sh(char *str, char **envp)
 	prev_cmd->exit_value = 0;
 	prev_cmd->mode = AND;
 	prev_cmd->cmd = NULL;
-
-	int pipe = 0;
 	list_cmd = smalloc(sizeof(t_list_cmd));
 	list_cmd->next = NULL;
 	list_cmd->command = NULL;
-
 	while (*str)
 	{
 		cmd = init_cmd();
 		str = get_next_cmd(str, envp, cmd);
-
 		if (cmd->mode == PIPE)
 		{
 			while (cmd->mode == PIPE)
@@ -44,15 +51,15 @@ char	**sh(char *str, char **envp)
 		if (!cmd->cmd)
 		{
 			free_t_cmd(cmd);
-			return(envp);
+			return (envp);
 		}
 		envp = command(cmd, prev_cmd, envp);
 		free_t_cmd(prev_cmd);
 		prev_cmd = cmd;
-		exit(EXIT_SUCCESS);
 	}
 	free(str);
 	free_t_cmd(prev_cmd);
+	exit(EXIT_SUCCESS);
 	return (envp);
 }
 

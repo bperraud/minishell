@@ -36,7 +36,7 @@ void	exec_cmd(char **cmd_arg, char **envp)
 }
 
 /* redirect to appropriate function for a cmd */
-char **launch_cmd(t_cmd *command, char **envp)
+char	**launch_cmd(t_cmd *command, char **envp)
 {
 	if (!ft_strcmp(command->cmd[0], "cd"))
 		change_directory(command->cmd, envp);
@@ -48,6 +48,8 @@ char **launch_cmd(t_cmd *command, char **envp)
 		return (unset(command->cmd[1], envp));
 	else if (!ft_strcmp(command->cmd[0], "env"))
 		ft_env(envp);
+	else if (!ft_strcmp(command->cmd[0], "pwd"))
+		pwd();
 	else
 		extern_cmd(command, envp);
 	return (envp);
@@ -60,9 +62,9 @@ void	extern_cmd(t_cmd *command, char **envp)
 
 	if (!fork())
 	{
-		if (command->fd_in != 0)	// lire l'entrée dans fd_in
+		if (command->fd_in != 0)
 			dup_close(command->fd_in, 0);
-		if (command->fd_out != 1)	// rediriger la sortie vers fd_out
+		if (command->fd_out != 1)
 			dup_close(command->fd_out, 1);
 		exec_cmd(command->cmd, envp);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 19:06:45 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/03 19:06:46 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/05/12 01:26:06 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@ void	echo(char **cmd);
 char	**export(char *cmd, char **env);
 char	**unset(char *var, char **env);
 void	ft_env(char **env);
+void	pwd(void);
 
 #endif

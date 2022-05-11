@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:49:51 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/29 13:49:54 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/05/12 01:28:04 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ static int	is_unclosed_sentence(int par, char quote)
 	{
 		ft_putstr_fd("minishell: unclosed parenthesis\n", 2);
 		g_error = SYNTAX_ERROR;
-		return(SYNTAX_ERROR);
+		return (SYNTAX_ERROR);
 	}
 	if (quote)
 	{
 		ft_putstr_fd("minishell: unclosed quote\n", 2);
 		g_error = SYNTAX_ERROR;
-		return(SYNTAX_ERROR);
+		return (SYNTAX_ERROR);
 	}
 	return (0);
 }

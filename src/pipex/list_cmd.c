@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 void	print_cmd(t_list_cmd *list_cmd)
 {
@@ -56,10 +56,4 @@ void	add_back(t_list_cmd **list_cmd, t_cmd *new)
 		last = lst_last(*list_cmd);
 		last->next = t;
 	}
-}
-
-
-int	is_empty(t_list_cmd list_cmd)
-{
-	return (list_cmd.command == NULL);
 }
