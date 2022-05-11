@@ -5,7 +5,7 @@ SRCS		= minishell.c test.c \
 			  parsing/error.c \
 			  pipex/files.c pipex/pipex.c pipex/utils_pipex.c pipex/list_cmd.c \
 			  exec/command.c exec/main_loop.c \
-			  builtin/cd.c builtin/echo.c builtin/export.c builtin/unset.c builtin/env.c
+			  builtin/cd.c builtin/echo.c builtin/export.c builtin/unset.c builtin/env.c builtin/pwd.c
 
 SRCS		:= $(addprefix src/,$(SRCS))
 OBJS		= ${SRCS:.c=.o}
