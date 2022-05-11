@@ -26,6 +26,7 @@ make
 - Builtins
 - Wildcards
 - Handle parenthesis
+- Here doc
 - Finish
 	- Norme
 	- Tests (with error codes)
