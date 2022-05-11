@@ -59,6 +59,9 @@ char	*get_next_cmd(char *s, char **env, t_cmd *cmd);
 /* free */
 void	free_t_cmd(t_cmd *cmd);
 /* error */
-int	check_syntax(char *str);
+int		check_syntax(char *str);
+/* parsing utils */
+char	*file_error(void);
+void	cmd_list_add_char(t_cmd *cmd, t_split *split, char *s);
 
 #endif

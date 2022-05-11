@@ -40,20 +40,6 @@ static char	*handle_quotes_and_parenthesis(t_cmd *cmd, t_split *split, char *s)
 	return (s);
 }
 
-static void	cmd_list_add_char(t_cmd *cmd, t_split *split, char *s)
-{
-	if (!ft_strchr("&|", *s))
-	{
-		if (split->par || split->quote || !ft_strchr(" )", *s))
-			split->word = add_char(split->word, *s);
-		else
-		{
-			cmd->cmd = add_string(cmd->cmd, split->word);
-			split->word = NULL;
-		}
-	}
-}
-
 static char	*replace_env_var(char *s, char **env)
 {
 	char	*s2;
@@ -83,6 +69,14 @@ static char	*replace_env_var(char *s, char **env)
 	return (s2);
 }
 
+static char	*free_and_dup(t_split *split, char *s_ini, char *s)
+{
+	free(split);
+	s = ft_strndup(s, ft_strlen(s));
+	free(s_ini);
+	return (s);
+}
+
 char	*get_next_cmd(char *s, char **env, t_cmd *cmd)
 {
 	t_split	*split;
@@ -109,8 +103,5 @@ char	*get_next_cmd(char *s, char **env, t_cmd *cmd)
 	cmd->cmd = add_string(cmd->cmd, split->word);
 	if (s)
 		s = handle_operator(cmd, s);
-	free(split);
-	s = ft_strndup(s, ft_strlen(s));
-	free(s_ini);
-	return (s);
+	return (free_and_dup(split, s_ini, s));
 }

@@ -51,7 +51,7 @@ char	*add_char(char *str1, char c);
 
 /* shell_utils */
 int		exit_to_bash_code(int exit_code);
-int	free_and_return(void *ptr, int r_value);
+int		free_and_return(void *ptr, int r_value);
 char	*skip_spaces(char *str);
 int		test_access(char *str, int file_access);
 
