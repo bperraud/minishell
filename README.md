@@ -21,7 +21,6 @@ make
 - Relative or absolute path for executable (in get_path() function)
 - Pipes
 - Implement error codes after execution
-- Signals (ctrl-C ctrl-D ctrl-\\)
 - Builtins
 - Wildcards
 - Handle parenthesis on execution

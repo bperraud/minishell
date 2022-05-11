@@ -19,6 +19,8 @@
 # include "builtin.h"
 # include "utils.h"
 # include "pipex.h"
+# include <signal.h>
+# include <termios.h>
 
 extern int	g_error;
 
@@ -28,6 +30,10 @@ enum e_error
 	COMMAND_NOT_FOUND = 127,
 	SYNTAX_ERROR = 258
 };
+
+/* signals */
+void	sig_handler(void);
+void	term_config(void);
 
 /* test */
 void	print_list(char **lst);
