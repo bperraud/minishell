@@ -20,24 +20,18 @@ char	**sh(char *str, char **envp)
 	prev_cmd->mode = AND;
 	prev_cmd->cmd = NULL;
 
-	/*
 	int pipe = 0;
 	list_cmd = smalloc(sizeof(t_list_cmd));
 	list_cmd->next = NULL;
 	list_cmd->command = NULL;
-	*/
+
 	while (*str)
 	{
 		cmd = init_cmd();
 		str = get_next_cmd(str, envp, cmd);
+
 		if (cmd->mode == PIPE)
 		{
-			list_cmd = smalloc(sizeof(t_list_cmd));
-			list_cmd->next = NULL;
-			list_cmd->command = cmd;
-			// cmd = premiere commande avt le premier pipe
-			cmd = init_cmd();
-			str = get_next_cmd(str, envp, cmd);
 			while (cmd->mode == PIPE)
 			{
 				add_back(&list_cmd, cmd);
@@ -56,19 +50,6 @@ char	**sh(char *str, char **envp)
 		free_t_cmd(prev_cmd);
 		prev_cmd = cmd;
 		exit(EXIT_SUCCESS);
-		/*
-		if (cmd->mode == PIPE)
-		{
-			if (is_empty(list_cmd))	// init
-			{
-				add_back(&list_cmd, cmd);
-				pipe = 1;
-			}
-			else
-			{
-
-			}
-		}*/
 	}
 	free(str);
 	free_t_cmd(prev_cmd);
