@@ -23,8 +23,8 @@ char	**sh(char *str, char **envp)
 	while (*str)
 	{
 		cmd = init_cmd();
-		str = get_next_cmd(str, envp, cmd);	
-		if (!cmd->cmd)
+		str = get_next_cmd(str, envp, cmd);
+		if (!str || !cmd->cmd)
 		{
 			free_t_cmd(cmd);
 			return(envp);
@@ -35,8 +35,9 @@ char	**sh(char *str, char **envp)
 		free_t_cmd(prev_cmd);
 		prev_cmd = cmd;
 	}
-	free(str);
 	free_t_cmd(prev_cmd);
+	free(str);
+	system("leaks minishell");
 	return (envp);
 }
 

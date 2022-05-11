@@ -93,15 +93,17 @@ static char	*check_syntax_char(char *str, t_error *err)
 int	check_syntax(char *str)
 {
 	t_error	*err;
+	char	*str_ini;
 
+	str_ini = str;
 	err = init_error();
 	while (*str)
 	{
 		str = check_syntax_char(str, err);
 		if (!str)
-			return (free_and_return(err, 1));
+			return (free_and_return(str_ini, err, 1));
 	}
 	if (is_unclosed_sentence(err->par, err->quote))
-		return (free_and_return(err, 1));
-	return (free_and_return(err, 0));
+		return (free_and_return(str_ini, err, 1));
+	return (free_and_return(NULL, err, 0));
 }

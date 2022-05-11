@@ -14,7 +14,7 @@
 
 int	test_access(char *str, int file_access)
 {
-	if (access(str, F_OK) < 0)
+	if (file_access == READ && access(str, F_OK) < 0)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(str, 2);
@@ -22,7 +22,7 @@ int	test_access(char *str, int file_access)
 		g_error = FILE_ERROR;
 		return (FILE_ERROR);
 	}
-	if (file_access == WRITE && access(str, W_OK) < 0)
+	if (file_access == WRITE && access(str, F_OK) == 0 && access(str, W_OK) < 0)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(str, 2);
@@ -41,8 +41,10 @@ int	test_access(char *str, int file_access)
 	return (0);
 }
 
-int	free_and_return(void *ptr, int r_value)
+int	free_and_return(char *str, void *ptr, int r_value)
 {
+	if (str)
+		free(str);
 	free (ptr);
 	return (r_value);
 }

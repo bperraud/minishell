@@ -89,7 +89,11 @@ char	*get_next_cmd(char *s, char **env, t_cmd *cmd)
 	while (s && *s && (split->quote || split->par || !ft_strchr("&|", *s)))
 	{
 		t = handle_in_redirections(cmd, split, s);
+		if (!t)
+			return (NULL);
 		t = handle_out_redirections(cmd, split, t);
+		if (!t)
+			return (NULL);
 		if (t == s)
 		{
 			t = handle_quotes_and_parenthesis(cmd, split, s);

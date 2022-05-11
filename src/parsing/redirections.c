@@ -121,7 +121,7 @@ char	*handle_out_redirections(t_cmd *cmd, t_split *split, char *s_orig)
 	if (*s == '>' && *(s + 1) == '>')
 	{
 		s += 2;
-		while (*s && *s == ' ')
+		while (*s == ' ')
 			s++;
 		s = open_outfile(cmd, split, true, s);
 		return (s);
@@ -129,7 +129,7 @@ char	*handle_out_redirections(t_cmd *cmd, t_split *split, char *s_orig)
 	else if (*s == '>')
 	{
 		s++;
-		while (*s && *s == ' ')
+		while (*s == ' ')
 			s++;
 		s = open_outfile(cmd, split, false, s);
 		return (s);
