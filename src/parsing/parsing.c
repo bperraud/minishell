@@ -78,10 +78,31 @@ static char	*free_and_dup(t_split *split, char *s_ini, char *s)
 	return (s);
 }
 
+static char	*handle_special(t_cmd *cmd, t_split *split, char *s_ini, char *s)
+{
+	char	*t;
+
+	t = handle_in_redirections(cmd, split, s);
+	if (!t)
+		return (free_and_dup(split, s_ini, NULL));
+	t = handle_out_redirections(cmd, split, t);
+	if (!t)
+		return (free_and_dup(split, s_ini, NULL));
+	if (t == s)
+	{
+		t = handle_quotes_and_parenthesis(cmd, split, s);
+		if (t == s)
+			cmd_list_add_char(cmd, split, s);
+		s++;
+	}
+	else
+		s = t;
+	return (s);
+}
+
 char	*get_next_cmd(char *s, char **env, t_cmd *cmd)
 {
 	t_split	*split;
-	char	*t;
 	char	*s_ini;
 
 	split = init_split();
@@ -89,21 +110,9 @@ char	*get_next_cmd(char *s, char **env, t_cmd *cmd)
 	s_ini = s;
 	while (s && *s && (split->quote || split->par || !ft_strchr("&|", *s)))
 	{
-		t = handle_in_redirections(cmd, split, s);
-		if (!t)
-			return (free_and_dup(split, s_ini, NULL));
-		t = handle_out_redirections(cmd, split, t);
-		if (!t)
-			return (free_and_dup(split, s_ini, NULL));
-		if (t == s)
-		{
-			t = handle_quotes_and_parenthesis(cmd, split, s);
-			if (t == s)
-				cmd_list_add_char(cmd, split, s);
-			s++;
-		}
-		else
-			s = t;
+		s = handle_special(cmd, split, s_ini, s);
+		if (!s)
+			return (NULL);
 	}
 	cmd->cmd = add_string(cmd->cmd, split->word);
 	if (s)
