@@ -22,8 +22,8 @@
 # include <signal.h>
 # include <termios.h>
 
-# define STDIN 1
-# define STDOUT 2
+# define STDIN 0
+# define STDOUT 1
 
 extern int	g_error;
 
@@ -41,5 +41,8 @@ void	term_config(void);
 /* test */
 void	print_list(char **lst);
 void	print_cmd_args(t_cmd *cmd);
+
+
+int	main(int argc, char **argv, char **envp);
 
 #endif

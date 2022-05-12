@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/12 02:35:30 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/12 16:34:20 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,14 @@ char	**sh(char *str, char **envp)
 	t_cmd		*cmd;
 	t_cmd		*prev_cmd;
 	t_list_cmd	*list_cmd;
+	int			save_in;
+	int			save_out;
 
 	prev_cmd = init_cmd();
 	prev_cmd->exit_value = 0;
 	prev_cmd->mode = AND;
+	save_in = dup(0);
+	save_out = dup(1);
 	while (*str)
 	{
 		cmd = init_cmd();
@@ -48,17 +52,17 @@ char	**sh(char *str, char **envp)
 				cmd = init_cmd();
 				str = get_next_cmd(str, envp, cmd);
 			}
-			print_cmd(list_cmd);
 			multiple_cmd(list_cmd, envp);
 			free_list_cmd(list_cmd);
 		}
 		envp = command(cmd, prev_cmd, envp);
 		free_t_cmd(prev_cmd);
 		prev_cmd = cmd;
+		dup2(save_in, STDIN);
+		dup2(save_out, STDOUT);
 	}
 	free_t_cmd(prev_cmd);
 	free(str);
-	//exit(EXIT_SUCCESS);		// sans cette ligne -> segfault ft_strncmp()
 	return (envp);
 }
 
@@ -75,7 +79,10 @@ void	start_shell(char **envp, char *str_c)
 			printf("exit status = %i\n", g_error);
 			str = readline(print_prompt(error_to_color()));
 			if (!str)
+			{
+				printf("str = 0 \n");
 				break ;
+			}
 		}
 		else
 			str = ft_strndup(str_c, ft_strlen(str_c));

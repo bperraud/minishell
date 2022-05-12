@@ -25,12 +25,10 @@
 typedef struct s_cmd		t_cmd;
 typedef struct s_list_cmd	t_list_cmd;
 
-//start
-int		start(int argc, char **argv, char **envp);
 
 //pipex
 void	multiple_cmd(t_list_cmd *list_cmd, char **envp);
-void	pipex(char **cmd, char** envp);
+void	pipex(t_cmd *command, char** envp);
 void	redirect_pipe(t_cmd *command, char **envp);
 
 //files
@@ -45,7 +43,6 @@ char	*ft_strncpy(char *dest, const char *src, unsigned int n);
 void	exit_error(char **cmd1, char **cmd2, char **path);
 void	free_all(char **cmd1, char **cmd2, char **path);
 void	free_tab(char **tab);
-
 
 //list_cmd
 void		print_cmd(t_list_cmd *list_cmd);
