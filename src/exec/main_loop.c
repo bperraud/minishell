@@ -1,20 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_loop.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
+/*   Updated: 2022/05/12 02:35:30 by bperraud         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-static char **command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
+static char	**command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
 {
 	if ((prev_cmd->mode == AND && !prev_cmd->exit_value)
 		|| (prev_cmd->mode == OR && prev_cmd->exit_value))
 		return (launch_cmd(cmd, envp));
-	else if (cmd->mode == NONE)	// last cmd
-		return (envp);
-	return (envp);
+	return (NULL);
 }
 
 char	**sh(char *str, char **envp)
 {
-	t_cmd	*cmd;
-	t_cmd	*prev_cmd;
+	t_cmd		*cmd;
+	t_cmd		*prev_cmd;
+	t_list_cmd	*list_cmd;
 
 	prev_cmd = init_cmd();
 	prev_cmd->exit_value = 0;
@@ -27,16 +37,28 @@ char	**sh(char *str, char **envp)
 		{
 			free_t_cmd(prev_cmd);
 			free_t_cmd(cmd);
-			return(envp);
+			return (envp);
+		}
+		if (cmd->mode == PIPE)
+		{
+			list_cmd = init_list();
+			while (cmd->mode == PIPE)
+			{
+				add_back(&list_cmd, cmd);
+				cmd = init_cmd();
+				str = get_next_cmd(str, envp, cmd);
+			}
+			print_cmd(list_cmd);
+			multiple_cmd(list_cmd, envp);
+			free_list_cmd(list_cmd);
 		}
 		envp = command(cmd, prev_cmd, envp);
-		//print_list(cmd->cmd);
-		//print_cmd_args(cmd);
 		free_t_cmd(prev_cmd);
 		prev_cmd = cmd;
 	}
 	free_t_cmd(prev_cmd);
 	free(str);
+	//exit(EXIT_SUCCESS);		// sans cette ligne -> segfault ft_strncmp()
 	return (envp);
 }
 

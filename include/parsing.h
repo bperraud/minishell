@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 08:54:56 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/01 02:48:18 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:16:14 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@ typedef struct s_split
 	char	quote;
 	int		par;
 }				t_split;
+
+
+typedef struct s_list_cmd
+{
+	struct s_list_cmd	*next;
+	struct s_cmd		*command;
+}				t_list_cmd;
+
 
 /* operators */
 char	*handle_operator(t_cmd *cmd, char *s);

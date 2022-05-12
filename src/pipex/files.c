@@ -24,7 +24,6 @@ int	open_file(char *file)
 
 char	**parsing(char **envp)
 {
-	//proteger en cas de path not found
 	int		i;
 	char	*str;
 	char	**split;

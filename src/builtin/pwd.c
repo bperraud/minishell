@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/10 18:32:04 by bperraud         ###   ########.fr       */
+/*   Created: 2022/05/12 01:25:55 by bperraud          #+#    #+#             */
+/*   Updated: 2022/05/12 01:26:03 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_error = 0;
-
-int	main(int argc, char **argv, char **envp)
+void	pwd(void)
 {
-	char	**env;
-
-	env = env_dup(envp);
-	if (argc == 1)
-	{
-		start_shell(env, NULL);
-	}
-	if (argc == 3 && ft_strncmp(argv[1], "-c", 3) == 0)
-	{
-		start_shell(env, argv[2]);
-	}
-	return (g_error);
+	printf("%s\n", getcwd(NULL, 0));
 }

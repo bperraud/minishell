@@ -37,4 +37,5 @@ void	change_directory(char **cmd, char **env)
 	}
 	else
 		chdir(cmd[1]);
+	g_error = ft_strcmp(start_dir, getcwd(NULL, 0));
 }
