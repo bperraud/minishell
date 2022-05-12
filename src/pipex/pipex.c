@@ -47,7 +47,7 @@ void	multiple_cmd(t_list_cmd *list_cmd, char **envp)
 	{
 		pipex(list_cmd->command, envp);
 		if (!list_cmd->next)
-			break;
+			break ;
 		list_cmd = list_cmd->next;
 	}
 }

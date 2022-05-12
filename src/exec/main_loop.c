@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/13 00:00:44 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/13 00:14:31 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,31 @@ static char	**command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
 	return (NULL);
 }
 
+static void	restore_std(int save_in, int save_out)
+{
+	dup2(save_in, STDIN);
+	dup2(save_out, STDOUT);
+}
+
+static void	pipe_cmd(char **str, char **envp, t_cmd **cmd)
+{
+	t_list_cmd	*list_cmd;
+
+	list_cmd = init_list();
+	while ((*cmd)->mode == PIPE)
+	{
+		add_back(&list_cmd, *cmd);
+		*cmd = init_cmd();
+		*str = get_next_cmd(*str, envp, *cmd);
+	}
+	multiple_cmd(list_cmd, envp);
+	free_list_cmd(list_cmd);
+}
+
 char	**sh(char *str, char **envp)
 {
 	t_cmd		*cmd;
 	t_cmd		*prev_cmd;
-	t_list_cmd	*list_cmd;
 	int			save_in;
 	int			save_out;
 
@@ -43,22 +63,11 @@ char	**sh(char *str, char **envp)
 			return (envp);
 		}
 		if (cmd->mode == PIPE)
-		{
-			list_cmd = init_list();
-			while (cmd->mode == PIPE)
-			{
-				add_back(&list_cmd, cmd);
-				cmd = init_cmd();
-				str = get_next_cmd(str, envp, cmd);
-			}
-			multiple_cmd(list_cmd, envp);
-			free_list_cmd(list_cmd);
-		}
+			pipe_cmd(&str, envp, &cmd);
 		envp = command(cmd, prev_cmd, envp);
 		free_t_cmd(prev_cmd);
 		prev_cmd = cmd;
-		dup2(save_in, STDIN);
-		dup2(save_out, STDOUT);
+		restore_std(save_in, save_out);
 		try_exit(cmd, prev_cmd, str);
 	}
 	free_t_cmd(prev_cmd);
