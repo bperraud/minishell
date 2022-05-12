@@ -50,10 +50,36 @@ void	add_back(t_list_cmd **list_cmd, t_cmd *new)
 	}
 	else
 	{
-		t = malloc(sizeof(t_list_cmd));
+		t = smalloc(sizeof(t_list_cmd));
 		t->command = new;
 		t->next = NULL;
 		last = lst_last(*list_cmd);
 		last->next = t;
+	}
+}
+
+t_list_cmd	*init_list(void)
+{
+	t_list_cmd	*list_cmd;
+
+	list_cmd = smalloc(sizeof(t_list_cmd));
+	list_cmd->next = NULL;
+	list_cmd->command = NULL;
+	return (list_cmd);
+}
+
+void	free_list_cmd(t_list_cmd *list_cmd)
+{
+	t_list_cmd	*temp;
+
+	if (list_cmd)
+	{
+		while (list_cmd)
+		{
+			temp = list_cmd->next;
+			free_t_cmd(list_cmd->command);
+			free(list_cmd);
+			list_cmd = temp;
+		}
 	}
 }

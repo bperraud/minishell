@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/12 01:29:48 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/12 02:05:14 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,13 @@ char	**sh(char *str, char **envp)
 	prev_cmd->exit_value = 0;
 	prev_cmd->mode = AND;
 	prev_cmd->cmd = NULL;
-	list_cmd = smalloc(sizeof(t_list_cmd));
-	list_cmd->next = NULL;
-	list_cmd->command = NULL;
 	while (*str)
 	{
 		cmd = init_cmd();
 		str = get_next_cmd(str, envp, cmd);
 		if (cmd->mode == PIPE)
 		{
+			list_cmd = init_list();
 			while (cmd->mode == PIPE)
 			{
 				add_back(&list_cmd, cmd);
@@ -47,6 +45,7 @@ char	**sh(char *str, char **envp)
 			}
 			print_cmd(list_cmd);
 			multiple_cmd(list_cmd, envp);
+			free_list_cmd(list_cmd);
 		}
 		if (!cmd->cmd)
 		{

@@ -50,6 +50,8 @@ char	**launch_cmd(t_cmd *command, char **envp)
 		ft_env(envp);
 	else if (!ft_strcmp(command->cmd[0], "pwd"))
 		pwd();
+	else if (!ft_strcmp(command->cmd[0], "exit"))
+		ft_exit();
 	else
 		extern_cmd(command, envp);
 	return (envp);

@@ -51,4 +51,7 @@ void	free_tab(char **tab);
 void		print_cmd(t_list_cmd *list_cmd);
 t_list_cmd	*lst_last(t_list_cmd *list_cmd);
 void		add_back(t_list_cmd **list_cmd, t_cmd *new);
+t_list_cmd	*init_list(void);
+void		free_list_cmd(t_list_cmd *list_cmd);
+
 #endif
