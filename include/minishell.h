@@ -31,6 +31,7 @@ enum e_error
 {
 	FILE_ERROR = 1,
 	COMMAND_NOT_FOUND = 127,
+	NOT_EXECUTABLE = 126,	// à rajouter
 	SYNTAX_ERROR = 258
 };
 

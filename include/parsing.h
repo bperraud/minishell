@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 08:54:56 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/11 20:16:14 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/12 23:32:18 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_cmd
 	char			*here_doc;
 	int				mode;
 	char			**cmd;
-	int				exit_value;
 }				t_cmd;
 
 typedef struct s_error

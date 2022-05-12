@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/12 16:34:20 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/13 00:00:44 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static char	**command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
 {
-	if ((prev_cmd->mode == AND && !prev_cmd->exit_value)
-		|| (prev_cmd->mode == OR && prev_cmd->exit_value))
+	if ((prev_cmd->mode == AND && !g_error)
+		|| (prev_cmd->mode == OR && g_error))
 		return (launch_cmd(cmd, envp));
 	return (NULL);
 }
@@ -29,7 +29,6 @@ char	**sh(char *str, char **envp)
 	int			save_out;
 
 	prev_cmd = init_cmd();
-	prev_cmd->exit_value = 0;
 	prev_cmd->mode = AND;
 	save_in = dup(0);
 	save_out = dup(1);
@@ -60,6 +59,7 @@ char	**sh(char *str, char **envp)
 		prev_cmd = cmd;
 		dup2(save_in, STDIN);
 		dup2(save_out, STDOUT);
+		try_exit(cmd, prev_cmd, str);
 	}
 	free_t_cmd(prev_cmd);
 	free(str);
@@ -77,20 +77,13 @@ void	start_shell(char **envp, char *str_c)
 		if (!str_c)
 		{
 			printf("exit status = %i\n", g_error);
+			g_error = 0;
 			str = readline(print_prompt(error_to_color()));
 			if (!str)
-			{
-				printf("str = 0 \n");
 				break ;
-			}
 		}
 		else
 			str = ft_strndup(str_c, ft_strlen(str_c));
-		if (!ft_strncmp(str, "exit", 5))
-		{
-			free(str);
-			break ;
-		}
 		add_history(str);
 		if (!check_syntax(str))
 			envp = sh(str, envp);
