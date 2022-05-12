@@ -29,8 +29,8 @@ typedef struct s_list_cmd	t_list_cmd;
 int		start(int argc, char **argv, char **envp);
 
 //pipex
-int		multiple_cmd(t_list_cmd *list_cmd, char **envp);
-int		pipex(char **cmd, char** envp);
+void	multiple_cmd(t_list_cmd *list_cmd, char **envp);
+void	pipex(char **cmd, char** envp);
 void	redirect_pipe(t_cmd *command, char **envp);
 
 //files

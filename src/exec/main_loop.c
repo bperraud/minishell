@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/12 02:05:14 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/12 02:35:30 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**sh(char *str, char **envp)
 	}
 	free(str);
 	free_t_cmd(prev_cmd);
-	exit(EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);		// sans cette ligne -> segfault ft_strncmp()
 	return (envp);
 }
 

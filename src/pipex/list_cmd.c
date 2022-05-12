@@ -14,14 +14,11 @@
 
 void	print_cmd(t_list_cmd *list_cmd)
 {
-	int	i;
-
 	if (!list_cmd)
 	{
 		printf("list is empty.\n");
 		return ;
 	}
-	i = 0;
 	while (list_cmd)
 	{
 		printf("list command : %s\n", list_cmd->command->cmd[0]);

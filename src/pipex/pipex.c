@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	pipex(char **cmd, char **envp)
+void	pipex(char **cmd, char **envp)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
@@ -34,24 +34,15 @@ int	pipex(char **cmd, char **envp)
 		dup2(pipe_fd[1], 1);
 		exec_cmd(cmd, envp);
 	}
-	return (status);
+	g_error = status;
 }
 
-int	multiple_cmd(t_list_cmd *list_cmd, char **envp)
+void	multiple_cmd(t_list_cmd *list_cmd, char **envp)
 {
-	int	i;
-	int	status;
-
 	while (list_cmd)
 	{
 		printf("cmd : %s\n", list_cmd->command->cmd[0]);
 		pipex(list_cmd->command->cmd, envp);
-		if (!list_cmd->next)
-		{
-			list_cmd = list_cmd->next;
-			break ;
-		}
 		list_cmd = list_cmd->next;
 	}
-	return (status);
 }
