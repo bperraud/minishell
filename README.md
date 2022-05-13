@@ -21,7 +21,6 @@ make
 - Implement error codes after execution
 - Wildcards
 - Handle parenthesis on execution
-- Here doc
 - Finish
 	- Norme
 	- Tests (with error codes)
