@@ -51,3 +51,18 @@ void	multiple_cmd(t_list_cmd *list_cmd, char **envp)
 		list_cmd = list_cmd->next;
 	}
 }
+
+void	pipe_cmd(char **str, char **envp, t_cmd **cmd)
+{
+	t_list_cmd	*list_cmd;
+
+	list_cmd = init_list();
+	while ((*cmd)->mode == PIPE)
+	{
+		add_back(&list_cmd, *cmd);
+		*cmd = init_cmd();
+		*str = get_next_cmd(*str, envp, *cmd);
+	}
+	multiple_cmd(list_cmd, envp);
+	free_list_cmd(list_cmd);
+}

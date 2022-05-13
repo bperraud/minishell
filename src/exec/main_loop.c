@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/13 00:14:31 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/13 00:28:30 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,6 @@ static void	restore_std(int save_in, int save_out)
 {
 	dup2(save_in, STDIN);
 	dup2(save_out, STDOUT);
-}
-
-static void	pipe_cmd(char **str, char **envp, t_cmd **cmd)
-{
-	t_list_cmd	*list_cmd;
-
-	list_cmd = init_list();
-	while ((*cmd)->mode == PIPE)
-	{
-		add_back(&list_cmd, *cmd);
-		*cmd = init_cmd();
-		*str = get_next_cmd(*str, envp, *cmd);
-	}
-	multiple_cmd(list_cmd, envp);
-	free_list_cmd(list_cmd);
 }
 
 char	**sh(char *str, char **envp)

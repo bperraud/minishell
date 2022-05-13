@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:12:19 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/30 16:12:20 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/05/13 15:31:51 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	test_access(char *str, int file_access)
 {
 	if (file_access == READ && access(str, F_OK) < 0)
 	{
-		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("-minishell: ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 		g_error = FILE_ERROR;
@@ -24,7 +24,7 @@ int	test_access(char *str, int file_access)
 	}
 	if (file_access == WRITE && access(str, F_OK) == 0 && access(str, W_OK) < 0)
 	{
-		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("-minishell: ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd(": Permission denied\n", 2);
 		g_error = FILE_ERROR;
@@ -32,7 +32,7 @@ int	test_access(char *str, int file_access)
 	}
 	else if (file_access == READ && access(str, R_OK) < 0)
 	{
-		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("-minishell: ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd(": Permission denied\n", 2);
 		g_error = FILE_ERROR;

@@ -32,7 +32,8 @@ void	exec_cmd(char **cmd_arg, char **envp)
 		free(cmd);
 	}
 	printf("-minishell: %s : command not found\n", cmd_arg[0]);
-	exit(FILE_ERROR);
+	g_error = COMMAND_NOT_FOUND;
+	exit(COMMAND_NOT_FOUND);
 }
 
 /* redirect to appropriate function for a cmd */
@@ -52,6 +53,8 @@ char	**launch_cmd(t_cmd *command, char **envp)
 		pwd();
 	else if (!ft_strcmp(command->cmd[0], "exit"))
 		ft_exit(command);
+	else if (!ft_strncmp(command->cmd[0], "./", 2))
+		ft_executable(command->cmd, envp);
 	else
 		extern_cmd(command, envp);
 	return (envp);
