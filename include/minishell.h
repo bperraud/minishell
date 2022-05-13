@@ -31,7 +31,7 @@ enum e_error
 {
 	FILE_ERROR = 1,
 	COMMAND_NOT_FOUND = 127,
-	NOT_EXECUTABLE = 126,	// à rajouter
+	NOT_EXECUTABLE = 126,
 	SYNTAX_ERROR = 258
 };
 
@@ -42,8 +42,5 @@ void	term_config(void);
 /* test */
 void	print_list(char **lst);
 void	print_cmd_args(t_cmd *cmd);
-
-
-int	main(int argc, char **argv, char **envp);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:12:19 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/30 16:12:20 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/05/13 16:43:56 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	test_access(char *str, int file_access)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd(": Permission denied\n", 2);
-		g_error = FILE_ERROR;
-		return (FILE_ERROR);
+		g_error = NOT_EXECUTABLE;
+		return (NOT_EXECUTABLE);
 	}
 	return (0);
 }
@@ -59,7 +59,7 @@ char	*skip_spaces(char *str)
 int	exit_to_bash_code(int exit_code)
 {
 	if (exit_code == 2)
-		return (258);
+		return (SYNTAX_ERROR);
 	else
 		return (exit_code);
 }

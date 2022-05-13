@@ -61,9 +61,12 @@ char	**launch_cmd(t_cmd *command, char **envp)
 void	extern_cmd(t_cmd *command, char **envp)
 {
 	int	status;
+	int	fd;
 
 	if (!fork())
 	{
+		if (ft_strlen(command->here_doc))
+			dup_close(here_doc(command->here_doc), 0);
 		if (command->fd_in != 0)
 			dup_close(command->fd_in, 0);
 		if (command->fd_out != 1)
@@ -71,4 +74,6 @@ void	extern_cmd(t_cmd *command, char **envp)
 		exec_cmd(command->cmd, envp);
 	}
 	waitpid(-1, &status, 0);
+	if (ft_strlen(command->here_doc))
+		unlink(HERE_DOC);
 }
