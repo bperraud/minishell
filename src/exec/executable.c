@@ -16,14 +16,15 @@ void	ft_executable(char **cmd, char	**envp)
 {
 	int		status;
 
-	if (test_access(cmd[0], READ) == FILE_ERROR)
+	status = 0;
+	if (test_access(cmd[0], READ) == NOT_EXECUTABLE)
 		return ;
 	if (!fork())
 	{
 		execve(cmd[0], cmd, envp);
-		printf("-minishell: %s : command not found\n", cmd[0]);
-		g_error = COMMAND_NOT_FOUND;
+		printf("-minishell: %s: command not found\n", cmd[0]);
 		exit(COMMAND_NOT_FOUND);
 	}
 	waitpid(-1, &status, 0);
+	g_error = status;
 }
