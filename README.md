@@ -18,9 +18,7 @@ make
 ```
 ## TODO
 - Relative or absolute path for executable (in get_path() function)
-- Pipes
 - Implement error codes after execution
-- Builtins
 - Wildcards
 - Handle parenthesis on execution
 - Here doc
