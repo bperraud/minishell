@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	exec_cmd(char **cmd_arg, char **envp)
+int	exec_cmd(char **cmd_arg, char **envp)
 {
 	int		i;
 	char	*cmd;
@@ -26,14 +26,13 @@ void	exec_cmd(char **cmd_arg, char **envp)
 		if (!cmd)
 		{
 			free_tab(paths);
-			return ;
+			return (-1);
 		}
 		execve(cmd, cmd_arg, envp);
 		free(cmd);
 	}
 	printf("-minishell: %s : command not found\n", cmd_arg[0]);
-	g_error = COMMAND_NOT_FOUND;
-	exit(COMMAND_NOT_FOUND);
+	return (COMMAND_NOT_FOUND);
 }
 
 /* redirect to appropriate function for a cmd */
@@ -64,14 +63,17 @@ char	**launch_cmd(t_cmd *command, char **envp)
 void	extern_cmd(t_cmd *command, char **envp)
 {
 	int	status;
+	int	exit_value;
 
+	exit_value = 0;
 	if (!fork())
 	{
 		if (command->fd_in != 0)
 			dup_close(command->fd_in, 0);
 		if (command->fd_out != 1)
 			dup_close(command->fd_out, 1);
-		exec_cmd(command->cmd, envp);
+		exit_value = exec_cmd(command->cmd, envp);
 	}
 	waitpid(-1, &status, 0);
+	g_error = exit_value;
 }
