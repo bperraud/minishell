@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/13 21:07:25 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/13 21:08:06 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	**command(t_cmd *cmd, int prev_cmd_mode, char **envp)
 	if ((prev_cmd_mode == AND && !g_error)
 		|| (prev_cmd_mode == OR && g_error))
 		return (launch_cmd(cmd, envp));
-	return (NULL);
+	return (envp);
 }
 
 static void	restore_std(int save_in, int save_out)
