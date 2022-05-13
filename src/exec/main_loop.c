@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/13 21:08:06 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/13 21:19:30 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,12 @@ static void	restore_std(int save_in, int save_out)
 	dup2(save_out, STDOUT);
 }
 
-char	**sh(char *str, char **envp)
+static char	**sh(char *str, char **envp, int save_in, int save_out)
 {
-	t_cmd		*cmd;
-	int			save_in;
-	int			save_out;
-	int			prev_cmd_mode;
+	t_cmd	*cmd;
+	int		prev_cmd_mode;
 
 	prev_cmd_mode = AND;
-	save_in = dup(0);
-	save_out = dup(1);
 	while (*str)
 	{
 		cmd = init_cmd();
@@ -51,9 +47,20 @@ char	**sh(char *str, char **envp)
 		prev_cmd_mode = cmd->mode;
 		restore_std(save_in, save_out);
 		try_exit(cmd, str);
+		free_t_cmd(cmd);
 	}
 	free(str);
 	return (envp);
+}
+
+static char	**set_up_sh(char *str, char **envp)
+{
+	int		save_in;
+	int		save_out;
+
+	save_in = dup(0);
+	save_out = dup(1);
+	return (sh(str, envp, save_in, save_out));
 }
 
 void	start_shell(char **envp, char *str_c)
@@ -76,7 +83,7 @@ void	start_shell(char **envp, char *str_c)
 			str = ft_strndup(str_c, ft_strlen(str_c));
 		add_history(str);
 		if (!check_syntax(str))
-			envp = sh(str, envp);
+			envp = set_up_sh(str, envp);
 		if (str_c)
 			exit (g_error);
 	}
