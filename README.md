@@ -17,7 +17,6 @@ make
 ./minishell
 ```
 ## TODO
-- Relative or absolute path for executable (in get_path() function)
 - Implement error codes after execution
 - Wildcards
 - Handle parenthesis on execution
