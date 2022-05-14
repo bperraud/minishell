@@ -19,6 +19,7 @@
 # include "builtin.h"
 # include "utils.h"
 # include "pipex.h"
+# include <sys/stat.h>
 # include <signal.h>
 # include <termios.h>
 
@@ -42,5 +43,7 @@ void	term_config(void);
 /* test */
 void	print_list(char **lst);
 void	print_cmd_args(t_cmd *cmd);
+
+void	prompt_error(char* str, char *error);
 
 #endif

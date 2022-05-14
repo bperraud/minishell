@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:20:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/03 20:20:05 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/05/15 00:30:04 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	**env_add(char **env, char *str)
 		new_env[i] = ft_strdup(env[i]);
 		if (!new_env[i])
 		{
-			perror("minishell");
+			perror("-minishell");
 			exit(ENOMEM);
 		}
 		i++;
@@ -113,7 +113,7 @@ char	**env_dup(char **envp)
 		new_env[i] = ft_strdup(envp[i]);
 		if (!new_env[i])
 		{
-			perror("minishell");
+			perror("-minishell");
 			exit(ENOMEM);
 		}
 		i++;
