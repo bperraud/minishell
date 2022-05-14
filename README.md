@@ -1,6 +1,6 @@
 # 42 minishell
 ## Installation
-This minishell uses GNU readline. It was tested with version 8.1 and might not work on earlier versions.
+This minishell uses GNU readline. It was tested with version 8.1 and might not work on earlier versions.  
 To install it on schools' Mac, install homebrew, and then readline.  
 ```
 rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo 'export PATH=$HOME/.brew/bin:$PATH' >> $HOME/.zshrc && source $HOME/.zshrc && brew update
