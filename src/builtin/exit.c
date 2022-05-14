@@ -17,12 +17,25 @@ void	ft_exit(t_cmd *cmd)
 	cmd->fd_in = EXIT_CODE;
 }
 
-void	try_exit(t_cmd *cmd, char *str)
+void	try_exit(t_cmd *command, char *str)
 {
-	if (cmd->fd_in == EXIT_CODE)
+	int		arg;
+	char	**cmd;
+
+	arg = 0;
+	if (command->fd_in != EXIT_CODE)
+		return ;
+	cmd = command->cmd;
+	while (cmd[arg])
+		arg++;
+	if (arg > 2)
 	{
-		free_t_cmd(cmd);
-		free(str);
-		exit (g_error);
+		prompt_error("exit", "too many arguments\n");
+		return ;
 	}
+	free_t_cmd(command);
+	free(str);
+	if (arg == 2)
+		exit (ft_atoi(cmd[1]));
+	exit (g_error);
 }
