@@ -13,6 +13,7 @@
 #ifndef PARSING_H
 # define PARSING_H
 # include "utils.h"
+# include <dirent.h>
 
 enum e_mode
 {
@@ -71,5 +72,11 @@ int		check_syntax(char *str);
 /* parsing utils */
 char	*file_error(void);
 void	cmd_list_add_char(t_cmd *cmd, t_split *split, char *s);
+/* wildcards */
+void	expand_wildcards(char *prefix, char *suffix, t_cmd *cmd);
+void	handle_wildcards(t_cmd *cmd);
+int		get_next_star_index(char *str);
+char	**get_exp_list(char *start, char *end);
+char	**lst_del(char **lst, int n);
 
 #endif

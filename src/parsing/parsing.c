@@ -117,5 +117,6 @@ char	*get_next_cmd(char *s, char **env, t_cmd *cmd)
 	cmd->cmd = add_string(cmd->cmd, split->word);
 	if (s)
 		s = handle_operator(cmd, s);
+	handle_wildcards(cmd);
 	return (free_and_dup(split, s_ini, s));
 }
