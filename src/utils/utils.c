@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:40:34 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/15 00:44:51 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/15 22:17:16 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_strndup(char *src, int n)
 {
 	char	*dst;
 
-	dst = smalloc ((n + 1) * sizeof(char));
+	dst = smalloc((n + 1) * sizeof(char));
 	ft_strlcpy(dst, src, n + 1);
 	return (dst);
 }
@@ -25,7 +25,7 @@ void	*smalloc(size_t n_bytes)
 {
 	void	*data;
 
-	data = malloc (n_bytes);
+	data = malloc(n_bytes);
 	if (!data)
 	{
 		perror("-minishell");

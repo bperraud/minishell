@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:20:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/15 00:30:04 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/15 22:34:12 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	**env_unset(char *var, char **env)
 	return (new_env);
 }
 
-char	**env_add(char **env, char *str)
+char	**env_add(char *str, char **env)
 {
 	char	**new_env;
 	int		i;

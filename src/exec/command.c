@@ -81,22 +81,13 @@ void	extern_cmd(t_cmd *command, char **envp)
 	g_error = status;
 }
 
-static int	is_directory(const char *path)
-{
-	struct stat	statbuf;
-
-	if (stat(path, &statbuf) != 0)
-		return 0;
-	return S_ISDIR(statbuf.st_mode);
-}
-
 void	ft_executable(char **cmd, char	**envp)
 {
 	int	status;
 	int	access;
 
 	status = 0;
-	access = test_access(cmd[0], READ) ;
+	access = test_access(cmd[0], READ);
 	if (access == NOT_EXECUTABLE || access == FILE_ERROR)
 		return ;
 	if (is_directory(cmd[0]))
