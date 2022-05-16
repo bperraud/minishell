@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/16 04:00:20 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/16 04:01:39 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,7 @@ t_cmd*	first_cmd(void)
 	t_cmd	*cmd;
 
 	cmd = smalloc(sizeof(t_cmd));
-	cmd->fd_in = 0;
-	cmd->fd_out = 1;
-	cmd->here_doc = NULL;
 	cmd->mode = AND;
-	cmd->cmd = NULL;
 	return (cmd);
 }
 
