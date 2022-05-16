@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/16 04:01:39 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/16 12:59:42 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static char	**command(t_cmd *cmd, char **envp)
 	if ((cmd->prev_cmd == AND && !g_error)
 		|| (cmd->prev_cmd == OR && g_error))
 		return (launch_cmd(cmd, envp));
+	if (cmd->prev_cmd == OR && !g_error)
+		g_error = -1;
 	return (envp);
 }
 
