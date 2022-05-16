@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/15 22:15:25 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/16 14:33:16 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		start_shell(env, NULL);
 	}
-	if (argc == 3 && ft_strncmp(argv[1], "-c", 3) == 0)
+	if (argc == 4 && ft_strncmp(argv[1], "-c", 3) == 0)
 	{
 		start_shell(env, argv[2]);
 	}

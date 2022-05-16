@@ -12,6 +12,16 @@
 
 #include "minishell.h"
 
+char	**command(t_cmd *cmd, char **envp)
+{
+	if ((cmd->prev_cmd == AND && !g_error)
+		|| (cmd->prev_cmd == OR && g_error))
+		return (launch_cmd(cmd, envp));
+	if (cmd->prev_cmd == OR && !g_error)
+		g_error = -1;
+	return (envp);
+}
+
 void	exec_cmd(char **cmd_arg, char **envp)
 {
 	int		i;
@@ -39,7 +49,7 @@ void	exec_cmd(char **cmd_arg, char **envp)
 char	**launch_cmd(t_cmd *command, char **envp)
 {
 	if (!ft_strcmp(command->cmd[0], "cd"))
-		change_directory(command->cmd, envp);
+		return (change_directory(command->cmd, envp));
 	else if (!ft_strcmp(command->cmd[0], "echo"))
 		echo(command->cmd);
 	else if (!ft_strcmp(command->cmd[0], "export"))

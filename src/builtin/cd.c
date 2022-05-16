@@ -28,20 +28,21 @@ static void	one_arg(char **cmd, char **env)
 		chdir(cmd[1]);
 }
 
-static void	end_dir(char *start_dir, char **env)
+static char**	end_dir(char *start_dir, char **env)
 {
 	int		has_cd;
-	//char	*str;
+	char	*str;
 
 	has_cd = (ft_strcmp(start_dir, getcwd(NULL, 0)) != 0);
 	if (has_cd)
 	{
 		env_unset("OLDPWD", env);
-		//str = ft_strjoin("OLDPWD=", getcwd(NULL, 0));
-		//export(str, env);
-		//free(str);
+		str = ft_strjoin("OLDPWD=", start_dir);
+		env = env_add(str, env);
+		free(str);
 	}
 	g_error = !has_cd;
+	return (env);
 }
 
 static int	wrong_dir(char **cmd)
@@ -63,7 +64,7 @@ static int	wrong_dir(char **cmd)
 	return (0);
 }
 
-void	change_directory(char **cmd, char **env)
+char**	change_directory(char **cmd, char **env)
 {
 	int		arg;
 	char	*start_dir;
@@ -75,7 +76,7 @@ void	change_directory(char **cmd, char **env)
 	if (arg > 2)
 	{
 		prompt_error("cd", "too many arguments\n");
-		return ;
+		return (env);
 	}
 	else if (arg == 1 || !ft_strcmp(cmd[1], "~"))
 	{
@@ -83,10 +84,10 @@ void	change_directory(char **cmd, char **env)
 			chdir(ft_getenv("HOME", env));
 		else
 			prompt_error("cd", "HOME not set\n");
-		return ;
+		return (env);
 	}
 	if (wrong_dir(cmd) == -1)
-		return ;
+		return (env);
 	one_arg(cmd, env);
-	end_dir(start_dir, env);
+	return (end_dir(start_dir, env));
 }

@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 19:06:45 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/13 21:05:06 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/16 13:22:46 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef struct s_cmd		t_cmd;
 
-void	change_directory(char **cmd, char **env);
+char	**change_directory(char **cmd, char **env);
 void	echo(char **cmd);
 char	**export(char *cmd, char **env);
 char	**unset(char *var, char **env);

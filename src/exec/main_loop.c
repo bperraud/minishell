@@ -6,21 +6,11 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/16 12:59:42 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/16 16:49:33 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	**command(t_cmd *cmd, char **envp)
-{
-	if ((cmd->prev_cmd == AND && !g_error)
-		|| (cmd->prev_cmd == OR && g_error))
-		return (launch_cmd(cmd, envp));
-	if (cmd->prev_cmd == OR && !g_error)
-		g_error = -1;
-	return (envp);
-}
 
 static void	restore_std(int save_in, int save_out)
 {
@@ -28,7 +18,7 @@ static void	restore_std(int save_in, int save_out)
 	dup2(save_out, STDOUT);
 }
 
-t_cmd*	first_cmd(void)
+static t_cmd*	first_cmd(void)
 {
 	t_cmd	*cmd;
 
@@ -46,6 +36,8 @@ static char	**sh(char *str, char **envp, int save_in, int save_out)
 	{
 		cmd = init_cmd(cmd->mode);
 		str = get_next_cmd(str, envp, cmd);
+		if (cmd->cmd[0][0] == '(')
+			subshell(&str, envp, &cmd);
 		if (!str || !cmd->cmd)
 		{
 			free_t_cmd(cmd);
