@@ -60,7 +60,7 @@ void	pipe_cmd(char **str, char **envp, t_cmd **cmd)
 	while ((*cmd)->mode == PIPE)
 	{
 		add_back(&list_cmd, *cmd);
-		*cmd = init_cmd();
+		*cmd = init_cmd(AND);
 		*str = get_next_cmd(*str, envp, *cmd);
 	}
 	multiple_cmd(list_cmd, envp);

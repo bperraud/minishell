@@ -6,16 +6,16 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/13 21:19:30 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/16 04:00:20 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**command(t_cmd *cmd, int prev_cmd_mode, char **envp)
+static char	**command(t_cmd *cmd, char **envp)
 {
-	if ((prev_cmd_mode == AND && !g_error)
-		|| (prev_cmd_mode == OR && g_error))
+	if ((cmd->prev_cmd == AND && !g_error)
+		|| (cmd->prev_cmd == OR && g_error))
 		return (launch_cmd(cmd, envp));
 	return (envp);
 }
@@ -26,15 +26,27 @@ static void	restore_std(int save_in, int save_out)
 	dup2(save_out, STDOUT);
 }
 
+t_cmd*	first_cmd(void)
+{
+	t_cmd	*cmd;
+
+	cmd = smalloc(sizeof(t_cmd));
+	cmd->fd_in = 0;
+	cmd->fd_out = 1;
+	cmd->here_doc = NULL;
+	cmd->mode = AND;
+	cmd->cmd = NULL;
+	return (cmd);
+}
+
 static char	**sh(char *str, char **envp, int save_in, int save_out)
 {
 	t_cmd	*cmd;
-	int		prev_cmd_mode;
 
-	prev_cmd_mode = AND;
+	cmd = first_cmd();
 	while (*str)
 	{
-		cmd = init_cmd();
+		cmd = init_cmd(cmd->mode);
 		str = get_next_cmd(str, envp, cmd);
 		if (!str || !cmd->cmd)
 		{
@@ -43,8 +55,7 @@ static char	**sh(char *str, char **envp, int save_in, int save_out)
 		}
 		if (cmd->mode == PIPE)
 			pipe_cmd(&str, envp, &cmd);
-		envp = command(cmd, prev_cmd_mode, envp);
-		prev_cmd_mode = cmd->mode;
+		envp = command(cmd, envp);
 		restore_std(save_in, save_out);
 		try_exit(cmd, str);
 		free_t_cmd(cmd);

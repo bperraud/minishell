@@ -31,7 +31,7 @@ static void	one_arg(char **cmd, char **env)
 static void	end_dir(char *start_dir, char **env)
 {
 	int		has_cd;
-	char	*str;
+	//char	*str;
 
 	has_cd = (ft_strcmp(start_dir, getcwd(NULL, 0)) != 0);
 	if (has_cd)
