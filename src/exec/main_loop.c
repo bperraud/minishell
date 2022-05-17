@@ -6,60 +6,61 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/12 02:35:30 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/13 21:19:30 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**command(t_cmd *cmd, t_cmd *prev_cmd, char **envp)
+static char	**command(t_cmd *cmd, int prev_cmd_mode, char **envp)
 {
-	if ((prev_cmd->mode == AND && !prev_cmd->exit_value)
-		|| (prev_cmd->mode == OR && prev_cmd->exit_value))
+	if ((prev_cmd_mode == AND && !g_error)
+		|| (prev_cmd_mode == OR && g_error))
 		return (launch_cmd(cmd, envp));
-	return (NULL);
+	return (envp);
 }
 
-char	**sh(char *str, char **envp)
+static void	restore_std(int save_in, int save_out)
 {
-	t_cmd		*cmd;
-	t_cmd		*prev_cmd;
-	t_list_cmd	*list_cmd;
+	dup2(save_in, STDIN);
+	dup2(save_out, STDOUT);
+}
 
-	prev_cmd = init_cmd();
-	prev_cmd->exit_value = 0;
-	prev_cmd->mode = AND;
+static char	**sh(char *str, char **envp, int save_in, int save_out)
+{
+	t_cmd	*cmd;
+	int		prev_cmd_mode;
+
+	prev_cmd_mode = AND;
 	while (*str)
 	{
 		cmd = init_cmd();
 		str = get_next_cmd(str, envp, cmd);
 		if (!str || !cmd->cmd)
 		{
-			free_t_cmd(prev_cmd);
 			free_t_cmd(cmd);
 			return (envp);
 		}
 		if (cmd->mode == PIPE)
-		{
-			list_cmd = init_list();
-			while (cmd->mode == PIPE)
-			{
-				add_back(&list_cmd, cmd);
-				cmd = init_cmd();
-				str = get_next_cmd(str, envp, cmd);
-			}
-			print_cmd(list_cmd);
-			multiple_cmd(list_cmd, envp);
-			free_list_cmd(list_cmd);
-		}
-		envp = command(cmd, prev_cmd, envp);
-		free_t_cmd(prev_cmd);
-		prev_cmd = cmd;
+			pipe_cmd(&str, envp, &cmd);
+		envp = command(cmd, prev_cmd_mode, envp);
+		prev_cmd_mode = cmd->mode;
+		restore_std(save_in, save_out);
+		try_exit(cmd, str);
+		free_t_cmd(cmd);
 	}
-	free_t_cmd(prev_cmd);
 	free(str);
-	//exit(EXIT_SUCCESS);		// sans cette ligne -> segfault ft_strncmp()
 	return (envp);
+}
+
+static char	**set_up_sh(char *str, char **envp)
+{
+	int		save_in;
+	int		save_out;
+
+	save_in = dup(0);
+	save_out = dup(1);
+	return (sh(str, envp, save_in, save_out));
 }
 
 void	start_shell(char **envp, char *str_c)
@@ -73,20 +74,16 @@ void	start_shell(char **envp, char *str_c)
 		if (!str_c)
 		{
 			printf("exit status = %i\n", g_error);
+			g_error = 0;
 			str = readline(print_prompt(error_to_color()));
 			if (!str)
 				break ;
 		}
 		else
 			str = ft_strndup(str_c, ft_strlen(str_c));
-		if (!ft_strncmp(str, "exit", 5))
-		{
-			free(str);
-			break ;
-		}
 		add_history(str);
 		if (!check_syntax(str))
-			envp = sh(str, envp);
+			envp = set_up_sh(str, envp);
 		if (str_c)
 			exit (g_error);
 	}

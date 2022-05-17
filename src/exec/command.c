@@ -32,7 +32,7 @@ void	exec_cmd(char **cmd_arg, char **envp)
 		free(cmd);
 	}
 	printf("-minishell: %s : command not found\n", cmd_arg[0]);
-	exit(FILE_ERROR);
+	exit (COMMAND_NOT_FOUND);
 }
 
 /* redirect to appropriate function for a cmd */
@@ -51,7 +51,9 @@ char	**launch_cmd(t_cmd *command, char **envp)
 	else if (!ft_strcmp(command->cmd[0], "pwd"))
 		pwd();
 	else if (!ft_strcmp(command->cmd[0], "exit"))
-		ft_exit();
+		ft_exit(command);
+	else if (!ft_strncmp(command->cmd[0], "./", 2))
+		ft_executable(command->cmd, envp);
 	else
 		extern_cmd(command, envp);
 	return (envp);
@@ -62,8 +64,11 @@ void	extern_cmd(t_cmd *command, char **envp)
 {
 	int	status;
 
+	status = 0;
 	if (!fork())
 	{
+		if (ft_strlen(command->here_doc))
+			dup_close(here_doc(command->here_doc), 0);
 		if (command->fd_in != 0)
 			dup_close(command->fd_in, 0);
 		if (command->fd_out != 1)
@@ -71,4 +76,7 @@ void	extern_cmd(t_cmd *command, char **envp)
 		exec_cmd(command->cmd, envp);
 	}
 	waitpid(-1, &status, 0);
+	if (ft_strlen(command->here_doc))
+		unlink(HERE_DOC);
+	g_error = status;
 }

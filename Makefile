@@ -4,7 +4,7 @@ SRCS		= minishell.c test.c signals.c \
 			  parsing/parsing.c parsing/init.c parsing/redirections.c parsing/operators.c \
 			  parsing/error.c parsing/parsing_utils.c parsing/wildcards.c parsing/wildcards_utils.c \
 			  pipex/files.c pipex/pipex.c pipex/utils_pipex.c pipex/list_cmd.c \
-			  exec/command.c exec/main_loop.c \
+			  exec/command.c exec/main_loop.c exec/executable.c \
 			  builtin/cd.c builtin/echo.c builtin/export.c builtin/unset.c builtin/env.c builtin/pwd.c builtin/exit.c
 
 SRCS		:= $(addprefix src/,$(SRCS))
@@ -13,8 +13,7 @@ NAME		= minishell
 CC			= gcc
 MAKE		= make
 RM			= rm -f
-# CFLAGS		+= -Wall -Wextra -Werror -Iinclude -Ilibft/include
-CFLAGS		+= -Iinclude -Ilibft/include
+CFLAGS		+= -Wall -Wextra -Werror -Iinclude -Ilibft/include
 LFLAGS		+= -lreadline libft/libft.a
 
 $(NAME):		$(OBJS)

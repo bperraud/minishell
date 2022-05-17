@@ -1,6 +1,6 @@
 # 42 minishell
 ## Installation
-This minishell uses GNU readline. Old builds of readline might cause line wrapping bugs (before 8.1).  
+This minishell uses GNU readline. It was tested with version 8.1 and might not work on earlier versions.  
 To install it on schools' Mac, install homebrew, and then readline.  
 ```
 rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo 'export PATH=$HOME/.brew/bin:$PATH' >> $HOME/.zshrc && source $HOME/.zshrc && brew update
@@ -11,19 +11,15 @@ Then, export header and lib files to compilation and linking flags.
 export CFLAGS="-I/Users/$USER/.brew/opt/readline/include"
 export LFLAGS="-L/Users/$USER/.brew/opt/readline/lib"
 ```
-Then, just compile and run
+Compile and run
 ```
 make
 ./minishell
 ```
 ## TODO
-- Relative or absolute path for executable (in get_path() function)
-- Pipes
 - Implement error codes after execution
-- Builtins
 - Wildcards
 - Handle parenthesis on execution
-- Here doc
 - Finish
 	- Norme
 	- Tests (with error codes)

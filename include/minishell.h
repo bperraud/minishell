@@ -22,8 +22,8 @@
 # include <signal.h>
 # include <termios.h>
 
-# define STDIN 1
-# define STDOUT 2
+# define STDIN 0
+# define STDOUT 1
 
 extern int	g_error;
 
@@ -31,6 +31,7 @@ enum e_error
 {
 	FILE_ERROR = 1,
 	COMMAND_NOT_FOUND = 127,
+	NOT_EXECUTABLE = 126,
 	SYNTAX_ERROR = 258
 };
 

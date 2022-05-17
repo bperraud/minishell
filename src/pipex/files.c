@@ -16,7 +16,7 @@ int	open_file(char *file)
 {
 	if (access(file, F_OK) == -1)
 	{
-		perror("minishell");
+		perror("-minishell");
 		return (-1);
 	}
 	return (open(file, O_RDONLY));
@@ -61,7 +61,7 @@ int	here_doc(char *limiter)
 	char	*buf;
 
 	len_limiter = ft_strlen(limiter);
-	f1 = open(FILE_NAME, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	f1 = open(HERE_DOC, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	while (1)
 	{
 		write(STDIN_FILENO, "> ", 2);
@@ -73,6 +73,6 @@ int	here_doc(char *limiter)
 			break ;
 	}
 	close(f1);
-	f1 = open_file(FILE_NAME);
+	f1 = open_file(HERE_DOC);
 	return (f1);
 }
