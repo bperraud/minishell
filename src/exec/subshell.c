@@ -12,17 +12,21 @@
 
 # include "minishell.h"
 
-void	subshell(char **str, char **envp, t_cmd **cmd)
+void	subshell(t_cmd **cmd, char **envp)
 {
-	//char	*parentheses;
+	char	**sh;
+	int		i;
 
-	(*cmd)->cmd[0] = ft_substr((*cmd)->cmd[0], 1, ft_strlen((*cmd)->cmd[0]));
-	printf("str1: %s\n", str);
-	while ((*cmd)->cmd[ft_strlen((*cmd)->cmd)][ft_strlen((*cmd)->cmd)] != ')')
-	{
-		//str = ft_strjoin(str, (*cmd)->cmd);
-		*cmd = init_cmd(AND);
-		*str = get_next_cmd(*str, envp, *cmd);
-		printf("cmd : %s\n", (*cmd)->cmd[0]);
-	}
+	sh = malloc(4 * sizeof(char*));
+	sh[0] = ft_strdup("./minishell");
+	sh[1] = ft_strdup("-c");
+	sh[2] = ft_substr((*cmd)->cmd[0], 1, ft_strlen((*cmd)->cmd[0]) - 2);	//pas - 1 ?
+
+	printf("%s\n", sh[2]);
+	sh[3] = NULL;
+	ft_executable(sh, envp);
+	i = 0;
+	while(sh[i])
+		free(sh[i++]);
+	free(sh);
 }

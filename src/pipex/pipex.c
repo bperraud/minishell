@@ -20,6 +20,7 @@ void	pipex(t_cmd *command, char **envp)
 	char	**cmd;
 
 	cmd = command->cmd;
+	status = 0;
 	if (pipe(pipe_fd) < 0)
 		exit(EXIT_FAILURE);
 	pipe(pipe_fd);
@@ -38,7 +39,7 @@ void	pipex(t_cmd *command, char **envp)
 		dup2(pipe_fd[1], 1);
 		exec_cmd(cmd, envp);
 	}
-	g_error = status;
+	g_error = WEXITSTATUS(status);
 }
 
 void	multiple_cmd(t_list_cmd *list_cmd, char **envp)
