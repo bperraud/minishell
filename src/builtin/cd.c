@@ -28,7 +28,7 @@ static void	one_arg(char **cmd, char **env)
 		chdir(cmd[1]);
 }
 
-static char**	end_dir(char *start_dir, char **env)
+static char	**end_dir(char *start_dir, char **env)
 {
 	int		has_cd;
 	char	*str;
@@ -64,7 +64,7 @@ static int	wrong_dir(char **cmd)
 	return (0);
 }
 
-char**	change_directory(char **cmd, char **env)
+char	**change_directory(char **cmd, char **env)
 {
 	int		arg;
 	char	*start_dir;

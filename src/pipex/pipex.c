@@ -17,9 +17,7 @@ void	pipex(t_cmd *command, char **envp)
 	pid_t	pid;
 	int		pipe_fd[2];
 	int		status;
-	char	**cmd;
 
-	cmd = command->cmd;
 	status = 0;
 	if (pipe(pipe_fd) < 0)
 		exit(EXIT_FAILURE);
@@ -37,7 +35,7 @@ void	pipex(t_cmd *command, char **envp)
 		close(pipe_fd[0]);
 		command->fd_out = pipe_fd[1];
 		dup2(pipe_fd[1], 1);
-		exec_cmd(cmd, envp);
+		exec_cmd(command->cmd, envp);
 	}
 	g_error = WEXITSTATUS(status);
 }

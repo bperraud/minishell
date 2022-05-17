@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/17 16:38:17 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/17 21:14:48 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	restore_std(int save_in, int save_out)
 	dup2(save_out, STDOUT);
 }
 
-static t_cmd*	first_cmd(void)
+static t_cmd	*first_cmd(void)
 {
 	t_cmd	*cmd;
 
