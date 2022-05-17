@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 13:40:41 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/13 13:40:42 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/05/16 03:49:13 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_split	*init_split(void)
 	return (split);
 }
 
-t_cmd	*init_cmd(void)
+t_cmd	*init_cmd(int prev_cmd)
 {
 	t_cmd	*cmd;
 
@@ -44,5 +44,6 @@ t_cmd	*init_cmd(void)
 	cmd->here_doc = NULL;
 	cmd->mode = NONE;
 	cmd->cmd = NULL;
+	cmd->prev_cmd = prev_cmd;
 	return (cmd);
 }

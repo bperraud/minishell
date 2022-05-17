@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 10:55:41 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/11 10:55:43 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/05/15 00:29:55 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*file_error(void)
 {
-	perror("minishell");
+	perror("-minishell");
 	g_error = FILE_ERROR;
 	return (NULL);
 }

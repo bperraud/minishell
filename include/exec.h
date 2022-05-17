@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 08:55:02 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/13 21:19:49 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:42:49 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define EXEC_H
 
 typedef struct s_cmd	t_cmd;
+
+/* subshell */
+void	subshell(t_cmd **cmd, char **envp);
+
+char	**command(t_cmd *cmd, char **envp);
 
 /* exec */
 char	**launch_cmd(t_cmd *command, char **envp);

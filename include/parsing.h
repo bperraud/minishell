@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 08:54:56 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/12 23:32:18 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/16 03:49:20 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_cmd
 	char			*here_doc;
 	int				mode;
 	char			**cmd;
+	int				prev_cmd;
 }				t_cmd;
 
 typedef struct s_error
@@ -61,7 +62,7 @@ char	*handle_out_redirections(t_cmd *cmd, t_split *split, char *s_orig);
 /* init */
 t_error	*init_error(void);
 t_split	*init_split(void);
-t_cmd	*init_cmd(void);
+t_cmd	*init_cmd(int prev_cmd);
 char	*get_next_cmd(char *s, char **env, t_cmd *cmd);
 /* free */
 void	free_t_cmd(t_cmd *cmd);

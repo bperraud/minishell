@@ -12,30 +12,82 @@
 
 #include "minishell.h"
 
-void	change_directory(char **cmd, char **env)
+static void	one_arg(char **cmd, char **env)
+{
+	char	*old_pwd;
+
+	if (!ft_strcmp(cmd[1], "-"))
+	{
+		old_pwd = ft_getenv("OLDPWD", env);
+		if (old_pwd)
+			chdir(old_pwd);
+		else
+			prompt_error("cd", "OLDPWD not set\n");
+	}
+	else
+		chdir(cmd[1]);
+}
+
+static char	**end_dir(char *start_dir, char **env)
+{
+	int		has_cd;
+	char	*str;
+
+	has_cd = (ft_strcmp(start_dir, getcwd(NULL, 0)) != 0);
+	if (has_cd)
+	{
+		env_unset("OLDPWD", env);
+		str = ft_strjoin("OLDPWD=", start_dir);
+		env = env_add(str, env);
+		free(str);
+	}
+	g_error = !has_cd;
+	return (env);
+}
+
+static int	wrong_dir(char **cmd)
+{
+	char	*str;
+
+	if (!ft_strcmp(cmd[1], "-"))
+		return (0);
+	if (test_access(cmd[1], READ) == 1)
+		return (-1);
+	if (!is_directory(cmd[1]))
+	{
+		str = ft_strjoin("cd: ", cmd[1]);
+		prompt_error(str, "Not a directory\n");
+		free(str);
+		g_error = FILE_ERROR;
+		return (-1);
+	}
+	return (0);
+}
+
+char	**change_directory(char **cmd, char **env)
 {
 	int		arg;
-	char	*home_dir;
 	char	*start_dir;
 
 	start_dir = getcwd(NULL, 0);
 	arg = 0;
 	while (cmd[arg])
 		arg++;
-	if (arg > 3)
+	if (arg > 2)
 	{
-		printf("minishell: cd: too many arguments\n");
-		return ;
+		prompt_error("cd", "too many arguments\n");
+		return (env);
 	}
-	else if (arg == 1)
+	else if (arg == 1 || !ft_strcmp(cmd[1], "~"))
 	{
-		home_dir = ft_getenv("HOME", env);
-		if (home_dir)
+		if (ft_getenv("HOME", env))
 			chdir(ft_getenv("HOME", env));
 		else
-			printf("minishell: cd: HOME not set\n");
+			prompt_error("cd", "HOME not set\n");
+		return (env);
 	}
-	else
-		chdir(cmd[1]);
-	g_error = ft_strcmp(start_dir, getcwd(NULL, 0)) == 0;
+	if (wrong_dir(cmd) == -1)
+		return (env);
+	one_arg(cmd, env);
+	return (end_dir(start_dir, env));
 }
