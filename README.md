@@ -17,6 +17,7 @@ make
 ./minishell
 ```
 ## TODO
+- Error (ls && ls) et espace avant parenthese -> parsing error
 - Implement error codes after execution
 - Wildcards
 - Handle parenthesis on execution
