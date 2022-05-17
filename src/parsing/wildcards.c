@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	expand_wildcards(char *prefix, char *suffix, t_cmd *cmd)
+bool	expand_wildcards(char *prefix, char *suffix, t_cmd *cmd)
 {
 	int		i;
 	int		j;
@@ -20,39 +20,50 @@ void	expand_wildcards(char *prefix, char *suffix, t_cmd *cmd)
 	char	*suffix_next;
 	char	*tmp;
 	char	**exp_list;
+	bool	replaced;
 
-	int	occ = 0;
+	replaced = false;
+	static int	occ = 0;
 	printf("%d: prefix:%s suffix:%s\n", occ++, prefix, suffix);
-	if (!prefix) // 1er appel
+	if (!prefix && suffix) // 1er appel
 	{
 		i = get_next_star_index(suffix);
 		prefix_next = ft_strndup(suffix, i);
 		suffix_next = ft_strndup(suffix + i, ft_strlen(suffix) - i);
 		free(suffix);
-		expand_wildcards(prefix_next, suffix_next, cmd);
+		replaced = expand_wildcards(prefix_next, suffix_next, cmd);
 	}
 	else if (suffix && *suffix) // n-appel
 	{	
 		i = get_next_star_index(suffix + 1);
-		tmp = ft_strndup(suffix + 1, i);
+		tmp = ft_strndup(suffix + 1, i + 1);
 		exp_list = get_exp_list(prefix, tmp);
 		j = 0;
-		while (exp_list[j])
+		while (exp_list && exp_list[j])
 		{
 			prefix_next = ft_strndup(exp_list[j], ft_strlen(exp_list[j]));
 			suffix_next = ft_strndup(suffix + i + 1, ft_strlen(suffix) - i - 1);
-			expand_wildcards(prefix_next, suffix_next, cmd);
+			replaced = expand_wildcards(prefix_next, suffix_next, cmd);
 			j++;
 		}
-		free_str_list(exp_list);
+		if (!exp_list)
+		{
+			replaced = expand_wildcards(NULL, NULL, cmd);
+		}
 		free(tmp);
 		free(suffix);
 		free(prefix);
+		free_str_list(exp_list);
 	}
 	else // dernier appel
 	{
-		cmd->cmd = add_string(cmd->cmd, prefix);
+		if (prefix)
+		{
+			cmd->cmd = add_string(cmd->cmd, prefix);
+			replaced = true;
+		}
 	}
+	return (replaced);
 }
 
 void	handle_wildcards(t_cmd *cmd)
@@ -68,8 +79,8 @@ void	handle_wildcards(t_cmd *cmd)
 		if (ft_strchr(cmd->cmd[i], '*'))
 		{
 			suffix = ft_strndup(cmd->cmd[i], ft_strlen(cmd->cmd[i]));
-			cmd->cmd = lst_del(cmd->cmd, i);
-			expand_wildcards(NULL, suffix, cmd);
+			if (expand_wildcards(NULL, suffix, cmd))
+				cmd->cmd = lst_del(cmd->cmd, i);
 		}
 		i++;
 	}

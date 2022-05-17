@@ -98,6 +98,7 @@ char	**env_add(char **env, char *str)
 	}
 	new_env[i] = ft_strndup(str, ft_strlen(str));
 	new_env[i + 1] = NULL;
+	free_str_list(env);
 	return (new_env);
 }
 

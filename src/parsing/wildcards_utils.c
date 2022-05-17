@@ -12,6 +12,18 @@
 
 #include "minishell.h"
 
+int	get_nb_star(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] == '*')
+	{
+		i++;
+	}
+	return (i);
+}
+
 char	**lst_del(char **lst, int n)
 {
 	int		i;
@@ -85,6 +97,9 @@ static bool	is_expand(char *str, char *start, char *end)
 	int	i;
 	int	j;
 
+	printf("start:%s ", start);
+	printf("end:%s ", end);
+	printf("str:%s\n", str);
 	if (ft_strlen(str) < ft_strlen(start) + ft_strlen(end))
 		return (false);
 	i = 0;
@@ -94,14 +109,16 @@ static bool	is_expand(char *str, char *start, char *end)
 			return (false);
 		i++;
 	}
-	i = ft_strlen(str) - 1;
-	j = ft_strlen(end) - 1;
-	while (j >= 0)
+	i = ft_strlen(str) - ft_strlen(end);
+	j = 0;
+	while (j < ft_strlen(end))
 	{
+		if (end[j] == '*')
+			return (true);
 		if (end[j] != str[i])
 			return (false);
-		i--;
-		j--;
+		i++;
+		j++;
 	}
 	return (true);
 }
