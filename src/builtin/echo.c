@@ -47,4 +47,5 @@ void	echo(char **cmd)
 	}
 	if (!option)
 		ft_putstr_fd("\n", 1);
+	g_error = 0;
 }

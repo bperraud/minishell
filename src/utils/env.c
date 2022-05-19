@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:20:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/15 22:34:12 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/19 20:29:25 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ char	*ft_getenv(char *str, char **env)
 
 	i = 0;
 	if (ft_strcmp(str, "?") == 0)
+	{
+		printf("exit error :%s\n", ft_itoa(g_error));
 		return (ft_itoa(g_error));
+	}
 	while (env[i])
 	{
 		if (env_var_name_cmp(env[i], str))

@@ -17,7 +17,7 @@ void	ft_exit(t_cmd *cmd)
 	cmd->fd_in = EXIT_CODE;
 }
 
-void	try_exit(t_cmd *command, char *str)
+void	try_exit(t_cmd *command, char *str, char **envp)
 {
 	int		arg;
 	char	**cmd;
@@ -35,7 +35,8 @@ void	try_exit(t_cmd *command, char *str)
 	}
 	free_t_cmd(command);
 	free(str);
+	free_str_list(envp);
 	if (arg == 2)
-		exit (ft_atoi(cmd[1]));
-	exit (g_error);
+		g_error = ft_atoi(cmd[1]);
+	exit(g_error);
 }

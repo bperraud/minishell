@@ -18,7 +18,7 @@ char	**command(t_cmd *cmd, char **envp)
 		|| (cmd->prev_cmd == OR && g_error))
 		return (launch_cmd(cmd, envp));
 	if (cmd->prev_cmd == OR && !g_error)
-		g_error = -1;
+		g_error = OR_MODE_ERROR;
 	return (envp);
 }
 
@@ -42,7 +42,7 @@ void	exec_cmd(char **cmd_arg, char **envp)
 		free(cmd);
 	}
 	prompt_error(cmd_arg[0], "command not found\n");
-	exit (COMMAND_NOT_FOUND);
+	exit(COMMAND_NOT_FOUND);
 }
 
 /* redirect to appropriate function for a cmd */
