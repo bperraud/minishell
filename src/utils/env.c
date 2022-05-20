@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:20:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/19 20:29:25 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/20 17:11:39 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ char	*ft_getenv(char *str, char **env)
 	i = 0;
 	if (ft_strcmp(str, "?") == 0)
 	{
-		printf("exit error :%s\n", ft_itoa(g_error));
+		if (g_error == OR_MODE_ERROR)
+			return (ft_itoa(g_error + 1));
 		return (ft_itoa(g_error));
 	}
 	while (env[i])

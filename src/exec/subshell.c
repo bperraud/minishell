@@ -15,7 +15,6 @@
 void	subshell(t_cmd **cmd, char **envp)
 {
 	char	**sh;
-	int		i;
 
 	sh = malloc(4 * sizeof(char *));
 	sh[0] = ft_strdup("./minishell");
@@ -23,8 +22,6 @@ void	subshell(t_cmd **cmd, char **envp)
 	sh[2] = ft_substr((*cmd)->cmd[0], 1, ft_strlen((*cmd)->cmd[0]) - 2);
 	sh[3] = NULL;
 	ft_executable(sh, envp);
-	i = 0;
-	while (sh[i])
-		free(sh[i++]);
-	free(sh);
+	free_str_list(sh);
+	free_t_cmd(*cmd);
 }
