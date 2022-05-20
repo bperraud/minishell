@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 19:29:26 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/12 19:33:29 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/05/20 18:38:58 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,13 @@ static char	*handle_quotes_and_parenthesis(t_cmd *cmd, t_split *split, char *s)
 
 static char	*replace_env_var(char *s, char **env)
 {
+	char	*s1;
 	char	*s2;
 	char	*var;
 	int		i;
 	bool	squote;
 
-	s2 = NULL;
+	s1 = NULL;
 	i = 0;
 	squote = false;
 	while (s[i])
@@ -56,17 +57,19 @@ static char	*replace_env_var(char *s, char **env)
 		{
 			var = ft_strndup(s + i + 1, get_var_len(s + i + 1));
 			i += get_var_len(s + i + 1);
-			s2 = add_multiple_chars(s2, ft_getenv(var, env));
+			s2 = ft_getenv(var, env);
+			s1 = add_multiple_chars(s1, s2);
+			free(s2);
 			free(var);
 		}
 		else if (s[i] == '\'')
 			squote = (squote + 1) % 2;
 		else
-			s2 = add_char(s2, s[i]);
+			s1 = add_char(s1, s[i]);
 		i++;
 	}
 	free(s);
-	return (s2);
+	return (s1);
 }
 
 static char	*free_and_dup(t_split *split, char *s_ini, char *s)
