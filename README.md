@@ -17,6 +17,9 @@ make
 ./minishell
 ```
 ## TODO
+- 'export a=3 && echo $a'
+- ft_getenv leaks (pas possible de free)
+- 'export $a' -> Segmentation fault
 - Error (ls && ls) et espace avant parenthese -> parsing error
 - Implement error codes after execution
 - Wildcards
