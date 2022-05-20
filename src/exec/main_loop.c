@@ -6,13 +6,12 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/19 21:01:37 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/19 21:02:46 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//static void	restore_std(int save_in, int save_out)
 static void	restore_std(int fd_save[2])
 {
 	dup2(fd_save[0], STDIN);

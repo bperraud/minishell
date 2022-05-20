@@ -19,10 +19,12 @@ static void	one_arg(char **cmd, char **env)
 	if (!ft_strcmp(cmd[1], "-"))
 	{
 		old_pwd = ft_getenv("OLDPWD", env);
+		//free(old_pwd);
 		if (old_pwd)
 			chdir(old_pwd);
 		else
 			prompt_error("cd", "OLDPWD not set\n");
+		free(old_pwd);
 	}
 	else
 		chdir(cmd[1]);
@@ -32,15 +34,19 @@ static char	**end_dir(char *start_dir, char **env)
 {
 	int		has_cd;
 	char	*str;
+	char	*end_dir;
 
-	has_cd = (ft_strcmp(start_dir, getcwd(NULL, 0)) != 0);
+	end_dir = getcwd(NULL, 0);
+	has_cd = (ft_strcmp(start_dir, end_dir) != 0);
 	if (has_cd)
 	{
-		env_unset("OLDPWD", env);
+		//env = env_unset("OLDPWD", env);
 		str = ft_strjoin("OLDPWD=", start_dir);
 		env = env_add(str, env);
 		free(str);
 	}
+	free(end_dir);
+	free(start_dir);
 	g_error = !has_cd;
 	return (env);
 }
@@ -68,6 +74,7 @@ char	**change_directory(char **cmd, char **env)
 {
 	int		arg;
 	char	*start_dir;
+	char	*home;
 
 	start_dir = getcwd(NULL, 0);
 	arg = 0;
@@ -80,10 +87,12 @@ char	**change_directory(char **cmd, char **env)
 	}
 	else if (arg == 1 || !ft_strcmp(cmd[1], "~"))
 	{
-		if (ft_getenv("HOME", env))
-			chdir(ft_getenv("HOME", env));
+		home = ft_getenv("HOME", env);
+		if (home)
+			chdir(home);
 		else
 			prompt_error("cd", "HOME not set\n");
+		free(home);
 		return (env);
 	}
 	if (wrong_dir(cmd) == -1)
