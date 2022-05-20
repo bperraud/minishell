@@ -17,6 +17,8 @@ make
 ./minishell
 ```
 ## TODO
+- error dans les appels systèmes (pipe, fork etc)
+- deux unset de suite = leak
 - 'export a=3 && echo $a'
 - ft_getenv leaks (pas possible de free)
 - 'export $a' -> Segmentation fault
