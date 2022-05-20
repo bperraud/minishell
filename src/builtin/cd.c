@@ -19,7 +19,6 @@ static void	one_arg(char **cmd, char **env)
 	if (!ft_strcmp(cmd[1], "-"))
 	{
 		old_pwd = ft_getenv("OLDPWD", env);
-		//free(old_pwd);
 		if (old_pwd)
 			chdir(old_pwd);
 		else
@@ -40,7 +39,7 @@ static char	**end_dir(char *start_dir, char **env)
 	has_cd = (ft_strcmp(start_dir, end_dir) != 0);
 	if (has_cd)
 	{
-		//env = env_unset("OLDPWD", env);
+		env = env_unset("OLDPWD", env);
 		str = ft_strjoin("OLDPWD=", start_dir);
 		env = env_add(str, env);
 		free(str);

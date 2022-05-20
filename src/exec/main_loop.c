@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/19 21:02:46 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/20 11:48:15 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	start_shell(char **envp, char *str_c)
 		if (!str_c)
 		{
 			printf("exit status after line %i\n", g_error);
-			//free(str);
 			str = readline(print_prompt(error_to_color()));
 			if (!str)
 				break ;
