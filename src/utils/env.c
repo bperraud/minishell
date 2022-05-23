@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:20:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/23 02:35:37 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/23 16:16:40 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_getenv(char *str, char **env)
 			{
 				j++;
 			}
-			return (env[i] + j + 1);
+			return (ft_strdup(env[i] + j + 1));
 		}
 		i++;
 	}

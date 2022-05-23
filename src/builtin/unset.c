@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 19:05:11 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/20 21:12:13 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/23 16:21:49 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,14 @@
 
 char	**unset(char *var, char **env)
 {
-	if (!ft_getenv(var, env))
+	char	*str;
+
+	str = ft_getenv(var, env);
+	if (!str)
+	{
+		free(str);
 		return (env);
+	}
+	free(str);
 	return (env_unset(var, env));
 }
