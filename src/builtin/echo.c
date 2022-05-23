@@ -26,7 +26,6 @@ void	echo(char **cmd)
 {
 	int		i;
 	bool	option;
-	ssize_t	len;
 
 	option = false;
 	i = 0;

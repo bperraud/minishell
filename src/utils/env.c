@@ -65,11 +65,7 @@ char	**env_unset(char *var, char **env)
 	j = 0;
 	while (i < lst_len(env))
 	{
-		if (env_var_name_cmp(env[i], var))
-		{
-			free(env[i]);
-		}
-		else
+		if (!env_var_name_cmp(env[i], var))
 		{
 			new_env[j] = ft_strndup(env[i], ft_strlen(env[i]));
 			j++;
@@ -77,6 +73,7 @@ char	**env_unset(char *var, char **env)
 		i++;
 	}
 	new_env[j] = NULL;
+	free_str_list(env);
 	return (new_env);
 }
 
@@ -99,6 +96,7 @@ char	**env_add(char *str, char **env)
 	}
 	new_env[i] = ft_strndup(str, ft_strlen(str));
 	new_env[i + 1] = NULL;
+	free_str_list(env);
 	return (new_env);
 }
 
