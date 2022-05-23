@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 19:29:26 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/23 02:20:54 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/23 15:21:15 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,10 @@ char	*get_next_cmd(char *s, char **env, t_cmd *cmd)
 {
 	t_split	*split;
 	char	*s_ini;
+	int		i;
 
+	i = -1;
 	split = init_split();
-	s = replace_env_var(s, env);
 	s_ini = s;
 	while (s && *s && (split->quote || split->par || !ft_strchr("&|", *s)))
 	{
@@ -118,5 +119,7 @@ char	*get_next_cmd(char *s, char **env, t_cmd *cmd)
 	if (s)
 		s = handle_operator(cmd, s);
 	handle_wildcards(cmd);
+	while (cmd->cmd[++i])
+		cmd->cmd[i] = replace_env_var(cmd->cmd[i], env);
 	return (free_and_dup(split, s_ini, s));
 }
