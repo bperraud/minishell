@@ -79,5 +79,6 @@ char	**get_exp_list(char *start, char *end);
 char	**lst_del(char **lst, int n);
 int		get_nb_star(char *s);
 char	**wildcard_split(char *s);
+char	**init_f_list(void);
 
 #endif

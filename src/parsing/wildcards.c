@@ -12,6 +12,26 @@
 
 #include "minishell.h"
 
+static bool is_indir(char *str)
+{
+	char	**f_list;
+	int		i;
+
+	f_list = init_f_list();
+	i = 0;
+	while (f_list[i])
+	{
+		if (ft_strcmp(f_list[i], str) == 0)
+		{
+			free_str_list(f_list);
+			return (true);
+		}
+		i++;
+	}
+	free_str_list(f_list);
+	return (false);
+}
+
 static bool	expand_wildcards(char *prefix, char **suffix, t_cmd *cmd)
 {
 	int		j;
@@ -45,7 +65,7 @@ static bool	expand_wildcards(char *prefix, char **suffix, t_cmd *cmd)
 	}
 	else // dernier appel
 	{
-		if (prefix)
+		if (prefix && *suffix)
 		{
 			j = 0;
 			exp_list = get_exp_list(prefix, suffix[0]);
@@ -57,6 +77,16 @@ static bool	expand_wildcards(char *prefix, char **suffix, t_cmd *cmd)
 				replaced = true;
 				j++;
 			}
+		}
+		else if (prefix)
+		{
+			if (is_indir(prefix))
+			{
+				cmd->cmd = add_string(cmd->cmd, prefix);
+				replaced = true;
+			}
+			else
+				replaced = false;
 		}
 	}
 	return (replaced);

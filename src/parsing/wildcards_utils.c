@@ -58,7 +58,7 @@ int	get_next_star_index(char *str)
 	return (i);
 }
 
-static char	**init_f_list(void)
+char	**init_f_list(void)
 {
 	DIR				*d;
 	struct dirent	*dir;
