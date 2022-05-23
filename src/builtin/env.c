@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:23:15 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/23 17:26:15 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/23 18:16:39 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_env(char **env)
 {
 	int	i;
 
+	g_error = 0;
 	if (!env)
 		return ;
 	i = 0;
@@ -24,5 +25,4 @@ void	ft_env(char **env)
 		printf("%s\n", env[i]);
 		i++;
 	}
-	g_error = 0;
 }

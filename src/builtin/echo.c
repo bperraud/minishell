@@ -29,6 +29,7 @@ void	echo(char **cmd)
 
 	option = false;
 	i = 0;
+	g_error = 0;
 	if (is_empty_no_flag(cmd))
 		return ;
 	if (!ft_strcmp(cmd[1], "-n"))
@@ -46,5 +47,4 @@ void	echo(char **cmd)
 	}
 	if (!option)
 		printf("\n");
-	g_error = 0;
 }
