@@ -17,7 +17,6 @@ make
 ./minishell
 ```
 ## TODO
-- 'export a=3 && echo $a'
 - Error (ls && ls) et espace avant parenthese -> parsing error
 - Wildcards
 - Finish
