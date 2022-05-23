@@ -12,18 +12,6 @@
 
 #include "minishell.h"
 
-int	get_nb_star(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] == '*')
-	{
-		i++;
-	}
-	return (i);
-}
-
 char	**lst_del(char **lst, int n)
 {
 	int		i;
@@ -92,35 +80,28 @@ static char	**init_f_list(void)
 	return(lst);
 }
 
-static bool	is_expand(char *str, char *start, char *end)
+static char	*get_expand(char *str, char *start, char *next)
 {
-	int	i;
-	int	j;
+	int		i;
 
-	printf("start:%s ", start);
-	printf("end:%s ", end);
-	printf("str:%s\n", str);
-	if (ft_strlen(str) < ft_strlen(start) + ft_strlen(end))
-		return (false);
 	i = 0;
-	while (start[i])
+	while (start[i]) //boucle sur le debut
 	{
-		if (start[i] != str[i])
-			return (false);
+		if (str[i] != start[i])
+			return (NULL);
 		i++;
 	}
-	i = ft_strlen(str) - ft_strlen(end);
-	j = 0;
-	while (j < ft_strlen(end))
+	if (!*next)
+		return (ft_strndup(str, ft_strlen(str)));
+	while (i < ft_strlen(str)) //boucle sur fin de str
 	{
-		if (end[j] == '*')
-			return (true);
-		if (end[j] != str[i])
-			return (false);
+		if (strcmp(str + i, next) == 0)
+		{
+			return (ft_strndup(str, i + ft_strlen(next)));
+		}
 		i++;
-		j++;
 	}
-	return (true);
+	return (NULL);
 }
 
 char	**get_exp_list(char *start, char *end)
@@ -128,14 +109,19 @@ char	**get_exp_list(char *start, char *end)
 	char	**f_list;
 	char	**exp_list;
 	int		i;
+	char	*str;
 
 	f_list = init_f_list();
 	exp_list = NULL;
 	i = 0;
 	while (f_list[i])
 	{
-		if (is_expand(f_list[i], start, end))
-			exp_list = add_string(exp_list, ft_strndup(f_list[i], ft_strlen(f_list[i])));
+		str = get_expand(f_list[i], start, end);
+		printf("adding str: %s start: %s end: %s\n", str, start, end);
+		if (str)
+		{
+			exp_list = add_string(exp_list, str);
+		}
 		i++;
 	}
 	free_str_list(f_list);
