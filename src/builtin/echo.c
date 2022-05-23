@@ -42,7 +42,7 @@ void	echo(char **cmd)
 	while (cmd[++i])
 	{
 		printf("%s", cmd[i]);
-		if (cmd[i+1])
+		if (cmd[i + 1])
 			printf(" ");
 	}
 	if (!option)

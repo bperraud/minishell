@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 19:29:26 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/20 18:38:58 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/23 02:20:54 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static char	*handle_quotes_and_parenthesis(t_cmd *cmd, t_split *split, char *s)
 static char	*replace_env_var(char *s, char **env)
 {
 	char	*s1;
-	char	*s2;
 	char	*var;
 	int		i;
 	bool	squote;
@@ -57,9 +56,7 @@ static char	*replace_env_var(char *s, char **env)
 		{
 			var = ft_strndup(s + i + 1, get_var_len(s + i + 1));
 			i += get_var_len(s + i + 1);
-			s2 = ft_getenv(var, env);
-			s1 = add_multiple_chars(s1, s2);
-			free(s2);
+			s1 = add_multiple_chars(s1, ft_getenv(var, env));
 			free(var);
 		}
 		else if (s[i] == '\'')
