@@ -75,6 +75,12 @@ void	extern_cmd(t_cmd *command, char **envp)
 	int	status;
 
 	status = 0;
+	if (!ft_getenv("PATH", envp))
+	{
+		prompt_error(command->cmd[0], "No such file or directory\n");
+		g_error = COMMAND_NOT_FOUND;
+		return ;
+	}
 	if (!fork_protected())
 	{
 		if (ft_strlen(command->here_doc))
