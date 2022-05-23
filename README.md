@@ -19,7 +19,6 @@ make
 ## TODO
 - rajouter gestion error appels systèmes (pipe, fork etc)
 - 'export a=3 && echo $a'
-- 'export $a' -> Segmentation fault
 - Error (ls && ls) et espace avant parenthese -> parsing error
 - Wildcards
 - Finish
