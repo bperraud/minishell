@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:12:19 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/15 23:37:00 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/23 18:08:52 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,20 @@ int	test_access(char *str, int file_access)
 	return (0);
 }
 
-int	free_and_return(char *str, void *ptr, int r_value)
+int	has_path(char *cmd, char **envp)
 {
-	if (str)
-		free(str);
-	free(ptr);
-	return (r_value);
+	char	*path;
+
+	path = ft_getenv("PATH", envp);
+	if (!path)
+	{
+		free(path);
+		prompt_error(cmd, "No such file or directory\n");
+		g_error = COMMAND_NOT_FOUND;
+		return (0);
+	}
+	free(path);
+	return (1);
 }
 
 char	*skip_spaces(char *str)

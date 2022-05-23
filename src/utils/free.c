@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <jboumal@student.s19.be>           +#+  +:+       +#+        */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 10:04:18 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/17 10:04:21 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/05/23 18:06:04 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	free_and_return(char *str, void *ptr, int r_value)
+{
+	if (str)
+		free(str);
+	free(ptr);
+	return (r_value);
+}
 
 void	free_t_cmd(t_cmd *cmd)
 {

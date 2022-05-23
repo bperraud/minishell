@@ -64,7 +64,7 @@ char	**launch_cmd(t_cmd *command, char **envp)
 		ft_exit(command);
 	else if (!ft_strncmp(command->cmd[0], "./", 2))
 		ft_executable(command->cmd, envp);
-	else
+	else if (has_path(command->cmd[0], envp))
 		extern_cmd(command, envp);
 	return (envp);
 }
@@ -72,15 +72,9 @@ char	**launch_cmd(t_cmd *command, char **envp)
 /* not build_in command */
 void	extern_cmd(t_cmd *command, char **envp)
 {
-	int	status;
+	int		status;
 
 	status = 0;
-	if (!ft_getenv("PATH", envp))
-	{
-		prompt_error(command->cmd[0], "No such file or directory\n");
-		g_error = COMMAND_NOT_FOUND;
-		return ;
-	}
 	if (!fork_protected())
 	{
 		if (ft_strlen(command->here_doc))

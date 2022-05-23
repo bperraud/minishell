@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 09:05:47 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/15 23:23:26 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/23 18:08:28 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define WHITE "\e[0;37m"
 # define RESET "\e[0m"
 
+
+
 enum	e_file
 {
 	READ,
@@ -50,11 +52,12 @@ char	*add_multiple_chars(char *s1, char *s2);
 char	*add_char(char *str1, char c);
 
 /* shell_utils */
+int		has_path(char *cmd, char **envp);
 int		is_directory(const char *path);
 int		exit_to_bash_code(int exit_code);
-int		free_and_return(char *str, void *ptr, int r_value);
 char	*skip_spaces(char *str);
 int		test_access(char *str, int file_access);
+int		free_and_return(char *str, void *ptr, int r_value);
 
 /* env */
 char	*ft_getenv(char *str, char **env);
