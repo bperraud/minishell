@@ -71,6 +71,8 @@ void	pipe_cmd(char **str, char **envp, t_cmd **cmd)
 {
 	t_list_cmd	*list_cmd;
 
+	if ((*cmd)->mode != PIPE)
+		return ;
 	list_cmd = init_list();
 	while ((*cmd)->mode == PIPE)
 	{
