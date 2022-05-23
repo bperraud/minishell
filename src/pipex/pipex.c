@@ -12,6 +12,19 @@
 
 #include "minishell.h"
 
+pid_t	fork_protected(void)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid < -1)
+	{
+		perror("-minishell");
+		exit(-1);
+	}
+	return (pid);
+}
+
 void	pipex(t_cmd *command, char **envp)
 {
 	pid_t	pid;
@@ -20,15 +33,16 @@ void	pipex(t_cmd *command, char **envp)
 
 	status = 0;
 	if (pipe(pipe_fd) < 0)
-		exit(EXIT_FAILURE);
-	pipe(pipe_fd);
-	pid = fork();
+	{
+		perror("-minishell");
+		exit(-1);
+	}
+	pid = fork_protected();
 	if (pid != 0)
 	{
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], 0);
 		command->fd_in = pipe_fd[0];
-		waitpid(-1, &status, 0);
 	}
 	else
 	{
@@ -49,6 +63,8 @@ void	multiple_cmd(t_list_cmd *list_cmd, char **envp)
 			break ;
 		list_cmd = list_cmd->next;
 	}
+	while (wait(NULL) > 0)
+		;
 }
 
 void	pipe_cmd(char **str, char **envp, t_cmd **cmd)

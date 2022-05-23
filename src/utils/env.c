@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:20:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/20 17:11:39 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/23 02:35:37 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ bool	env_var_name_cmp(char *str, char *var_name)
 			return (false);
 		i++;
 	}
-	if (str[i] == '=')
-		return (true);
-	else
-		return (false);
+	return (str[i] == '=');
 }
 
 char	*ft_getenv(char *str, char **env)

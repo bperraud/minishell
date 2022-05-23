@@ -26,6 +26,7 @@ typedef struct s_cmd		t_cmd;
 typedef struct s_list_cmd	t_list_cmd;
 
 //pipex
+pid_t		fork_protected(void);
 void		multiple_cmd(t_list_cmd *list_cmd, char **envp);
 void		pipex(t_cmd *command, char** envp);
 void		redirect_pipe(t_cmd *command, char **envp);

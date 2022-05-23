@@ -75,7 +75,7 @@ void	extern_cmd(t_cmd *command, char **envp)
 	int	status;
 
 	status = 0;
-	if (!fork())
+	if (!fork_protected())
 	{
 		if (ft_strlen(command->here_doc))
 			dup_close(here_doc(command->here_doc), 0);
@@ -106,7 +106,7 @@ void	ft_executable(char **cmd, char	**envp)
 		g_error = FILE_ERROR;
 		return ;
 	}
-	if (!fork())
+	if (!fork_protected())
 	{
 		execve(cmd[0], cmd, envp);
 		prompt_error(cmd[0], "command not found\n");
