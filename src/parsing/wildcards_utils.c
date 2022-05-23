@@ -80,10 +80,12 @@ static char	**init_f_list(void)
 	return(lst);
 }
 
-static char	*get_expand(char *str, char *start, char *next)
+static char	**get_expand(char *str, char *start, char *next)
 {
 	int		i;
+	char	**ex_list;
 
+	ex_list = NULL;
 	i = 0;
 	while (start[i]) //boucle sur le debut
 	{
@@ -92,16 +94,19 @@ static char	*get_expand(char *str, char *start, char *next)
 		i++;
 	}
 	if (!*next)
-		return (ft_strndup(str, ft_strlen(str)));
+	{
+		ex_list = add_string(ex_list, ft_strndup(str, ft_strlen(str)));
+		return(ex_list);
+	}
 	while (i < ft_strlen(str)) //boucle sur fin de str
 	{
-		if (strcmp(str + i, next) == 0)
+		if (strncmp(str + i, next, ft_strlen(next)) == 0)
 		{
-			return (ft_strndup(str, i + ft_strlen(next)));
+			ex_list = add_string(ex_list, ft_strndup(str, i + ft_strlen(next)));
 		}
 		i++;
 	}
-	return (NULL);
+	return (ex_list);
 }
 
 char	**get_exp_list(char *start, char *end)
@@ -109,19 +114,22 @@ char	**get_exp_list(char *start, char *end)
 	char	**f_list;
 	char	**exp_list;
 	int		i;
-	char	*str;
+	int		j;
+	char	**ex_list;
 
 	f_list = init_f_list();
 	exp_list = NULL;
 	i = 0;
 	while (f_list[i])
 	{
-		str = get_expand(f_list[i], start, end);
-		printf("adding str: %s start: %s end: %s\n", str, start, end);
-		if (str)
+		ex_list = get_expand(f_list[i], start, end);
+		j = 0;
+		while(ex_list && ex_list[j])
 		{
-			exp_list = add_string(exp_list, str);
+			exp_list = add_string(exp_list, ex_list[j]);
+			j++;
 		}
+		free(ex_list);
 		i++;
 	}
 	free_str_list(f_list);

@@ -29,7 +29,7 @@ void	print_list(char **lst)
 
 	if (!lst)
 	{
-		printf("cmd is empty.\n");
+		printf("lst is empty.\n");
 		return ;
 	}
 	i = 0;

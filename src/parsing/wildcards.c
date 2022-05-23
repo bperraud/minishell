@@ -24,29 +24,39 @@ static bool	expand_wildcards(char *prefix, char **suffix, t_cmd *cmd)
 	if (!prefix) //premier appel
 	{
 		prefix = suffix[0];
-		expand_wildcards(prefix, suffix + 1, cmd);
+		if (expand_wildcards(prefix, suffix + 1, cmd))
+			replaced = true;
 	}
 	else if (*suffix && **suffix) // n-appel
 	{
 		j = 0;
 		exp_list = get_exp_list(prefix, suffix[0]);
-		while (exp_list && exp_list[j])
-		{
-			replaced = expand_wildcards(exp_list[j], suffix + 1, cmd);
-			j++;
-		}
 		if (!exp_list)
 		{
-			replaced = expand_wildcards(NULL, NULL, cmd);
+			return (false);
 		}
-		free_str_list(exp_list);
+		while (exp_list[j])
+		{
+			 if (expand_wildcards(exp_list[j], suffix + 1, cmd))
+			 	replaced = true;
+			j++;
+		}
+		//free_str_list(exp_list);
 	}
 	else // dernier appel
 	{
 		if (prefix)
 		{
-			cmd->cmd = add_string(cmd->cmd, prefix);
-			replaced = true;
+			j = 0;
+			exp_list = get_exp_list(prefix, suffix[0]);
+			if (!exp_list)
+				replaced = false;
+			while (exp_list[j])
+			{
+				cmd->cmd = add_string(cmd->cmd, exp_list[j]);
+				replaced = true;
+				j++;
+			}
 		}
 	}
 	return (replaced);
