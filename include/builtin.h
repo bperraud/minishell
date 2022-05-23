@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 19:06:45 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/13 21:05:06 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/19 13:46:40 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 
 typedef struct s_cmd		t_cmd;
 
-void	change_directory(char **cmd, char **env);
+char	**change_directory(char **cmd, char **env);
 void	echo(char **cmd);
 char	**export(char *cmd, char **env);
 char	**unset(char *var, char **env);
 void	ft_env(char **env);
 void	pwd(void);
 void	ft_exit(t_cmd *cmd);
-void	try_exit(t_cmd *cmd, char *str);
+void	try_exit(t_cmd *cmd, char *str, char **envp);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 11:39:14 by jboumal           #+#    #+#             */
-/*   Updated: 2022/04/29 11:39:15 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/05/23 04:04:38 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,9 @@ char	*error_to_color(void)
 	else
 		color = RED;
 	return (color);
+}
+
+void	prompt_error(char *str, char *error)
+{
+	printf("-minishell: %s: %s", str, error);
 }

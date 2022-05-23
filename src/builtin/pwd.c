@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:25:55 by bperraud          #+#    #+#             */
-/*   Updated: 2022/05/12 01:26:03 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/23 04:05:23 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,10 @@
 
 void	pwd(void)
 {
-	printf("%s\n", getcwd(NULL, 0));
+	char	*buff;
+
+	buff = getcwd(NULL, 0);
+	printf("%s\n", buff);
+	free(buff);
+	g_error = 0;
 }

@@ -19,11 +19,14 @@
 # include "builtin.h"
 # include "utils.h"
 # include "pipex.h"
+# include <sys/stat.h>
 # include <signal.h>
 # include <termios.h>
 
 # define STDIN 0
 # define STDOUT 1
+
+# define OR_MODE_ERROR -1
 
 extern int	g_error;
 
@@ -42,5 +45,7 @@ void	term_config(void);
 /* test */
 void	print_list(char **lst);
 void	print_cmd_args(t_cmd *cmd);
+
+void	prompt_error(char* str, char *error);
 
 #endif

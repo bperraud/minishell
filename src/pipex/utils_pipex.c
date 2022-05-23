@@ -26,12 +26,6 @@ char	*ft_strncpy(char *dest, const char *src, unsigned int n)
 	return (dest);
 }
 
-void	exit_error(char **cmd1, char **cmd2, char **path)
-{
-	free_all(cmd1, cmd2, path);
-	exit(EXIT_FAILURE);
-}
-
 void	free_tab(char **tab)
 {
 	int	i;

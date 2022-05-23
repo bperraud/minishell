@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:20:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/03 20:20:05 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/05/23 02:35:37 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ bool	env_var_name_cmp(char *str, char *var_name)
 			return (false);
 		i++;
 	}
-	if (str[i] == '=')
-		return (true);
-	else
-		return (false);
+	return (str[i] == '=');
 }
 
 char	*ft_getenv(char *str, char **env)
@@ -36,7 +33,11 @@ char	*ft_getenv(char *str, char **env)
 
 	i = 0;
 	if (ft_strcmp(str, "?") == 0)
+	{
+		if (g_error == OR_MODE_ERROR)
+			return (ft_itoa(g_error + 1));
 		return (ft_itoa(g_error));
+	}
 	while (env[i])
 	{
 		if (env_var_name_cmp(env[i], str))
@@ -79,7 +80,7 @@ char	**env_unset(char *var, char **env)
 	return (new_env);
 }
 
-char	**env_add(char **env, char *str)
+char	**env_add(char *str, char **env)
 {
 	char	**new_env;
 	int		i;
@@ -91,7 +92,7 @@ char	**env_add(char **env, char *str)
 		new_env[i] = ft_strdup(env[i]);
 		if (!new_env[i])
 		{
-			perror("minishell");
+			perror("-minishell");
 			exit(ENOMEM);
 		}
 		i++;
@@ -113,7 +114,7 @@ char	**env_dup(char **envp)
 		new_env[i] = ft_strdup(envp[i]);
 		if (!new_env[i])
 		{
-			perror("minishell");
+			perror("-minishell");
 			exit(ENOMEM);
 		}
 		i++;

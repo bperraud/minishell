@@ -12,30 +12,88 @@
 
 #include "minishell.h"
 
-void	change_directory(char **cmd, char **env)
+static void	one_arg(char **cmd, char **env)
 {
-	int		arg;
-	char	*home_dir;
-	char	*start_dir;
+	char	*old_pwd;
 
-	start_dir = getcwd(NULL, 0);
-	arg = 0;
-	while (cmd[arg])
-		arg++;
-	if (arg > 3)
+	if (!ft_strcmp(cmd[1], "-"))
 	{
-		printf("minishell: cd: too many arguments\n");
-		return ;
-	}
-	else if (arg == 1)
-	{
-		home_dir = ft_getenv("HOME", env);
-		if (home_dir)
-			chdir(ft_getenv("HOME", env));
+		old_pwd = ft_getenv("OLDPWD", env);
+		if (old_pwd)
+			chdir(old_pwd);
 		else
-			printf("minishell: cd: HOME not set\n");
+			prompt_error("cd", "OLDPWD not set\n");
 	}
 	else
 		chdir(cmd[1]);
-	g_error = ft_strcmp(start_dir, getcwd(NULL, 0)) == 0;
+}
+
+static char	**end_dir(char *start_dir, char **env)
+{
+	int		has_cd;
+	char	*str;
+	char	*end_dir;
+
+	end_dir = getcwd(NULL, 0);
+	has_cd = (ft_strcmp(start_dir, end_dir) != 0);
+	if (has_cd)
+	{
+		str = ft_strjoin("OLDPWD=", start_dir);
+		env = export(str, env);
+		free(str);
+	}
+	free(end_dir);
+	free(start_dir);
+	g_error = !has_cd;
+	return (env);
+}
+
+static int	wrong_dir(char **cmd)
+{
+	char	*str;
+
+	if (!cmd[1] || !ft_strcmp(cmd[1], "-") || !ft_strcmp(cmd[1], "~"))
+		return (0);
+	if (test_access(cmd[1], READ) == 1)
+		return (-1);
+	if (!is_directory(cmd[1]))
+	{
+		str = ft_strjoin("cd: ", cmd[1]);
+		prompt_error(str, "Not a directory\n");
+		free(str);
+		g_error = FILE_ERROR;
+		return (-1);
+	}
+	return (0);
+}
+
+char	**change_directory(char **cmd, char **env)
+{
+	int		arg;
+	char	*start_dir;
+	char	*home;
+
+	arg = 0;
+	while (cmd[arg])
+		arg++;
+	if (arg > 2)
+	{
+		prompt_error("cd", "too many arguments\n");
+		g_error = 1;
+		return (env);
+	}
+	if (wrong_dir(cmd) == -1)
+		return (env);
+	start_dir = getcwd(NULL, 0);
+	if (arg == 1 || !ft_strcmp(cmd[1], "~"))
+	{
+		home = ft_getenv("HOME", env);
+		if (home)
+			chdir(home);
+		else
+			prompt_error("cd", "HOME not set\n");
+		return (end_dir(start_dir, env));
+	}
+	one_arg(cmd, env);
+	return (end_dir(start_dir, env));
 }
