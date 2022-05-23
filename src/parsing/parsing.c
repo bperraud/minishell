@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 19:29:26 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/23 16:17:42 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/23 16:43:56 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*replace_env_var(char *s, char **env)
 			var = ft_strndup(s + i + 1, get_var_len(s + i + 1));
 			i += get_var_len(s + i + 1);
 			s2 = ft_getenv(var, env);
-			s1 = add_multiple_chars(s1, s2);
+			s1 = add_multiple_chars(s1, ft_getenv(var, env));
 			free(s2);
 			free(var);
 		}

@@ -68,16 +68,22 @@ static int	wrong_dir(char **cmd)
 	return (0);
 }
 
-char	**change_directory(char **cmd, char **env)
+static int	cd_args(char **cmd)
 {
-	int		arg;
-	char	*start_dir;
-	char	*home;
+	int	arg;
 
 	arg = 0;
 	while (cmd[arg])
 		arg++;
-	if (arg > 2)
+	return (arg);
+}
+
+char	**change_directory(char **cmd, char **env)
+{
+	char	*start_dir;
+	char	*home;
+
+	if (cd_args(cmd) > 2)
 	{
 		prompt_error("cd", "too many arguments\n");
 		g_error = 1;
@@ -86,7 +92,7 @@ char	**change_directory(char **cmd, char **env)
 	if (wrong_dir(cmd) == -1)
 		return (env);
 	start_dir = getcwd(NULL, 0);
-	if (arg == 1 || !ft_strcmp(cmd[1], "~"))
+	if (cd_args(cmd) == 1 || !ft_strcmp(cmd[1], "~"))
 	{
 		home = ft_getenv("HOME", env);
 		if (home)
