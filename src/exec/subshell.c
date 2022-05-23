@@ -16,7 +16,7 @@ void	subshell(t_cmd **cmd, char **envp)
 {
 	char	**sh;
 
-	sh = malloc(4 * sizeof(char *));
+	sh = smalloc(4 * sizeof(char *));
 	sh[0] = ft_strdup("./minishell");
 	sh[1] = ft_strdup("-c");
 	sh[2] = ft_substr((*cmd)->cmd[0], 1, ft_strlen((*cmd)->cmd[0]) - 2);

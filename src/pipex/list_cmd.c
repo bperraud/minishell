@@ -40,6 +40,8 @@ void	add_back(t_list_cmd **list_cmd, t_cmd *new)
 	t_list_cmd	*t;
 	t_list_cmd	*last;
 
+	if (!*list_cmd)
+		return ;
 	if (!(*list_cmd)->command)
 	{
 		(*list_cmd)->next = NULL;
@@ -69,14 +71,11 @@ void	free_list_cmd(t_list_cmd *list_cmd)
 {
 	t_list_cmd	*temp;
 
-	if (list_cmd)
+	while (list_cmd)
 	{
-		while (list_cmd)
-		{
-			temp = list_cmd->next;
-			free_t_cmd(list_cmd->command);
-			free(list_cmd);
-			list_cmd = temp;
-		}
+		temp = list_cmd->next;
+		free_t_cmd(list_cmd->command);
+		free(list_cmd);
+		list_cmd = temp;
 	}
 }
