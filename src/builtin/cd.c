@@ -23,6 +23,7 @@ static void	one_arg(char **cmd, char **env)
 			chdir(old_pwd);
 		else
 			prompt_error("cd", "OLDPWD not set\n");
+		free(old_pwd);
 	}
 	else
 		chdir(cmd[1]);
@@ -92,6 +93,7 @@ char	**change_directory(char **cmd, char **env)
 			chdir(home);
 		else
 			prompt_error("cd", "HOME not set\n");
+		free(home);
 		return (end_dir(start_dir, env));
 	}
 	one_arg(cmd, env);
