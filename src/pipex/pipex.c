@@ -25,6 +25,15 @@ pid_t	fork_protected(void)
 	return (pid);
 }
 
+static void	pipe_protected(int pipe)
+{
+	if (pipe < 0)
+	{
+		perror("-minishell: ");
+		exit(-1);
+	}
+}
+
 void	pipex(t_cmd *command, char **envp)
 {
 	pid_t	pid;
@@ -32,11 +41,7 @@ void	pipex(t_cmd *command, char **envp)
 	int		status;
 
 	status = 0;
-	if (pipe(pipe_fd) < 0)
-	{
-		perror("-minishell: ");
-		exit(-1);
-	}
+	pipe_protected(pipe(pipe_fd));
 	pid = fork_protected();
 	if (pid != 0)
 	{
