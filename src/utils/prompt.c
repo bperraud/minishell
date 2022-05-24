@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 11:39:14 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/23 04:04:38 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/24 02:59:51 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,15 @@ char	*error_to_color(void)
 
 void	prompt_error(char *str, char *error)
 {
-	printf("-minishell: %s: %s", str, error);
+	char	*s1;
+	char	*s2;
+	char	*s3;
+
+	s1 = ft_strjoin("-minishell: ", str);
+	s2 = ft_strjoin(s1, ": ");
+	s3 = ft_strjoin(s2, error);
+	ft_putstr_fd(s3, 2);
+	free(s1);
+	free(s2);
+	free(s3);
 }

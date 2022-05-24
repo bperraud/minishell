@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:12:19 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/23 18:08:52 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/24 03:45:14 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	has_path(char *cmd, char **envp)
 	path = ft_getenv("PATH", envp);
 	if (!path)
 	{
-		free(path);
 		prompt_error(cmd, "No such file or directory\n");
 		g_error = COMMAND_NOT_FOUND;
 		return (0);

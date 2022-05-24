@@ -19,7 +19,7 @@ pid_t	fork_protected(void)
 	pid = fork();
 	if (pid < -1)
 	{
-		perror("-minishell");
+		perror("-minishell: ");
 		exit(-1);
 	}
 	return (pid);
@@ -34,7 +34,7 @@ void	pipex(t_cmd *command, char **envp)
 	status = 0;
 	if (pipe(pipe_fd) < 0)
 	{
-		perror("-minishell");
+		perror("-minishell: ");
 		exit(-1);
 	}
 	pid = fork_protected();
@@ -43,13 +43,17 @@ void	pipex(t_cmd *command, char **envp)
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], 0);
 		command->fd_in = pipe_fd[0];
+		waitpid(pid, &status, 0);
 	}
 	else
 	{
 		close(pipe_fd[0]);
 		command->fd_out = pipe_fd[1];
 		dup2(pipe_fd[1], 1);
-		exec_cmd(command->cmd, envp);
+		if (has_path(command->cmd[0], envp))
+			exec_cmd(command->cmd, envp);
+		else
+			exit(FILE_ERROR);
 	}
 	g_error = WEXITSTATUS(status);
 }
@@ -63,8 +67,6 @@ void	multiple_cmd(t_list_cmd *list_cmd, char **envp)
 			break ;
 		list_cmd = list_cmd->next;
 	}
-	while (wait(NULL) > 0)
-		;
 }
 
 void	pipe_cmd(char **str, char **envp, t_cmd **cmd)
@@ -77,9 +79,13 @@ void	pipe_cmd(char **str, char **envp, t_cmd **cmd)
 	while ((*cmd)->mode == PIPE)
 	{
 		add_back(&list_cmd, *cmd);
-		*cmd = init_cmd(AND);
+		*cmd = init_cmd(0);
 		*str = get_next_cmd(*str, envp, *cmd);
 	}
 	multiple_cmd(list_cmd, envp);
+	if (g_error)
+		(*cmd)->prev_cmd = OR;
+	else
+		(*cmd)->prev_cmd = AND;
 	free_list_cmd(list_cmd);
 }

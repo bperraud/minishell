@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:20:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/23 16:16:40 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/24 02:23:44 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	**env_add(char *str, char **env)
 		new_env[i] = ft_strdup(env[i]);
 		if (!new_env[i])
 		{
-			perror("-minishell");
+			perror("-minishell: ");
 			exit(ENOMEM);
 		}
 		i++;
@@ -112,7 +112,7 @@ char	**env_dup(char **envp)
 		new_env[i] = ft_strdup(envp[i]);
 		if (!new_env[i])
 		{
-			perror("-minishell");
+			perror("-minishell: ");
 			exit(ENOMEM);
 		}
 		i++;
