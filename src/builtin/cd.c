@@ -42,19 +42,22 @@ static int	cd_args(char **cmd)
 static char	**end_dir(char **cmd, char *start_dir, char **env)
 {
 	int		has_cd;
-	char	*str;
+	char	**str;
 	char	*end_dir;
 
 	end_dir = getcwd(NULL, 0);
 	has_cd = (ft_strcmp(start_dir, end_dir) != 0);
+	str = malloc(2 * sizeof(char));
 	if (has_cd)
 	{
-		str = ft_strjoin("OLDPWD=", start_dir);
+		str[0] = ft_strjoin("OLDPWD=", start_dir);
+		str[1] = NULL;
 		env = export(str, env);
-		free(str);
 		if (cd_args(cmd) == 2 && !ft_strcmp(cmd[1], "-"))
 			printf("%s\n", end_dir);
 	}
+	free(str[0]);
+	free(str);
 	free(end_dir);
 	free(start_dir);
 	g_error = !has_cd;

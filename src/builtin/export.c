@@ -6,31 +6,37 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 19:05:06 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/24 16:15:40 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/24 16:53:39 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**export(char *cmd, char **env)
+char	**export(char **cmd, char **env)
 {
 	char	*var;
 	char	*str;
+	int		i;
 
 	g_error = 0;
-	if (!get_var_len(cmd))
+	i = 0;
+	if (!get_var_len(cmd[1]))
 	{
 		ft_env_export(env);
 		return (env);
 	}
 	else
 	{
-		var = ft_strndup(cmd, get_var_len(cmd));
-		str = ft_getenv(var, env);
-		if (str)
-			env = env_unset(var, env);
-		free(var);
-		free(str);
-		return (env_add(cmd, env));
+		while (cmd[++i])
+		{
+			var = ft_strndup(cmd[i], get_var_len(cmd[i]));
+			str = ft_getenv(var, env);
+			if (str)
+				env = env_unset(var, env);
+			free(var);
+			free(str);
+			env = env_add(cmd[i], env);
+		}
 	}
+	return (env);
 }
