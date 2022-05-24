@@ -57,7 +57,7 @@ char	**launch_cmd(t_cmd *command, char **envp)
 	else if (!ft_strcmp(command->cmd[0], "export"))
 		return (export(command->cmd, envp));
 	else if (!ft_strcmp(command->cmd[0], "unset"))
-		return (unset(command->cmd[1], envp));
+		return (unset(command->cmd, envp));
 	else if (!ft_strcmp(command->cmd[0], "env"))
 		ft_env(envp);
 	else if (!ft_strcmp(command->cmd[0], "pwd"))
