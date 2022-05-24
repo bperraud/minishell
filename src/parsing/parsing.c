@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 19:29:26 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/23 16:46:08 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:57:58 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,14 @@ static char	*handle_quotes_and_parenthesis(t_cmd *cmd, t_split *split, char *s)
 	return (s);
 }
 
-static char	*replace_env_var(char *s, char **env)
+static char	*replace_env_var(char *s, char **env, int i, bool squote)
 {
 	char	*s1;
 	char	*s2;
 	char	*var;
-	int		i;
-	bool	squote;
 
 	s1 = NULL;
-	i = 0;
-	squote = false;
-	while (s[i])
+	while (s[++i])
 	{
 		if (!squote && s[i] == '$')
 		{
@@ -66,7 +62,6 @@ static char	*replace_env_var(char *s, char **env)
 			squote = (squote + 1) % 2;
 		else
 			s1 = add_char(s1, s[i]);
-		i++;
 	}
 	free(s);
 	return (s1);
@@ -123,6 +118,6 @@ char	*get_next_cmd(char *s, char **env, t_cmd *cmd)
 		s = handle_operator(cmd, s);
 	handle_wildcards(cmd);
 	while (cmd->cmd[++i])
-		cmd->cmd[i] = replace_env_var(cmd->cmd[i], env);
+		cmd->cmd[i] = replace_env_var(cmd->cmd[i], env, -1, false);
 	return (free_and_dup(split, s_ini, s));
 }

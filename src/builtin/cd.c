@@ -29,7 +29,17 @@ static void	one_arg(char **cmd, char **env)
 		chdir(cmd[1]);
 }
 
-static char	**end_dir(char *start_dir, char **env)
+static int	cd_args(char **cmd)
+{
+	int	arg;
+
+	arg = 0;
+	while (cmd[arg])
+		arg++;
+	return (arg);
+}
+
+static char	**end_dir(char **cmd, char *start_dir, char **env)
 {
 	int		has_cd;
 	char	*str;
@@ -42,6 +52,8 @@ static char	**end_dir(char *start_dir, char **env)
 		str = ft_strjoin("OLDPWD=", start_dir);
 		env = export(str, env);
 		free(str);
+		if (cd_args(cmd) == 2 && !ft_strcmp(cmd[1], "-"))
+			printf("%s\n", end_dir);
 	}
 	free(end_dir);
 	free(start_dir);
@@ -68,16 +80,6 @@ static int	wrong_dir(char **cmd)
 	return (0);
 }
 
-static int	cd_args(char **cmd)
-{
-	int	arg;
-
-	arg = 0;
-	while (cmd[arg])
-		arg++;
-	return (arg);
-}
-
 char	**change_directory(char **cmd, char **env)
 {
 	char	*start_dir;
@@ -100,8 +102,8 @@ char	**change_directory(char **cmd, char **env)
 		else
 			prompt_error("cd", "HOME not set\n");
 		free(home);
-		return (end_dir(start_dir, env));
+		return (end_dir(cmd, start_dir, env));
 	}
 	one_arg(cmd, env);
-	return (end_dir(start_dir, env));
+	return (end_dir(cmd, start_dir, env));
 }
