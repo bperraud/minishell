@@ -16,7 +16,7 @@ int	open_file(char *file)
 {
 	if (access(file, F_OK) == -1)
 	{
-		perror("-minishell");
+		perror("-minishell: ");
 		exit (FILE_ERROR);
 	}
 	return (open(file, O_RDONLY));

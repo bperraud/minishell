@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:40:34 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/15 22:17:16 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/24 02:23:42 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*smalloc(size_t n_bytes)
 	data = malloc(n_bytes);
 	if (!data)
 	{
-		perror("-minishell");
+		perror("-minishell: ");
 		exit(ENOMEM);
 	}
 	return (data);

@@ -41,7 +41,9 @@ void	exec_cmd(char **cmd_arg, char **envp)
 		execve(cmd, cmd_arg, envp);
 		free(cmd);
 	}
-	prompt_error(cmd_arg[0], "command not found\n");
+	ft_putstr_fd(cmd_arg[0], 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd("command not found\n", 2);
 	exit(COMMAND_NOT_FOUND);
 }
 
@@ -64,8 +66,11 @@ char	**launch_cmd(t_cmd *command, char **envp)
 		ft_exit(command);
 	else if (!ft_strncmp(command->cmd[0], "./", 2))
 		ft_executable(command->cmd, envp);
-	else if (has_path(command->cmd[0], envp))
-		extern_cmd(command, envp);
+	else
+	{
+		if (has_path(command->cmd[0], envp))
+			extern_cmd(command, envp);
+	}
 	return (envp);
 }
 
