@@ -17,7 +17,6 @@ make
 ./minishell
 ```
 ## TODO
-- command not found pipex
 - export + env + unset (sans argument/avec plusieurs args)
 - segfault parsing (combinaisons foireuses de && ||)
 - Error (ls && ls) et espace avant parenthese -> parsing error
