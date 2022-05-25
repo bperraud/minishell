@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 19:05:06 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/24 17:33:43 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/25 20:24:04 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**export(char **cmd, char **env)
 	{
 		while (cmd[++i])
 		{
-			if (!get_var_len(cmd[1]))
+			if (get_var_len(cmd[i]))
 			{
 				var = ft_strndup(cmd[i], get_var_len(cmd[i]));
 				str = ft_getenv(var, env);
