@@ -17,7 +17,7 @@ make
 ./minishell
 ```
 ## TODO
-- segfault parsing (combinaisons foireuses de && ||)
+- segfault parsing (combinaisons foireuses de && || >>>)
 - Error (ls && ls) et espace avant parenthese -> parsing error
 - Wildcards
 - Finish
