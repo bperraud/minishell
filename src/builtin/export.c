@@ -6,11 +6,20 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 19:05:06 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/25 20:24:04 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/25 21:45:48 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	correct_env_variable(char *cmd)
+{
+	if (!ft_strchr(cmd, '=') || (ft_strchr(cmd, '=') != ft_strrchr(cmd, '=')))
+		return (0);
+	if (cmd[0] == '=')
+		return (0);
+	return (1);
+}
 
 char	**export(char **cmd, char **env)
 {
@@ -25,20 +34,17 @@ char	**export(char **cmd, char **env)
 		ft_env_export(env);
 		return (env);
 	}
-	else
+	while (cmd[++i])
 	{
-		while (cmd[++i])
+		if (correct_env_variable(cmd[i]))
 		{
-			if (get_var_len(cmd[i]))
-			{
-				var = ft_strndup(cmd[i], get_var_len(cmd[i]));
-				str = ft_getenv(var, env);
-				if (str)
-					env = env_unset(var, env);
-				free(var);
-				free(str);
-				env = env_add(cmd[i], env);
-			}
+			var = ft_strndup(cmd[i], get_var_len(cmd[i]));
+			str = ft_getenv(var, env);
+			if (str)
+				env = env_unset(var, env);
+			free(var);
+			free(str);
+			env = env_add(cmd[i], env);
 		}
 	}
 	return (env);
