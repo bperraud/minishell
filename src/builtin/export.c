@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 19:05:06 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/25 21:45:48 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/25 22:13:51 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**export(char **cmd, char **env)
 
 	g_error = 0;
 	i = 0;
-	if (!get_var_len(cmd[1]))
+	if (!cmd[1])
 	{
 		ft_env_export(env);
 		return (env);
