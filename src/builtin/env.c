@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:23:15 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/25 22:06:53 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/25 22:07:44 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ void	ft_env_export(char **env)
 			if (env[i][j] == '=')
 				printf("\"");
 			if (!env[i][j + 1])
-			{
 				printf("\"\n");
-			}
 			j++;
 		}
 		i++;
