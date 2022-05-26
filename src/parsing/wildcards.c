@@ -12,53 +12,74 @@
 
 #include "minishell.h"
 
-void	expand_wildcards(char *prefix, char *suffix, t_cmd *cmd)
+bool	is_indir(char *str)
 {
+	char	**f_list;
 	int		i;
-	int		j;
-	char	*prefix_next;
-	char	*suffix_next;
-	char	*tmp;
-	char	**exp_list;
 
-	int	occ = 0;
-	printf("%d: prefix:%s suffix:%s\n", occ++, prefix, suffix);
-	if (!prefix) // 1er appel
+	f_list = init_f_list();
+	i = 0;
+	while (f_list[i])
 	{
-		i = get_next_star_index(suffix);
-		prefix_next = ft_strndup(suffix, i);
-		suffix_next = ft_strndup(suffix + i, ft_strlen(suffix) - i);
-		free(suffix);
-		expand_wildcards(prefix_next, suffix_next, cmd);
-	}
-	else if (suffix && *suffix) // n-appel
-	{	
-		i = get_next_star_index(suffix + 1);
-		tmp = ft_strndup(suffix + 1, i);
-		exp_list = get_exp_list(prefix, tmp);
-		j = 0;
-		while (exp_list[j])
+		if (ft_strcmp(f_list[i], str) == 0)
 		{
-			prefix_next = ft_strndup(exp_list[j], ft_strlen(exp_list[j]));
-			suffix_next = ft_strndup(suffix + i + 1, ft_strlen(suffix) - i - 1);
-			expand_wildcards(prefix_next, suffix_next, cmd);
+			free_str_list(f_list);
+			return (true);
+		}
+		i++;
+	}
+	free_str_list(f_list);
+	return (false);
+}
+
+bool	is_in_list(char *str, char **lst)
+{
+	int	i;
+	int	len;
+
+	if (!lst)
+		return (false);
+	len = lst_len(lst);
+	i = 0;
+	while (i < len)
+	{
+		if (ft_strcmp(lst[i], str) == 0)
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+static bool	remove_duplicates(t_cmd *cmd, int i)
+{
+	int		len;
+	int		j;
+
+	if (!cmd || !cmd->cmd)
+		return (false);
+	len = lst_len(cmd->cmd);
+	while (i < len - 1)
+	{
+		j = i + 1;
+		while (j < len)
+		{
+			if (ft_strcmp(cmd->cmd[i], cmd->cmd[j]) == 0)
+			{
+				cmd->cmd = lst_del(cmd->cmd, j);
+				return (true);
+			}
 			j++;
 		}
-		free_str_list(exp_list);
-		free(tmp);
-		free(suffix);
-		free(prefix);
+		i++;
 	}
-	else // dernier appel
-	{
-		cmd->cmd = add_string(cmd->cmd, prefix);
-	}
+	return (false);
 }
 
 void	handle_wildcards(t_cmd *cmd)
 {
 	int		i;
-	char	*suffix;
+	char	**suffix;
+	bool	removed;
 
 	if (!cmd || !cmd->cmd)
 		return ;
@@ -67,9 +88,17 @@ void	handle_wildcards(t_cmd *cmd)
 	{
 		if (ft_strchr(cmd->cmd[i], '*'))
 		{
-			suffix = ft_strndup(cmd->cmd[i], ft_strlen(cmd->cmd[i]));
-			cmd->cmd = lst_del(cmd->cmd, i);
-			expand_wildcards(NULL, suffix, cmd);
+			suffix = wildcard_split(cmd->cmd[i]);
+			if (!suffix)
+				exit(ENOMEM);
+			if (expand_wildcards(NULL, suffix, cmd))
+			{
+				removed = true;
+				while (removed)
+					removed = remove_duplicates(cmd, i);
+				cmd->cmd = lst_del(cmd->cmd, i);
+			}
+			free_str_list(suffix);
 		}
 		i++;
 	}

@@ -22,7 +22,7 @@ char	**lst_del(char **lst, int n)
 	if (!lst)
 		return (NULL);
 	len = lst_len(lst);
-	new_lst = smalloc (len * sizeof(char*));
+	new_lst = smalloc(len * sizeof(char *));
 	i = 0;
 	j = 0;
 	while (lst[i])
@@ -30,14 +30,9 @@ char	**lst_del(char **lst, int n)
 		if (i != n)
 		{
 			new_lst[j] = ft_strndup(lst[i], ft_strlen(lst[i]));
-			i++;
 			j++;
 		}
-		else
-		{
-			//free(lst[i]);
-			i++;
-		}
+		i++;
 	}
 	new_lst[j] = NULL;
 	free_str_list(lst);
@@ -58,7 +53,7 @@ int	get_next_star_index(char *str)
 	return (i);
 }
 
-static char	**init_f_list(void)
+char	**init_f_list(void)
 {
 	DIR				*d;
 	struct dirent	*dir;
@@ -71,39 +66,41 @@ static char	**init_f_list(void)
 		dir = readdir(d);
 		while (dir != NULL)
 		{
-			lst = add_string(lst, ft_strndup(dir->d_name, ft_strlen(dir->d_name)));
-			//free(dir);
+			lst = add_string(lst, ft_sstrdup(dir->d_name));
 			dir = readdir(d);
 		}
 		closedir(d);
 	}
-	return(lst);
+	return (lst);
 }
 
-static bool	is_expand(char *str, char *start, char *end)
+static char	**get_expand(char *str, char *start, char *next)
 {
-	int	i;
-	int	j;
+	int		i;
+	char	**ex_list;
 
-	if (ft_strlen(str) < ft_strlen(start) + ft_strlen(end))
-		return (false);
+	ex_list = NULL;
 	i = 0;
 	while (start[i])
 	{
-		if (start[i] != str[i])
-			return (false);
+		if (str[i] != start[i])
+			return (NULL);
 		i++;
 	}
-	i = ft_strlen(str) - 1;
-	j = ft_strlen(end) - 1;
-	while (j >= 0)
+	if (!*next)
 	{
-		if (end[j] != str[i])
-			return (false);
-		i--;
-		j--;
+		ex_list = add_string(ex_list, ft_strndup(str, ft_strlen(str)));
+		return (ex_list);
 	}
-	return (true);
+	while (i < ft_strlen(str))
+	{
+		if (strncmp(str + i, next, ft_strlen(next)) == 0)
+		{
+			ex_list = add_string(ex_list, ft_strndup(str, i + ft_strlen(next)));
+		}
+		i++;
+	}
+	return (ex_list);
 }
 
 char	**get_exp_list(char *start, char *end)
@@ -111,14 +108,22 @@ char	**get_exp_list(char *start, char *end)
 	char	**f_list;
 	char	**exp_list;
 	int		i;
+	int		j;
+	char	**ex_list;
 
 	f_list = init_f_list();
 	exp_list = NULL;
 	i = 0;
 	while (f_list[i])
 	{
-		if (is_expand(f_list[i], start, end))
-			exp_list = add_string(exp_list, ft_strndup(f_list[i], ft_strlen(f_list[i])));
+		ex_list = get_expand(f_list[i], start, end);
+		j = 0;
+		while (ex_list && ex_list[j])
+		{
+			exp_list = add_string(exp_list, ft_sstrdup(ex_list[j]));
+			j++;
+		}
+		free_str_list(ex_list);
 		i++;
 	}
 	free_str_list(f_list);
