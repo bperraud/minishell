@@ -21,6 +21,8 @@ char	*file_error(void)
 
 void	cmd_list_add_char(t_cmd *cmd, t_split *split, char *s)
 {
+	if (ft_strchr("&|", *s) && split->par)
+		split->word = add_char(split->word, *s);
 	if (!ft_strchr("&|", *s))
 	{
 		if (split->par || split->quote || !ft_strchr(" )", *s))
