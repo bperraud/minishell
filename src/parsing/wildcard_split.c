@@ -53,6 +53,21 @@ static int	len_word(char *s)
 	return (i);
 }
 
+static char	**init_lst(char **s, int *i, int nw)
+{
+	char	**lst;
+
+	lst = smalloc(nw * sizeof(char *) + 1);
+	if (**s == '*')
+	{
+		lst[0] = ft_strndup("", 0);
+		while (**s == '*')
+			(*s)++;
+		(*i)++;
+	}
+	return (lst);
+}
+
 char	**wildcard_split(char *s)
 {
 	int		i;
@@ -61,14 +76,7 @@ char	**wildcard_split(char *s)
 
 	i = 0;
 	nw = count_word(s);
-	lst = smalloc(nw * sizeof(char *) + 1);
-	if (*s == '*')
-	{
-		lst[0] = ft_strndup("", 0);
-		while (*s == '*')
-			s++;
-		i++;
-	}
+	lst = init_lst(&s, &i, nw);
 	while (i < nw)
 	{
 		if (len_word(s))

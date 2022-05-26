@@ -22,7 +22,7 @@ char	**lst_del(char **lst, int n)
 	if (!lst)
 		return (NULL);
 	len = lst_len(lst);
-	new_lst = smalloc (len * sizeof(char*));
+	new_lst = smalloc(len * sizeof(char *));
 	i = 0;
 	j = 0;
 	while (lst[i])
@@ -30,14 +30,9 @@ char	**lst_del(char **lst, int n)
 		if (i != n)
 		{
 			new_lst[j] = ft_strndup(lst[i], ft_strlen(lst[i]));
-			i++;
 			j++;
 		}
-		else
-		{
-			//free(lst[i]);
-			i++;
-		}
+		i++;
 	}
 	new_lst[j] = NULL;
 	free_str_list(lst);
@@ -71,13 +66,12 @@ char	**init_f_list(void)
 		dir = readdir(d);
 		while (dir != NULL)
 		{
-			lst = add_string(lst, ft_strndup(dir->d_name, ft_strlen(dir->d_name)));
-			//free(dir);
+			lst = add_string(lst, ft_sstrdup(dir->d_name));
 			dir = readdir(d);
 		}
 		closedir(d);
 	}
-	return(lst);
+	return (lst);
 }
 
 static char	**get_expand(char *str, char *start, char *next)
@@ -87,7 +81,7 @@ static char	**get_expand(char *str, char *start, char *next)
 
 	ex_list = NULL;
 	i = 0;
-	while (start[i]) //boucle sur le debut
+	while (start[i])
 	{
 		if (str[i] != start[i])
 			return (NULL);
@@ -96,9 +90,9 @@ static char	**get_expand(char *str, char *start, char *next)
 	if (!*next)
 	{
 		ex_list = add_string(ex_list, ft_strndup(str, ft_strlen(str)));
-		return(ex_list);
+		return (ex_list);
 	}
-	while (i < ft_strlen(str)) //boucle sur fin de str
+	while (i < ft_strlen(str))
 	{
 		if (strncmp(str + i, next, ft_strlen(next)) == 0)
 		{
@@ -124,9 +118,9 @@ char	**get_exp_list(char *start, char *end)
 	{
 		ex_list = get_expand(f_list[i], start, end);
 		j = 0;
-		while(ex_list && ex_list[j])
+		while (ex_list && ex_list[j])
 		{
-			exp_list = add_string(exp_list, ft_strndup(ex_list[j], ft_strlen(ex_list[j])));
+			exp_list = add_string(exp_list, ft_sstrdup(ex_list[j]));
 			j++;
 		}
 		free_str_list(ex_list);

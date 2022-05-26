@@ -73,6 +73,8 @@ int		check_syntax(char *str);
 char	*file_error(void);
 void	cmd_list_add_char(t_cmd *cmd, t_split *split, char *s);
 /* wildcards */
+bool	is_indir(char *str);
+bool	expand_wildcards(char *prefix, char **suffix, t_cmd *cmd);
 void	handle_wildcards(t_cmd *cmd);
 int		get_next_star_index(char *str);
 char	**get_exp_list(char *start, char *end);

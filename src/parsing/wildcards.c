@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static bool	is_indir(char *str)
+bool	is_indir(char *str)
 {
 	char	**f_list;
 	int		i;
@@ -48,74 +48,6 @@ bool	is_in_list(char *str, char **lst)
 		i++;
 	}
 	return (false);
-}
-
-static bool	expand_wildcards(char *prefix, char **suffix, t_cmd *cmd)
-{
-	int		j;
-	char	**exp_list;
-	bool	replaced;
-
-	replaced = false;
-	static int	occ = 0;
-	if (!prefix) //premier appel
-	{
-		prefix = suffix[0];
-		if (suffix[1])
-		{
-			if (expand_wildcards(prefix, suffix + 1, cmd))
-				replaced = true;
-		}
-		else
-		{
-			if (expand_wildcards(prefix, suffix, cmd))
-				replaced = true;
-		}
-	}
-	else if (*suffix && **suffix) // n-appel
-	{
-		j = 0;
-		exp_list = get_exp_list(prefix, suffix[0]);
-		if (!exp_list)
-		{
-			return (false);
-		}
-		while (exp_list[j])
-		{
-			if (expand_wildcards(exp_list[j], suffix + 1, cmd))
-			 	replaced = true;
-			j++;
-		}
-		free_str_list(exp_list);
-	}
-	else // dernier appel
-	{
-		if (prefix && *suffix)
-		{
-			j = 0;
-			exp_list = get_exp_list(prefix, suffix[0]);
-			if (!exp_list)
-				return (false);
-			while (exp_list[j])
-			{
-				cmd->cmd = add_string(cmd->cmd, ft_strndup(exp_list[j], ft_strlen(exp_list[j])));
-				replaced = true;
-				j++;
-			}
-			free_str_list(exp_list);
-		}
-		else if (prefix)
-		{
-			if (is_indir(prefix))
-			{
-				cmd->cmd = add_string(cmd->cmd, ft_strndup(prefix, ft_strlen(prefix)));
-				replaced = true;
-			}
-			else
-				replaced = false;
-		}
-	}
-	return (replaced);
 }
 
 static bool	remove_duplicates(t_cmd *cmd, int i)
@@ -157,7 +89,6 @@ void	handle_wildcards(t_cmd *cmd)
 		if (ft_strchr(cmd->cmd[i], '*'))
 		{
 			suffix = wildcard_split(cmd->cmd[i]);
-			//leaks ok
 			if (!suffix)
 				exit(ENOMEM);
 			if (expand_wildcards(NULL, suffix, cmd))
