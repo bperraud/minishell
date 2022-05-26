@@ -50,13 +50,14 @@ static char	**end_dir(char **cmd, char *start_dir, char **env)
 	str = malloc(2 * sizeof(char));
 	if (has_cd)
 	{
-		str[0] = ft_strjoin("OLDPWD=", start_dir);
-		str[1] = NULL;
+		str[0] = NULL;
+		str[1] = ft_strjoin("OLDPWD=", start_dir);
+		str[2] = NULL;
 		env = export(str, env);
 		if (cd_args(cmd) == 2 && !ft_strcmp(cmd[1], "-"))
 			printf("%s\n", end_dir);
 	}
-	free(str[0]);
+	free(str[1]);
 	free(str);
 	free(end_dir);
 	free(start_dir);

@@ -64,7 +64,8 @@ char	**launch_cmd(t_cmd *command, char **envp)
 		pwd();
 	else if (!ft_strcmp(command->cmd[0], "exit"))
 		ft_exit(command);
-	else if (!ft_strncmp(command->cmd[0], "./", 2))
+	else if (!ft_strncmp(command->cmd[0], "./", 2)
+		|| !ft_strncmp(command->cmd[0], "/", 1))
 		ft_executable(command->cmd, envp);
 	else
 	{
