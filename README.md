@@ -16,22 +16,3 @@ Compile and run
 make
 ./minishell
 ```
-## TODO
-- segfault parsing (combinaisons foireuses de && || >>>)
-- Error (ls && ls) et espace avant parenthese -> parsing error
-- Wildcards
-- Finish
-	- Norme
-	- Tests (with error codes)
-
-## commandes (cmd)
-si fin de ligne -> mode = NONE: executer la commande
-si | -> mode = PIPE: creer un pipe vers la prochaine commande
-si && -> mode = AND: executer la commande seulement si la precedente est ok
-si || -> mode = OR: executer la commande seulement si la precedente est ko
-
-## redirections
-(<<) si here\_doc != NULL -> lire avec here\_doc, qui est le delimiteur
-(<) si fd_in != 0 -> lire dans fd_in a la place de stdin
-(>) si fd_out != 1 -> ecrire dans fd_out a la place de stdout
-(>>) si, en plus, append\_out == TRUE -> ecrire en mode append
