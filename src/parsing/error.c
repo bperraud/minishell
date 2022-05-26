@@ -43,8 +43,8 @@ static int	check_opening_par(t_error *err)
 
 static int	check_closing_par(t_error *err, char **str)
 {
-	*str = skip_spaces(*str);
 	(*str)++;
+	*str = skip_spaces(*str);
 	if (!ft_strchr("|&", **str) || err->is_start_of_cmd)
 	{
 		ft_putstr_fd("-minishell: syntax error near unexpected token ')'\n", 2);
