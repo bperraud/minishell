@@ -21,7 +21,6 @@ LFLAGS		+= -lreadline libft/libft.a
 $(NAME):		$(OBJS)
 				$(MAKE) -s -C libft
 				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LFLAGS)
-				${RM} ${OBJS}
 
 all:			$(NAME)
 clean:
