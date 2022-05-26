@@ -6,20 +6,11 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 19:05:06 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/25 22:15:32 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/26 13:53:27 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	correct_env_variable(char *cmd)
-{
-	if (!ft_strchr(cmd, '='))
-		return (0);
-	if (cmd[0] == '=')
-		return (0);
-	return (1);
-}
 
 char	**export(char **cmd, char **env)
 {

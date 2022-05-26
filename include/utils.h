@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 09:05:47 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/23 18:08:28 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/26 14:10:57 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 # define CYAN "\e[0;36m"
 # define WHITE "\e[0;37m"
 # define RESET "\e[0m"
-
-
 
 enum	e_file
 {
@@ -60,6 +58,7 @@ int		test_access(char *str, int file_access);
 int		free_and_return(char *str, void *ptr, int r_value);
 
 /* env */
+int		correct_env_variable(char *cmd);
 char	*ft_getenv(char *str, char **env);
 char	*get_var_value(char *str);
 char	**env_unset(char *var, char **env);

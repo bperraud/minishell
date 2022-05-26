@@ -6,11 +6,19 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 12:07:49 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/24 16:15:26 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/26 14:10:04 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	correct_env_variable(char *cmd)
+{
+	if (cmd[0] == '=' || cmd[0] == '?' || ft_isdigit(cmd[0])
+		|| !ft_strchr(cmd, '='))
+		return (0);
+	return (1);
+}
 
 int	get_var_len(char *s)
 {
