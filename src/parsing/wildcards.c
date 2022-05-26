@@ -95,7 +95,7 @@ static bool	expand_wildcards(char *prefix, char **suffix, t_cmd *cmd)
 			j = 0;
 			exp_list = get_exp_list(prefix, suffix[0]);
 			if (!exp_list)
-				replaced = false;
+				return (false);
 			while (exp_list[j])
 			{
 				cmd->cmd = add_string(cmd->cmd, exp_list[j]);
