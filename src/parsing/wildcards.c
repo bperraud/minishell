@@ -61,8 +61,16 @@ static bool	expand_wildcards(char *prefix, char **suffix, t_cmd *cmd)
 	if (!prefix) //premier appel
 	{
 		prefix = suffix[0];
-		if (expand_wildcards(prefix, suffix + 1, cmd))
-			replaced = true;
+		if (suffix[1])
+		{
+			if (expand_wildcards(prefix, suffix + 1, cmd))
+				replaced = true;
+		}
+		else
+		{
+			if (expand_wildcards(prefix, suffix, cmd))
+				replaced = true;
+		}
 	}
 	else if (*suffix && **suffix) // n-appel
 	{
@@ -114,15 +122,17 @@ static bool	remove_duplicates(t_cmd *cmd, int i)
 	int		len;
 	int		j;
 
+	if (!cmd || !cmd->cmd)
+		return (false);
 	len = lst_len(cmd->cmd);
 	while (i < len - 1)
 	{
 		j = i + 1;
 		while (j < len)
 		{
-			if (ft_strcmp(cmd->cmd[i], cmd->cmd[j]))
+			if (ft_strcmp(cmd->cmd[i], cmd->cmd[j]) == 0)
 			{
-				cmd->cmd = lst_del(cmd->cmd, i);
+				cmd->cmd = lst_del(cmd->cmd, j);
 				return (true);
 			}
 			j++;
