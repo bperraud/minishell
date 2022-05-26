@@ -126,10 +126,10 @@ char	**get_exp_list(char *start, char *end)
 		j = 0;
 		while(ex_list && ex_list[j])
 		{
-			exp_list = add_string(exp_list, ex_list[j]);
+			exp_list = add_string(exp_list, ft_strndup(ex_list[j], ft_strlen(ex_list[j])));
 			j++;
 		}
-		free(ex_list);
+		free_str_list(ex_list);
 		i++;
 	}
 	free_str_list(f_list);

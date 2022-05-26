@@ -82,11 +82,11 @@ static bool	expand_wildcards(char *prefix, char **suffix, t_cmd *cmd)
 		}
 		while (exp_list[j])
 		{
-			 if (expand_wildcards(exp_list[j], suffix + 1, cmd))
+			if (expand_wildcards(exp_list[j], suffix + 1, cmd))
 			 	replaced = true;
 			j++;
 		}
-		//free_str_list(exp_list);
+		free_str_list(exp_list);
 	}
 	else // dernier appel
 	{
@@ -98,16 +98,17 @@ static bool	expand_wildcards(char *prefix, char **suffix, t_cmd *cmd)
 				return (false);
 			while (exp_list[j])
 			{
-				cmd->cmd = add_string(cmd->cmd, exp_list[j]);
+				cmd->cmd = add_string(cmd->cmd, ft_strndup(exp_list[j], ft_strlen(exp_list[j])));
 				replaced = true;
 				j++;
 			}
+			free_str_list(exp_list);
 		}
 		else if (prefix)
 		{
 			if (is_indir(prefix))
 			{
-				cmd->cmd = add_string(cmd->cmd, prefix);
+				cmd->cmd = add_string(cmd->cmd, ft_strndup(prefix, ft_strlen(prefix)));
 				replaced = true;
 			}
 			else
@@ -156,6 +157,7 @@ void	handle_wildcards(t_cmd *cmd)
 		if (ft_strchr(cmd->cmd[i], '*'))
 		{
 			suffix = wildcard_split(cmd->cmd[i]);
+			//leaks ok
 			if (!suffix)
 				exit(ENOMEM);
 			if (expand_wildcards(NULL, suffix, cmd))
