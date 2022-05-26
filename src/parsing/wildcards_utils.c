@@ -92,7 +92,7 @@ static char	**get_expand(char *str, char *start, char *next)
 		ex_list = add_string(ex_list, ft_strndup(str, ft_strlen(str)));
 		return (ex_list);
 	}
-	while (i < ft_strlen(str))
+	while (i < (int) ft_strlen(str))
 	{
 		if (strncmp(str + i, next, ft_strlen(next)) == 0)
 		{
