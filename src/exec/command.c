@@ -48,10 +48,7 @@ char	**launch_cmd(t_cmd *command, char **envp)
 		|| !ft_strncmp(command->cmd[0], "/", 1))
 		ft_executable(command->cmd, envp);
 	else
-	{
-		if (has_path(command->cmd[0], envp))
-			extern_cmd(command, envp);
-	}
+		extern_cmd(command, envp);
 	while (wait(NULL) > 0)
 		;
 	return (envp);
@@ -98,7 +95,10 @@ void	extern_cmd(t_cmd *command, char **envp)
 			dup_close(command->fd_in, 0);
 		if (command->fd_out != 1)
 			dup_close(command->fd_out, 1);
-		exec_cmd(command->cmd, envp);
+		if (has_path(command->cmd[0], envp))
+			exec_cmd(command->cmd, envp);
+		else
+			exit(COMMAND_NOT_FOUND);
 	}
 	waitpid(pid, &status, 0);
 	if (ft_strlen(command->here_doc))

@@ -14,6 +14,7 @@
 
 void	launch_cmd_pipe(t_cmd *command, char **envp)
 {
+	g_error = 0;
 	if (!ft_strcmp(command->cmd[0], "cd"))
 		change_directory(command, envp);
 	else if (!ft_strcmp(command->cmd[0], "echo"))

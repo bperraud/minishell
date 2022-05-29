@@ -38,9 +38,7 @@ void	pipex(t_cmd *command, char **envp)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
-	int		status;
 
-	status = 0;
 	pipe_protected(pipe(pipe_fd));
 	pid = fork_protected();
 	if (pid != 0)
@@ -57,7 +55,6 @@ void	pipex(t_cmd *command, char **envp)
 		launch_cmd_pipe(command, envp);
 		exit(FILE_ERROR);
 	}
-	g_error = WEXITSTATUS(status);
 }
 
 void	multiple_cmd(t_list_cmd *list_cmd, char **envp)
