@@ -47,7 +47,7 @@ char	*ft_getenv(char *str, char **env)
 			{
 				j++;
 			}
-			return (ft_strdup(env[i] + j + 1));
+			return (ft_sstrdup(env[i] + j + 1));
 		}
 		i++;
 	}
@@ -86,12 +86,7 @@ char	**env_add(char *str, char **env)
 	i = 0;
 	while (i < lst_len(env))
 	{
-		new_env[i] = ft_strdup(env[i]);
-		if (!new_env[i])
-		{
-			perror("-minishell: ");
-			exit(ENOMEM);
-		}
+		new_env[i] = ft_sstrdup(env[i]);
 		i++;
 	}
 	new_env[i] = ft_strndup(str, ft_strlen(str));
@@ -109,12 +104,7 @@ char	**env_dup(char **envp)
 	i = 0;
 	while (i < lst_len(envp))
 	{
-		new_env[i] = ft_strdup(envp[i]);
-		if (!new_env[i])
-		{
-			perror("-minishell: ");
-			exit(ENOMEM);
-		}
+		new_env[i] = ft_sstrdup(envp[i]);
 		i++;
 	}
 	new_env[i] = NULL;
