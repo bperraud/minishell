@@ -71,6 +71,7 @@ void	multiple_cmd(t_list_cmd *list_cmd, char **envp)
 void	pipe_cmd(char **str, char **envp, t_cmd **cmd)
 {
 	t_list_cmd	*list_cmd;
+	t_cmd		*f_cmd;
 
 	if ((*cmd)->mode != PIPE)
 		return ;
@@ -81,6 +82,10 @@ void	pipe_cmd(char **str, char **envp, t_cmd **cmd)
 		*cmd = init_cmd(0);
 		*str = get_next_cmd(*str, envp, *cmd);
 	}
+	f_cmd = list_cmd->command;
+	if ((f_cmd->prev_cmd == AND && g_error)
+		|| (f_cmd->prev_cmd == OR && !g_error))
+		return ;
 	multiple_cmd(list_cmd, envp);
 	(*cmd)->prev_cmd = PIPE;
 	free_list_cmd(list_cmd);
