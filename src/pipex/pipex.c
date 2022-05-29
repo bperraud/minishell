@@ -86,9 +86,6 @@ void	pipe_cmd(char **str, char **envp, t_cmd **cmd)
 		*str = get_next_cmd(*str, envp, *cmd);
 	}
 	multiple_cmd(list_cmd, envp);
-	if (g_error)
-		(*cmd)->prev_cmd = OR;
-	else
-		(*cmd)->prev_cmd = AND;
+	(*cmd)->prev_cmd = PIPE;
 	free_list_cmd(list_cmd);
 }

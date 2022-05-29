@@ -32,6 +32,10 @@ void		pipex(t_cmd *command, char **envp);
 void		redirect_pipe(t_cmd *command, char **envp);
 void		pipe_cmd(char **str, char **envp, t_cmd **cmd);
 
+//exec pipe
+char		**pipe_subshell(t_cmd *command, char **envp);
+char		**launch_cmd_pipe(t_cmd *command, char **envp);
+
 //files
 char		**parsing(char **envp);
 char		*create_path(char *path, char *arg);
@@ -40,7 +44,6 @@ void		dup_close(int fd, int std);
 int			here_doc(char *limiter);
 
 // utils
-char		**launch_cmd_pipe(t_cmd *command, char **envp);
 char		*ft_strncpy(char *dest, const char *src, unsigned int n);
 void		exit_error(char **cmd1, char **cmd2, char **path);
 void		free_all(char **cmd1, char **cmd2, char **path);

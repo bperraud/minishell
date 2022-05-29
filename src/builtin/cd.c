@@ -12,25 +12,28 @@
 
 #include "minishell.h"
 
-static void	one_arg(char **cmd, char **env)
+static void	one_arg(t_cmd *command, char **env)
 {
 	char	*old_pwd;
 
-	if (!ft_strcmp(cmd[1], "-"))
+	if (!ft_strcmp(command->cmd[1], "-"))
 	{
 		old_pwd = ft_getenv("OLDPWD", env);
 		if (old_pwd)
-			chdir(old_pwd);
+		{
+			if (command->prev_cmd != PIPE)
+				chdir(old_pwd);
+		}
 		else
 			prompt_error("cd", "OLDPWD not set\n");
 		free(old_pwd);
 		g_error = 1;
 	}
-	else
-		chdir(cmd[1]);
+	else if (command->prev_cmd != PIPE)
+		chdir(command->cmd[1]);
 }
 
-static char	**end_dir(char **cmd, char *start_dir, int argc, char **env)
+static char	**end_dir(t_cmd *command, char *start_dir, int argc, char **env)
 {
 	int		has_cd;
 	char	**str;
@@ -45,7 +48,7 @@ static char	**end_dir(char **cmd, char *start_dir, int argc, char **env)
 		str[1] = ft_strjoin("OLDPWD=", start_dir);
 		str[2] = NULL;
 		env = export(str, env);
-		if (argc == 2 && !ft_strcmp(cmd[1], "-"))
+		if (argc == 2 && !ft_strcmp(command->cmd[1], "-"))
 			printf("%s\n", end_dir);
 	}
 	free(str[1]);
@@ -74,29 +77,32 @@ static int	wrong_dir(char **cmd)
 	return (0);
 }
 
-static char	**cd_home(char **cmd, char *start_dir, int argc, char **env)
+static char	**cd_home(t_cmd *command, char *start_dir, int argc, char **env)
 {
 	char	*home;
 
 	home = ft_getenv("HOME", env);
 	if (home)
-		chdir(home);
+	{
+		if (command->prev_cmd != PIPE)
+			chdir(home);
+	}
 	else
 	{
 		prompt_error("cd", "HOME not set\n");
 		g_error = 1;
 	}
 	free(home);
-	return (end_dir(cmd, start_dir, argc, env));
+	return (end_dir(command, start_dir, argc, env));
 }
 
-char	**change_directory(char **cmd, char **env)
+char	**change_directory(t_cmd *command, char **env)
 {
 	char	*start_dir;
 	int		argc;
 
 	argc = 0;
-	while (cmd[argc])
+	while (command->cmd[argc])
 		argc++;
 	g_error = 0;
 	if (argc > 2)
@@ -105,11 +111,11 @@ char	**change_directory(char **cmd, char **env)
 		g_error = 1;
 		return (env);
 	}
-	if (wrong_dir(cmd) == -1)
+	if (wrong_dir(command->cmd) == -1)
 		return (env);
 	start_dir = getcwd(NULL, 0);
-	if (argc == 1 || !ft_strcmp(cmd[1], "~"))
-		return (cd_home(cmd, start_dir, argc, env));
-	one_arg(cmd, env);
-	return (end_dir(cmd, start_dir, argc, env));
+	if (argc == 1 || !ft_strcmp(command->cmd[1], "~"))
+		return (cd_home(command, start_dir, argc, env));
+	one_arg(command, env);
+	return (end_dir(command, start_dir, argc, env));
 }
