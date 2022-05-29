@@ -72,6 +72,8 @@ char	**launch_cmd(t_cmd *command, char **envp)
 		if (has_path(command->cmd[0], envp))
 			extern_cmd(command, envp);
 	}
+	while (wait(NULL) > 0)
+		;
 	return (envp);
 }
 
