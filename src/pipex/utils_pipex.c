@@ -10,7 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "minishell.h"
+
+char	**launch_cmd_pipe(t_cmd *command, char **envp)
+{
+	if (!ft_strcmp(command->cmd[0], "cd"))
+		return (change_directory(command->cmd, envp));
+	else if (!ft_strcmp(command->cmd[0], "echo"))
+		echo(command->cmd);
+	else if (!ft_strcmp(command->cmd[0], "export"))
+		return (export(command->cmd, envp));
+	else if (!ft_strcmp(command->cmd[0], "unset"))
+		return (unset(command->cmd, envp));
+	else if (!ft_strcmp(command->cmd[0], "env"))
+		ft_env(envp);
+	else if (!ft_strcmp(command->cmd[0], "pwd"))
+		pwd();
+	else if (!ft_strncmp(command->cmd[0], "./", 2)
+		|| !ft_strncmp(command->cmd[0], "/", 1))
+		ft_executable(command->cmd, envp);
+	else
+	{
+		if (has_path(command->cmd[0], envp))
+			exec_cmd(command->cmd, envp);
+	}
+	return (envp);
+}
 
 char	*ft_strncpy(char *dest, const char *src, unsigned int n)
 {

@@ -55,10 +55,8 @@ void	pipex(t_cmd *command, char **envp)
 		close(pipe_fd[0]);
 		command->fd_out = pipe_fd[1];
 		dup2(pipe_fd[1], 1);
-		if (has_path(command->cmd[0], envp))
-			exec_cmd(command->cmd, envp);
-		else
-			exit(FILE_ERROR);
+		launch_cmd_pipe(command, envp);
+		exit(FILE_ERROR);
 	}
 	g_error = WEXITSTATUS(status);
 }
