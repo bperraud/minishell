@@ -15,38 +15,16 @@
 char	**command(t_cmd *cmd, char **envp)
 {
 	if (cmd->prev_cmd == PIPE)
+	{
 		launch_cmd(cmd, envp);
+		return (envp);
+	}
 	if ((cmd->prev_cmd == AND && !g_error)
 		|| (cmd->prev_cmd == OR && g_error))
 		return (launch_cmd(cmd, envp));
 	if (cmd->prev_cmd == OR && !g_error)
 		g_error = OR_MODE_ERROR;
 	return (envp);
-}
-
-void	exec_cmd(char **cmd_arg, char **envp)
-{
-	int		i;
-	char	*cmd;
-	char	**paths;
-
-	i = -1;
-	paths = parsing(envp);
-	while (paths[++i])
-	{
-		cmd = create_path(paths[i], cmd_arg[0]);
-		if (!cmd)
-		{
-			free_tab(paths);
-			return ;
-		}
-		execve(cmd, cmd_arg, envp);
-		free(cmd);
-	}
-	ft_putstr_fd(cmd_arg[0], 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd("command not found\n", 2);
-	exit(COMMAND_NOT_FOUND);
 }
 
 /* redirect to appropriate function for a cmd */
@@ -77,6 +55,31 @@ char	**launch_cmd(t_cmd *command, char **envp)
 	while (wait(NULL) > 0)
 		;
 	return (envp);
+}
+
+void	exec_cmd(char **cmd_arg, char **envp)
+{
+	int		i;
+	char	*cmd;
+	char	**paths;
+
+	i = -1;
+	paths = parsing(envp);
+	while (paths[++i])
+	{
+		cmd = create_path(paths[i], cmd_arg[0]);
+		if (!cmd)
+		{
+			free_tab(paths);
+			return ;
+		}
+		execve(cmd, cmd_arg, envp);
+		free(cmd);
+	}
+	ft_putstr_fd(cmd_arg[0], 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd("command not found\n", 2);
+	exit(COMMAND_NOT_FOUND);
 }
 
 /* not build_in command */

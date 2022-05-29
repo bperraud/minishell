@@ -48,7 +48,6 @@ void	pipex(t_cmd *command, char **envp)
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], 0);
 		command->fd_in = pipe_fd[0];
-		waitpid(pid, &status, 0);
 	}
 	else
 	{
