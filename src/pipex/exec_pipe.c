@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
-char	**launch_cmd_pipe(t_cmd *command, char **envp)
+void	launch_cmd_pipe(t_cmd *command, char **envp)
 {
 	if (!ft_strcmp(command->cmd[0], "cd"))
-		return (change_directory(command, envp));
+		change_directory(command, envp);
 	else if (!ft_strcmp(command->cmd[0], "echo"))
 		echo(command->cmd);
 	else if (!ft_strcmp(command->cmd[0], "env"))
@@ -25,10 +25,11 @@ char	**launch_cmd_pipe(t_cmd *command, char **envp)
 	else if (!ft_strncmp(command->cmd[0], "./", 2)
 		|| !ft_strncmp(command->cmd[0], "/", 1))
 		ft_executable(command->cmd, envp);
+	else if (!ft_strcmp(command->cmd[0], "exit"))
+		;
 	else
 	{
 		if (has_path(command->cmd[0], envp))
 			exec_cmd(command->cmd, envp);
 	}
-	return (envp);
 }

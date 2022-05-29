@@ -86,9 +86,11 @@ void	exec_cmd(char **cmd_arg, char **envp)
 void	extern_cmd(t_cmd *command, char **envp)
 {
 	int		status;
+	pid_t	pid;
 
 	status = 0;
-	if (!fork_protected())
+	pid = fork_protected();
+	if (!pid)
 	{
 		if (ft_strlen(command->here_doc))
 			dup_close(here_doc(command->here_doc), 0);
@@ -98,7 +100,7 @@ void	extern_cmd(t_cmd *command, char **envp)
 			dup_close(command->fd_out, 1);
 		exec_cmd(command->cmd, envp);
 	}
-	waitpid(-1, &status, 0);
+	waitpid(pid, &status, 0);
 	if (ft_strlen(command->here_doc))
 		unlink(HERE_DOC);
 	g_error = WEXITSTATUS(status);
