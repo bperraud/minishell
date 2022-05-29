@@ -33,7 +33,6 @@ void		redirect_pipe(t_cmd *command, char **envp);
 void		pipe_cmd(char **str, char **envp, t_cmd **cmd);
 
 //exec pipe
-char		**pipe_subshell(t_cmd *command, char **envp);
 char		**launch_cmd_pipe(t_cmd *command, char **envp);
 
 //files
