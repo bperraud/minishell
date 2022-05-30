@@ -14,11 +14,16 @@
 
 void	launch_cmd_pipe(t_cmd *command, char **envp)
 {
-	g_error = 0;
+	if (command->cmd[0][0] == '(')
+		subshell(&command, envp);
 	if (!ft_strcmp(command->cmd[0], "cd"))
 		change_directory(command, envp);
 	else if (!ft_strcmp(command->cmd[0], "echo"))
 		echo(command->cmd);
+	else if (!ft_strcmp(command->cmd[0], "export"))
+		return ;
+	else if (!ft_strcmp(command->cmd[0], "unset"))
+		return ;
 	else if (!ft_strcmp(command->cmd[0], "env"))
 		ft_env(envp);
 	else if (!ft_strcmp(command->cmd[0], "pwd"))

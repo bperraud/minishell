@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jboumal <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 13:36:44 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/14 13:37:21 by jboumal          ###   ########.fr       */
+/*   Updated: 2022/05/30 14:13:17 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static char	**get_expand(char *str, char *start, char *next)
 	}
 	while (i < (int) ft_strlen(str))
 	{
-		if (strncmp(str + i, next, ft_strlen(next)) == 0)
+		if (ft_strncmp(str + i, next, ft_strlen(next)) == 0)
 		{
 			ex_list = add_string(ex_list, ft_strndup(str, i + ft_strlen(next)));
 		}
