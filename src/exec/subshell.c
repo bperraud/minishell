@@ -20,7 +20,7 @@ int	subshell(t_cmd **cmd, char **envp)
 	sh = smalloc(4 * sizeof(char *));
 	sh[0] = ft_sstrdup("./minishell");
 	sh[1] = ft_sstrdup("-c");
-	sh[2] = ft_substr((*cmd)->cmd[0], 1, ft_strlen((*cmd)->cmd[0]) - 2);
+	sh[2] = ft_strndup((*cmd)->cmd[0] + 1, ft_strlen((*cmd)->cmd[0]) - 2);
 	sh[3] = NULL;
 	cmd_mode = (*cmd)->mode;
 	ft_executable(sh, envp);
