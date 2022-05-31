@@ -11,6 +11,11 @@ Then, export header and lib files to compilation and linking flags.
 export CFLAGS="-I/Users/$USER/.brew/opt/readline/include"
 export LFLAGS="-L/Users/$USER/.brew/opt/readline/lib"
 ```
+
+# TODO
+- Ctrl-C ne donne pas une nouvelle ligne
+- que des espaces dans la commande ou mauvaises redirections -> segfault (m'en occupe)
+
 Compile and run
 ```
 make
