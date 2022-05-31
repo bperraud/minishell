@@ -71,6 +71,7 @@ int		check_start_or(char *str);
 int		check_start_and(char *str);
 char	*check_syntax_operator(char *str);
 /* parsing utils */
+char	change_quote(char quote, char c);
 char	*file_error(void);
 void	cmd_list_add_char(t_cmd *cmd, t_split *split, char *s);
 /* wildcards */

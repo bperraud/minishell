@@ -12,6 +12,15 @@
 
 #include "minishell.h"
 
+char	change_quote(char quote, char c)
+{
+	if (!quote)
+		quote = c;
+	else
+		quote = '\0';
+	return (quote);
+}
+
 char	*file_error(void)
 {
 	perror("-minishell: ");
