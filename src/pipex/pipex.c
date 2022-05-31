@@ -45,12 +45,14 @@ void	pipex(t_cmd *command, char **envp)
 	{
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], 0);
-		command->fd_in = pipe_fd[0];
+		if (command->fd_in == 0)
+			command->fd_in = pipe_fd[0];
 	}
 	else
 	{
 		close(pipe_fd[0]);
-		command->fd_out = pipe_fd[1];
+		if (command->fd_out == 1)
+			command->fd_out = pipe_fd[1];
 		dup2(pipe_fd[1], 1);
 		launch_cmd_pipe(command, envp);
 		exit(FILE_ERROR);
