@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 10:55:41 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/24 02:23:26 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/31 23:48:45 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	change_quote(char quote, char c)
 
 char	*file_error(void)
 {
-	perror("-minishell: ");
+	ft_putstr_fd("-minishell: file error\n", 2);
 	g_error = FILE_ERROR;
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 19:29:26 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/31 16:08:45 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/01 00:07:00 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,10 @@ char	*get_next_cmd(char *s, char **env, t_cmd *cmd)
 	if (s)
 		s = handle_operator(cmd, s);
 	handle_wildcards(cmd);
-	while (cmd->cmd[++i])
-		cmd->cmd[i] = replace_env_var(cmd->cmd[i], env, -1, '\0');
+	if (cmd->cmd)
+	{
+		while (cmd->cmd[++i])
+			cmd->cmd[i] = replace_env_var(cmd->cmd[i], env, -1, '\0');
+	}
 	return (free_and_dup(split, s_ini, s));
 }
