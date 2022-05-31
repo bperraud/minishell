@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:49:51 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/31 02:34:11 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:44:53 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,11 @@ int	check_syntax(char *str)
 	err = init_error();
 	if (check_start_and(str) || check_start_or(str))
 		return (free_and_return(str_ini, err, 1));
-	while (*str)
+	while (*str || *save)
 	{
 		str = check_syntax_char(str, err);
-		if (!str)
-			return (free_and_return(str_ini, err, 1));
-	}
-	while (*save)
-	{
 		save = check_syntax_operator(save);
-		if (!save)
+		if (!str | !save)
 			return (free_and_return(str_ini, err, 1));
 	}
 	if (is_unclosed_sentence(err->par, err->quote))

@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 08:54:56 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/31 02:40:54 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:53:08 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ enum e_mode
 
 typedef struct s_cmd
 {
-	int				fd_in;
-	int				fd_out;
-	char			*here_doc;
-	int				mode;
-	char			**cmd;
-	int				prev_cmd;
+	int		fd_in;
+	int		fd_out;
+	char	*here_doc;
+	int		mode;
+	char	**cmd;
+	int		prev_cmd;
 }				t_cmd;
 
 typedef struct s_error
@@ -70,6 +70,7 @@ int		check_syntax(char *str);
 int		check_start_or(char *str);
 int		check_start_and(char *str);
 char	*check_syntax_operator(char *str);
+int		check_operators_in_a_row(char *str);
 /* parsing utils */
 char	*file_error(void);
 void	cmd_list_add_char(t_cmd *cmd, t_split *split, char *s);
