@@ -13,7 +13,6 @@ export LFLAGS="-L/Users/$USER/.brew/opt/readline/lib"
 ```
 
 # TODO
-- que des espaces dans la commande ou mauvaises redirections -> segfault (m'en occupe)
 - parsing parenthèses 
 
 Compile and run
