@@ -21,6 +21,7 @@ static char	*handle_quotes_and_parenthesis(t_cmd *cmd, t_split *split, char *s)
 			split->quote = *s;
 		else
 			split->quote = '\0';
+		split->word = add_char(split->word, *s);
 		s++;
 	}
 	else if (!split->quote && *s == '(')
@@ -40,7 +41,7 @@ static char	*handle_quotes_and_parenthesis(t_cmd *cmd, t_split *split, char *s)
 	return (s);
 }
 
-static char	*replace_env_var(char *s, char **env, int i, bool squote)
+static char	*replace_env_var(char *s, char **env, int i, char quote)
 {
 	char	*s1;
 	char	*s2;
@@ -49,7 +50,14 @@ static char	*replace_env_var(char *s, char **env, int i, bool squote)
 	s1 = NULL;
 	while (s[++i])
 	{
-		if (!squote && s[i] == '$')
+		if ((s[i] == '\'' || s[i] == '\"') && (quote == s[i] || !quote))
+		{
+			if (!quote)
+				quote = s[i];
+			else
+				quote = '\0';
+		}
+		else if (quote != '\'' && s[i] == '$')
 		{
 			var = ft_strndup(s + i + 1, get_var_len(s + i + 1));
 			i += get_var_len(s + i + 1);
@@ -58,8 +66,6 @@ static char	*replace_env_var(char *s, char **env, int i, bool squote)
 			free(s2);
 			free(var);
 		}
-		else if (s[i] == '\'')
-			squote = (squote + 1) % 2;
 		else
 			s1 = add_char(s1, s[i]);
 	}
@@ -118,6 +124,6 @@ char	*get_next_cmd(char *s, char **env, t_cmd *cmd)
 		s = handle_operator(cmd, s);
 	handle_wildcards(cmd);
 	while (cmd->cmd[++i])
-		cmd->cmd[i] = replace_env_var(cmd->cmd[i], env, -1, false);
+		cmd->cmd[i] = replace_env_var(cmd->cmd[i], env, -1, '\0');
 	return (free_and_dup(split, s_ini, s));
 }
