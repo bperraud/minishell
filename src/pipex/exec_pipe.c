@@ -15,8 +15,8 @@
 void	launch_cmd_pipe(t_cmd *command, char **envp)
 {
 	if (command->cmd[0][0] == '(')
-		subshell(&command, envp);
-	if (!ft_strcmp(command->cmd[0], "cd"))
+		subshell(command, envp);
+	else if (!ft_strcmp(command->cmd[0], "cd"))
 		change_directory(command, envp);
 	else if (!ft_strcmp(command->cmd[0], "echo"))
 		echo(command->cmd);
@@ -32,7 +32,7 @@ void	launch_cmd_pipe(t_cmd *command, char **envp)
 		|| !ft_strncmp(command->cmd[0], "/", 1))
 		ft_executable(command->cmd, envp);
 	else if (!ft_strcmp(command->cmd[0], "exit"))
-		;
+		return ;
 	else
 	{
 		if (has_path(command->cmd[0], envp))

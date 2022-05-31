@@ -14,6 +14,13 @@
 
 char	**command(t_cmd *cmd, char **envp)
 {
+	if (cmd->cmd[0][0] == '(')
+	{
+		subshell(cmd, envp);
+		while (wait(NULL) > 0)
+			;
+		return (envp);
+	}
 	if (cmd->prev_cmd == PIPE)
 	{
 		launch_cmd(cmd, envp);
