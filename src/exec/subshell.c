@@ -19,7 +19,7 @@ int	subshell(t_cmd **cmd, char **envp)
 
 	if (((*cmd)->prev_cmd == AND && g_error)
 		|| ((*cmd)->prev_cmd == OR && !g_error))
-		return (cmd_mode);
+		return ((*cmd)->mode);
 	sh = smalloc(4 * sizeof(char *));
 	sh[0] = ft_sstrdup("./minishell");
 	sh[1] = ft_sstrdup("-c");
