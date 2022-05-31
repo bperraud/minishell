@@ -16,7 +16,6 @@ export LFLAGS="-L/Users/$USER/.brew/opt/readline/lib"
 - Ctrl-C ne donne pas une nouvelle ligne
 - que des espaces dans la commande ou mauvaises redirections -> segfault (m'en occupe)
 - parsing parenthèses 
-- parsing variables d'environnement 
 
 Compile and run
 ```
