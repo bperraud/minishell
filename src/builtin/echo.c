@@ -41,7 +41,7 @@ void	echo(char **cmd)
 	}
 	while (cmd[++i])
 	{
-		printf(RESET"%s"GREEN, cmd[i]);
+		printf("%s", cmd[i]);
 		if (cmd[i + 1])
 			printf(" ");
 	}
