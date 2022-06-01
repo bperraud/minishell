@@ -20,6 +20,7 @@ make
 - Incrementer SHLVL quand on lance le shell.
 - Si SHVL=999, SHLVL devient vide (dans env, SHVL= )
 - Si SHVL est vide ou plus grand que 999 ou pas un int, reset SHLVL a 1
-- Ne pas initialiser OLD_PWD quand on lance le shell (n'existe pas dans env)
-- Segfault quand cd et OLD_PWD est unset
 - Dans env mettre la derniere commande executee dans la variable _
+- (ls && ls) > file1 syntax error 
+- problème redirection dans subshells
+- subshell après cd (marche pas car ./minishell pas trouvé)
