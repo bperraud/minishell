@@ -11,10 +11,6 @@ Then, export header and lib files to compilation and linking flags.
 export CFLAGS="-I/Users/$USER/.brew/opt/readline/include"
 export LFLAGS="-L/Users/$USER/.brew/opt/readline/lib"
 ```
-
-# TODO
-- parsing parenthèses 
-
 Compile and run
 ```
 make
