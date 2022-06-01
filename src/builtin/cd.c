@@ -23,10 +23,10 @@ static void	one_arg(t_cmd *command, char **env)
 		{
 			if (command->prev_cmd != PIPE)
 				chdir(old_pwd);
+			free(old_pwd);
 		}
 		else
 			prompt_error("cd", "OLDPWD not set\n");
-		free(old_pwd);
 		g_error = 1;
 	}
 	else if (command->prev_cmd != PIPE)
@@ -35,24 +35,22 @@ static void	one_arg(t_cmd *command, char **env)
 
 static char	**end_dir(t_cmd *command, char *start_dir, int argc, char **env)
 {
-	int		has_cd;
 	char	**str;
 	char	*end_dir;
 
 	end_dir = getcwd(NULL, 0);
-	has_cd = (ft_strcmp(start_dir, end_dir) != 0);
-	str = malloc(2 * sizeof(char));
-	if (has_cd)
+	if (ft_strcmp(start_dir, end_dir) != 0)
 	{
+		str = malloc(2 * sizeof(char));
 		str[0] = NULL;
 		str[1] = ft_strjoin("OLDPWD=", start_dir);
 		str[2] = NULL;
 		env = export(str, env);
 		if (argc == 2 && !ft_strcmp(command->cmd[1], "-"))
 			printf("%s\n", end_dir);
+		free(str[1]);
+		free(str);
 	}
-	free(str[1]);
-	free(str);
 	free(end_dir);
 	free(start_dir);
 	return (env);
@@ -86,13 +84,13 @@ static char	**cd_home(t_cmd *command, char *start_dir, int argc, char **env)
 	{
 		if (command->prev_cmd != PIPE)
 			chdir(home);
+		free(home);
 	}
 	else
 	{
 		prompt_error("cd", "HOME not set\n");
 		g_error = 1;
 	}
-	free(home);
 	return (end_dir(command, start_dir, argc, env));
 }
 
