@@ -13,14 +13,14 @@
 #include "minishell.h"
 
 /* redirect to appropriate function for a cmd */
-static char	**launch_cmd(t_cmd *command, char **envp, int fd_save[2])
+static char	**launch_cmd(t_cmd *command, char **envp)
 {
 	if (command->cmd[0][0] == '(')
 	{
 		subshell(command, envp);
 		return (envp);
 	}
-	redirect(command, fd_save);
+	redirect(command);
 	if (!ft_strcmp(command->cmd[0], "cd"))
 		return (change_directory(command, envp));
 	else if (!ft_strcmp(command->cmd[0], "echo"))
@@ -45,7 +45,7 @@ static char	**launch_cmd(t_cmd *command, char **envp, int fd_save[2])
 	return (envp);
 }
 
-char	**command(t_cmd *cmd, char **envp, int fd_save[2])
+char	**command(t_cmd *cmd, char **envp)
 {
 	if (cmd->prev_cmd == PIPE)
 	{
@@ -55,7 +55,7 @@ char	**command(t_cmd *cmd, char **envp, int fd_save[2])
 	}
 	else if ((cmd->prev_cmd == AND && !g_error)
 		|| (cmd->prev_cmd == OR && g_error))
-		return (launch_cmd(cmd, envp, fd_save));
+		return (launch_cmd(cmd, envp));
 	else if (cmd->prev_cmd == OR && !g_error)
 		g_error = OR_MODE_ERROR;
 	return (envp);

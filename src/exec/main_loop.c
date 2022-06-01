@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/06/02 01:38:03 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/02 01:53:20 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	**sh(char *str, char **envp, int fd_save[2], int prev_cmd_mode)
 			return (envp);
 		}
 		pipe_cmd(&str, envp, &cmd);
-		envp = command(cmd, envp, fd_save);
+		envp = command(cmd, envp);
 		restore_std(fd_save);
 		try_exit(cmd, str, envp);
 		prev_cmd_mode = cmd->mode;

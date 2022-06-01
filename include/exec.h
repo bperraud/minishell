@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 08:55:02 by jboumal           #+#    #+#             */
-/*   Updated: 2022/06/02 01:46:48 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/02 01:53:40 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ typedef struct s_cmd	t_cmd;
 
 /* subshell */
 void	subshell(t_cmd *cmd, char **envp);
-char	**command(t_cmd *cmd, char **envp, int fd_save[2]);
+char	**command(t_cmd *cmd, char **envp);
 
 /* exec */
 void	extern_cmd(t_cmd *command, char**envp);
@@ -30,7 +30,7 @@ void	start_shell(char **envp, char *str_c);
 void	ft_executable(char **cmd, char **envp);
 
 /* redurection */
-void	redirect(t_cmd *command, int fd_save[2]);
+void	redirect(t_cmd *command);
 void	restore_std(int fd_save[2]);
 
 #endif
