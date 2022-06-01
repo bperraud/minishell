@@ -29,7 +29,7 @@ static void	one_arg(t_cmd *command, char **env)
 			prompt_error("cd", "OLDPWD not set\n");
 		g_error = 1;
 	}
-	else if (command->prev_cmd != PIPE)
+	else
 		chdir(command->cmd[1]);
 }
 
@@ -82,8 +82,7 @@ static char	**cd_home(t_cmd *command, char *start_dir, int argc, char **env)
 	home = ft_getenv("HOME", env);
 	if (home)
 	{
-		if (command->prev_cmd != PIPE)
-			chdir(home);
+		chdir(home);
 		free(home);
 	}
 	else

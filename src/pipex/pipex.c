@@ -55,7 +55,10 @@ void	pipex(t_cmd *command, char **envp)
 		else
 			dup2(command->fd_out, 1);
 		command->fd_out = pipe_fd[1];
-		launch_cmd_pipe(command, envp);
+		if (command->cmd[0][0] == '(')
+			subshell(command, envp);
+		else
+			subshell_pipe(command, envp);
 		exit(FILE_ERROR);
 	}
 }

@@ -12,6 +12,33 @@
 
 #include "minishell.h"
 
+void	subshell_pipe(t_cmd *command, char **envp)
+{
+	char	**sh;
+	int		i;
+	int		argc;
+	char	*tmp;
+
+	argc = 0;
+	while (command->cmd[argc + 1])
+		argc++;
+	sh = smalloc((argc + 4) * sizeof(char *));
+	sh[0] = ft_sstrdup("./minishell");
+	sh[1] = ft_sstrdup("-c");
+	sh[2] = ft_sstrdup(command->cmd[0]);
+	sh[3] = NULL;
+	i = 1;
+	while (command->cmd[i])
+	{
+		tmp = ft_strjoin(sh[2], " ");
+		sh[2] = ft_strjoin(tmp, command->cmd[i]);
+		free(tmp);
+		i++;
+	}
+	ft_executable(sh, envp);
+	free_str_list(sh);
+}
+
 void	subshell(t_cmd *cmd, char **envp)
 {
 	char	**sh;
