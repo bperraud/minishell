@@ -12,31 +12,31 @@
 
 #include "minishell.h"
 
-static char	*handle_quotes_and_parenthesis(t_cmd *cmd, t_split *split, char *s)
+static char	*handle_quotes_and_parenthesis(t_cmd *cmd, t_split *sp, char *s)
 {
-	if ((*s == '\'' || *s == '\"')
-		&& (split->quote == *s || !split->quote) && !split->par)
+	if (ft_strchr("\"\'", *s) && (sp->quote == *s || !sp->quote) && !sp->par)
 	{
-		if (!split->quote)
-			split->quote = *s;
+		if (!sp->quote)
+			sp->quote = *s;
 		else
-			split->quote = '\0';
-		split->word = add_char(split->word, *s);
+			sp->quote = '\0';
+		sp->word = add_char(sp->word, *s);
 		s++;
 	}
-	else if (!split->quote && *s == '(')
+	else if (!sp->quote && *s == '(')
 	{
-		if (!split->par)
+		if (!sp->par)
 		{
-			cmd->cmd = add_string(cmd->cmd, split->word);
-			split->word = NULL;
+			cmd->cmd = add_string(cmd->cmd, sp->word);
+			sp->word = NULL;
 		}
-		split->par ++;
+		sp->par ++;
 	}
-	else if (!split->quote && *s == ')')
+	else if (!sp->quote && *s == ')')
 	{
-		split->word = add_char(split->word, *s);
-		split->par --;
+		sp->word = add_char(sp->word, *s);
+		sp->par --;
+		s++;
 	}
 	return (s);
 }
