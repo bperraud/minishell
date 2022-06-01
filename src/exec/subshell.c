@@ -43,9 +43,6 @@ void	subshell(t_cmd *cmd, char **envp)
 {
 	char	**sh;
 
-	if ((cmd->prev_cmd == AND && g_error)
-		|| (cmd->prev_cmd == OR && !g_error))
-		return ;
 	sh = smalloc(4 * sizeof(char *));
 	sh[0] = ft_sstrdup("./minishell");
 	sh[1] = ft_sstrdup("-c");
