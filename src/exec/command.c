@@ -12,30 +12,16 @@
 
 #include "minishell.h"
 
-char	**command(t_cmd *cmd, char **envp)
+/* redirect to appropriate function for a cmd */
+static char	**launch_cmd(t_cmd *command, char **envp, int fd_save[2])
 {
-	if (cmd->prev_cmd == PIPE)
+	if (command->cmd[0][0] == '(')
 	{
-		subshell_pipe(cmd, envp);
-		while (wait(NULL) > 0)
-			;
+		subshell(command, envp);
 		return (envp);
 	}
-	if ((cmd->prev_cmd == AND && !g_error)
-		|| (cmd->prev_cmd == OR && g_error))
-		return (launch_cmd(cmd, envp));
-	if (cmd->prev_cmd == OR && !g_error)
-		g_error = OR_MODE_ERROR;
-	return (envp);
-}
-
-/* redirect to appropriate function for a cmd */
-char	**launch_cmd(t_cmd *command, char **envp)
-{
-	redirect(command);
-	if (command->cmd[0][0] == '(')
-		subshell(command, envp);
-	else if (!ft_strcmp(command->cmd[0], "cd"))
+	redirect(command, fd_save);
+	if (!ft_strcmp(command->cmd[0], "cd"))
 		return (change_directory(command, envp));
 	else if (!ft_strcmp(command->cmd[0], "echo"))
 		echo(command->cmd);
@@ -59,7 +45,23 @@ char	**launch_cmd(t_cmd *command, char **envp)
 	return (envp);
 }
 
-void	exec_cmd(char **cmd_arg, char **envp)
+char	**command(t_cmd *cmd, char **envp, int fd_save[2])
+{
+	if (cmd->prev_cmd == PIPE)
+	{
+		subshell_pipe(cmd, envp);
+		while (wait(NULL) > 0)
+			;
+	}
+	else if ((cmd->prev_cmd == AND && !g_error)
+		|| (cmd->prev_cmd == OR && g_error))
+		return (launch_cmd(cmd, envp, fd_save));
+	else if (cmd->prev_cmd == OR && !g_error)
+		g_error = OR_MODE_ERROR;
+	return (envp);
+}
+
+static void	exec_cmd(char **cmd_arg, char **envp)
 {
 	int		i;
 	char	*cmd;

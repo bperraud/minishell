@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	redirect(t_cmd *command)
+void	redirect(t_cmd *command, int fd_save[2])
 {
 	if (ft_strlen(command->here_doc))
 		dup_close(here_doc(command->here_doc), 0);

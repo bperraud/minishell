@@ -22,7 +22,7 @@ void	subshell_pipe(t_cmd *command, char **envp)
 	argc = 0;
 	while (command->cmd[argc + 1])
 		argc++;
-	sh = smalloc((argc + 4) * sizeof(char *));
+	sh = smalloc(4 * sizeof(char *));
 	sh[0] = ft_sstrdup("./minishell");
 	sh[1] = ft_sstrdup("-c");
 	sh[2] = ft_sstrdup(command->cmd[0]);
