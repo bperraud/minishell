@@ -41,7 +41,7 @@ static char	**end_dir(t_cmd *command, char *start_dir, int argc, char **env)
 	end_dir = getcwd(NULL, 0);
 	if (ft_strcmp(start_dir, end_dir) != 0)
 	{
-		str = malloc(2 * sizeof(char));
+		str = malloc(3 * sizeof(char *));
 		str[0] = NULL;
 		str[1] = ft_strjoin("OLDPWD=", start_dir);
 		str[2] = NULL;
