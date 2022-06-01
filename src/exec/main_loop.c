@@ -6,17 +6,11 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/06/01 15:59:39 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:01:28 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	restore_std(int fd_save[2])
-{
-	dup2(fd_save[0], STDIN);
-	dup2(fd_save[1], STDOUT);
-}
 
 static char	**sh(char *str, char **envp, int fd_save[2], int prev_cmd_mode)
 {

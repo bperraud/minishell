@@ -6,7 +6,7 @@ SRCS		= minishell.c test.c signals.c \
 			  parsing/error.c parsing/parsing_utils.c parsing/wildcards.c parsing/wildcards_utils.c \
 			  parsing/wildcard_split.c parsing/expand_wildcards.c parsing/operator_error.c\
 			  pipex/files.c pipex/pipex.c pipex/utils_pipex.c pipex/list_cmd.c\
-			  exec/command.c exec/main_loop.c exec/subshell.c\
+			  exec/command.c exec/main_loop.c exec/subshell.c exec/redirection.c\
 			  builtin/cd.c builtin/echo.c builtin/export.c builtin/unset.c builtin/env.c builtin/pwd.c builtin/exit.c
 
 SRCS		:= $(addprefix src/,$(SRCS))

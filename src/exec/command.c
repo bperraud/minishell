@@ -32,6 +32,7 @@ char	**command(t_cmd *cmd, char **envp)
 /* redirect to appropriate function for a cmd */
 char	**launch_cmd(t_cmd *command, char **envp)
 {
+	redirect(command);
 	if (command->cmd[0][0] == '(')
 		subshell(command, envp);
 	else if (!ft_strcmp(command->cmd[0], "cd"))
@@ -93,12 +94,6 @@ void	extern_cmd(t_cmd *command, char **envp)
 	pid = fork_protected();
 	if (!pid)
 	{
-		if (ft_strlen(command->here_doc))
-			dup_close(here_doc(command->here_doc), 0);
-		if (command->fd_in != 0)
-			dup_close(command->fd_in, 0);
-		if (command->fd_out != 1)
-			dup_close(command->fd_out, 1);
 		if (has_path(command->cmd[0], envp))
 			exec_cmd(command->cmd, envp);
 		else
