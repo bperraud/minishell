@@ -59,7 +59,7 @@ void	pipex(t_cmd *command, char **envp)
 			subshell(command, envp);
 		else
 			subshell_pipe(command, envp);
-		exit(FILE_ERROR);
+		exit(0);
 	}
 }
 
