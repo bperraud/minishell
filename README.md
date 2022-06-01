@@ -23,3 +23,4 @@ make
 - Dans env mettre la derniere commande executee dans la variable _
 - (ls && ls) > file1 syntax error 
 - problème redirection dans subshells
+- subshell après cd (marche pas car ./minishell pas trouvé)
