@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/06/02 01:53:20 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/03 14:33:02 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ void	start_shell(char **envp, char *str_c)
 				break ;
 		}
 		else
+		{
+			//printf("\n");
 			str = ft_strndup(str_c, ft_strlen(str_c));
+		}
 		add_history(str);
 		if (!check_syntax(str))
 			envp = set_up_sh(str, envp);

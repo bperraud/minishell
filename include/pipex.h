@@ -27,13 +27,8 @@ typedef struct s_list_cmd	t_list_cmd;
 
 //pipex
 pid_t		fork_protected(void);
-void		multiple_cmd(t_list_cmd *list_cmd, char **envp);
-void		pipex(t_cmd *command, char **envp);
 void		redirect_pipe(t_cmd *command, char **envp);
 void		pipe_cmd(char **str, char **envp, t_cmd **cmd);
-
-//exec pipe
-void		subshell_pipe(t_cmd *command, char **envp);
 
 //files
 char		**parsing(char **envp);

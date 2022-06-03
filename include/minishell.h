@@ -45,7 +45,6 @@ void	term_config(void);
 /* test */
 void	print_list(char **lst);
 void	print_cmd_args(t_cmd *cmd);
-
 void	prompt_error(char *str, char *error);
 
 #endif

@@ -34,7 +34,7 @@ static void	pipe_protected(int pipe)
 	}
 }
 
-void	pipex(t_cmd *command, char **envp)
+static void	pipex(t_cmd *command, char **envp)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
@@ -55,15 +55,12 @@ void	pipex(t_cmd *command, char **envp)
 		else
 			dup2(command->fd_out, 1);
 		command->fd_out = pipe_fd[1];
-		if (command->cmd[0][0] == '(')
-			subshell(command, envp);
-		else
-			subshell_pipe(command, envp);
+		subshell(command, envp);
 		exit(0);
 	}
 }
 
-void	multiple_cmd(t_list_cmd *list_cmd, char **envp)
+static void	multiple_cmd(t_list_cmd *list_cmd, char **envp)
 {
 	if (list_cmd->command->fd_in != 0)
 		dup2(list_cmd->command->fd_in, 0);

@@ -49,7 +49,7 @@ char	**command(t_cmd *cmd, char **envp)
 {
 	if (cmd->prev_cmd == PIPE)
 	{
-		subshell_pipe(cmd, envp);
+		subshell(cmd, envp);
 		while (wait(NULL) > 0)
 			;
 	}
