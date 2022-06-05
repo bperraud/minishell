@@ -42,6 +42,8 @@ static char	**launch_cmd(t_cmd *command, char **envp)
 
 char	**command(t_cmd *cmd, char **envp)
 {
+	if (!cmd->cmd)
+		return (envp);
 	if (cmd->prev_cmd == PIPE || cmd->cmd[0][0] == '(')
 	{
 		subshell(cmd, envp);
