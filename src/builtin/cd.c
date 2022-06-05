@@ -47,7 +47,7 @@ static char	**end_dir(t_cmd *command, char *start_dir, int argc, char **env)
 		str[2] = NULL;
 		env = export(str, env);
 		if (argc == 2 && !ft_strcmp(command->cmd[1], "-"))
-			printf("%s\n", end_dir);
+			ft_putstr_fd(end_dir, 1);
 		free(str[1]);
 		free(str);
 	}

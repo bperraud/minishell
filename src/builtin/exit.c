@@ -36,6 +36,6 @@ void	try_exit(t_cmd *command, char *str, char **envp)
 	free_str_list(envp);
 	if (arg == 2)
 		g_error = ft_atoi(command->cmd[1]);
-	printf("exit\n");
+	ft_putstr_fd("exit\n", 1);
 	exit(g_error);
 }

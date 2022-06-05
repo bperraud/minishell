@@ -12,20 +12,6 @@
 
 #include "minishell.h"
 
-void	print_cmd(t_list_cmd *list_cmd)
-{
-	if (!list_cmd)
-	{
-		printf("list is empty.\n");
-		return ;
-	}
-	while (list_cmd)
-	{
-		printf("list command : %s\n", list_cmd->command->cmd[0]);
-		list_cmd = list_cmd->next;
-	}
-}
-
 t_list_cmd	*lst_last(t_list_cmd *list_cmd)
 {
 	if (!list_cmd)

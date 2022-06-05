@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:23:15 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/25 22:07:44 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/05 17:42:52 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_env(char **env)
 	i = 0;
 	while (env[i])
 	{
-		printf("%s\n", env[i]);
+		ft_putstr_fd(env[i], 1);
 		i++;
 	}
 }
@@ -39,14 +39,14 @@ void	ft_env_export(char **env)
 	while (env[i])
 	{
 		j = 0;
-		printf("declare -x ");
+		ft_putstr_fd("declare -x ", 1);
 		while (env[i][j])
 		{
-			printf("%c", env[i][j]);
+			ft_putchar_fd(env[i][j], 1);
 			if (env[i][j] == '=')
-				printf("\"");
+				ft_putstr_fd("\"", 1);
 			if (!env[i][j + 1])
-				printf("\"\n");
+				ft_putstr_fd("\"\n", 1);
 			j++;
 		}
 		i++;
