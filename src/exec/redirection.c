@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+void	dup_close(int fd, int std)
+{
+	dup2(fd, std);
+	close(fd);
+}
+
 void	redirect(t_cmd *command)
 {
 	if (ft_strlen(command->here_doc))

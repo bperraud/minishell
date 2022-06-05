@@ -34,7 +34,6 @@ void		pipe_cmd(char **str, char **envp, t_cmd **cmd);
 char		**parsing(char **envp);
 char		*create_path(char *path, char *arg);
 int			open_file(char *file);
-void		dup_close(int fd, int std);
 int			here_doc(char *limiter);
 
 // utils

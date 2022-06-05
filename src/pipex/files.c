@@ -48,12 +48,6 @@ char	*create_path(char *path, char *arg)
 	return (cmd);
 }
 
-void	dup_close(int fd, int std)
-{
-	dup2(fd, std);
-	close(fd);
-}
-
 int	here_doc(char *limiter)
 {
 	int		f1;

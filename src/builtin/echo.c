@@ -16,7 +16,7 @@ static bool	is_empty_no_flag(char **cmd)
 {
 	if (!cmd[1])
 	{
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 		return (true);
 	}
 	return (false);
@@ -41,10 +41,10 @@ void	echo(char **cmd)
 	}
 	while (cmd[++i])
 	{
-		printf("%s", cmd[i]);
+		ft_putstr_fd(cmd[i], 1);
 		if (cmd[i + 1])
-			printf(" ");
+			ft_putstr_fd(" ", 1);
 	}
 	if (!option)
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 }
