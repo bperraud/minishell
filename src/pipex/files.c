@@ -12,17 +12,25 @@
 
 #include "minishell.h"
 
-int	open_file(char *file)
+int	is_cmd_in_path(char *cmd, char **envp)
 {
-	if (access(file, F_OK) == -1)
+	int		i;
+	char	*command;
+	char	**paths;
+
+	i = -1;
+	paths = parsing_path(envp);
+	while (paths[++i])
 	{
-		perror("-minishell: ");
-		exit (FILE_ERROR);
+		command = create_path(paths[i], cmd);
+		if (open(command, O_RDONLY) != -1)
+			return (1);
+		free(command);
 	}
-	return (open(file, O_RDONLY));
+	return (0);
 }
 
-char	**parsing(char **envp)
+char	**parsing_path(char **envp)
 {
 	int		i;
 	char	*str;
@@ -67,6 +75,6 @@ int	here_doc(char *limiter)
 			break ;
 	}
 	close(f1);
-	f1 = open_file(HERE_DOC);
+	f1 = open(HERE_DOC, O_RDONLY);
 	return (f1);
 }

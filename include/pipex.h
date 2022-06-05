@@ -31,10 +31,11 @@ void		redirect_pipe(t_cmd *command, char **envp);
 void		pipe_cmd(char **str, char **envp, t_cmd **cmd);
 
 //files
-char		**parsing(char **envp);
+char		**parsing_path(char **envp);
 char		*create_path(char *path, char *arg);
 int			open_file(char *file);
 int			here_doc(char *limiter);
+int			is_cmd_in_path(char *cmd, char **envp);
 
 // utils
 char		*ft_strncpy(char *dest, const char *src, unsigned int n);

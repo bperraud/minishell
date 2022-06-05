@@ -63,7 +63,7 @@ static void	exec_cmd(char **cmd_arg, char **envp)
 	char	**paths;
 
 	i = -1;
-	paths = parsing(envp);
+	paths = parsing_path(envp);
 	while (paths[++i])
 	{
 		cmd = create_path(paths[i], cmd_arg[0]);
