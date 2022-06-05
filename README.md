@@ -22,4 +22,3 @@ make
 - Si SHVL est vide ou plus grand que 999 ou pas un int, reset SHLVL a 1
 - Dans env mettre la derniere commande executee dans la variable _
 - (ls && ls) > file1 syntax error 
-- problème redirection dans subshells
