@@ -93,8 +93,7 @@ void	extern_cmd(t_cmd *command, char **envp)
 	{
 		if (has_path(command->cmd[0], envp))
 			exec_cmd(command->cmd, envp);
-		else
-			exit(COMMAND_NOT_FOUND);
+		exit(COMMAND_NOT_FOUND);
 	}
 	waitpid(pid, &status, 0);
 	if (ft_strlen(command->here_doc))
