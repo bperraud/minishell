@@ -27,5 +27,4 @@ make
 - protection absolute path pour ./minishell (pour l'instant utilise $PWD, si unset pas de subshell possible)
 - $PWD pas update dans env (attention l'update sans changer le point précedent enleve les subshells)
 - redirections dans des pipes -> garder toutes les strings de la commande (pas de here_doc possible dans un pipe par ex)
-- chevauchement messages d'erreurs dans des pipes
 - cmd1 | cmd2 | -> segfault
