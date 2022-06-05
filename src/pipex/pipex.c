@@ -30,9 +30,7 @@ static void	pipex(t_cmd *command, char **envp)
 	int		pipe_fd[2];
 
 	if (pipe(pipe_fd) < 0)
-	{
 		error_file_exit("pipe");
-	}
 	pid = fork_protected();
 	if (pid != 0)
 	{

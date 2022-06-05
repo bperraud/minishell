@@ -67,11 +67,6 @@ static void	exec_cmd(char **cmd_arg, char **envp)
 	while (paths[++i])
 	{
 		cmd = create_path(paths[i], cmd_arg[0]);
-		if (!cmd)
-		{
-			free_tab(paths);
-			return ;
-		}
 		execve(cmd, cmd_arg, envp);
 		free(cmd);
 	}
@@ -91,8 +86,10 @@ void	extern_cmd(t_cmd *command, char **envp)
 	pid = fork_protected();
 	if (!pid)
 	{
-		if (has_path(command->cmd[0], envp))
+		if (has_path(envp))
 			exec_cmd(command->cmd, envp);
+		else
+			prompt_error(command->cmd[0], "No such file or directory\n");
 		exit(COMMAND_NOT_FOUND);
 	}
 	waitpid(pid, &status, 0);
