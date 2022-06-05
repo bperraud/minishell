@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/06/05 17:29:50 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:33:41 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ static char	**set_up_sh(char *str, char **envp)
 
 	fd_save[0] = dup(STDIN);
 	fd_save[1] = dup(STDOUT);
+	if (fd_save[0] < 0 || fd_save[1] < 0)
+	{
+		error_file_exit("dup");
+	}
 	if (!g_error)
 		prev_cmd_mode = AND;
 	else

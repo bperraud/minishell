@@ -12,9 +12,19 @@
 
 #include "minishell.h"
 
+void	error_file_exit(char *error)
+{
+	perror(error);
+	g_error = FILE_ERROR;
+	exit(FILE_ERROR);
+}
+
 void	dup_close(int fd, int std)
 {
-	dup2(fd, std);
+	if (dup2(fd, std) < 0)
+	{
+		error_file_exit("dup2");
+	}
 	close(fd);
 }
 

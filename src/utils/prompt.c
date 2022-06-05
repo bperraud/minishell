@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 11:39:14 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/26 12:53:23 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:46:37 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ char	*error_to_color(void)
 	return (color);
 }
 
+/*
+void	prompt_error(char *str, char *error)
+{
+	ft_putstr_fd("-minishell: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(error, 2);
+}
+*/
+
 void	prompt_error(char *str, char *error)
 {
 	char	*s1;
@@ -52,3 +62,4 @@ void	prompt_error(char *str, char *error)
 	free(s2);
 	free(s3);
 }
+
