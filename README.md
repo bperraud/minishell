@@ -23,3 +23,8 @@ make
 - Dans env mettre la derniere commande executee dans la variable _
 - (ls && ls) > file1 syntax error 
 - ligne vide doit mettre $? à 0 
+- exit numeric argument required
+- protection absolute path pour ./minishell (pour l'instant utilise $PWD, si unset pas de subshell possible)
+- redirections dans des pipes -> garder toutes les strings de la commande (pas de here_doc possible dans un pipe par ex)
+- chevauchement messages d'erreurs dans des pipes
+- cmd1 | cmd2 | -> segfault
