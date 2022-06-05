@@ -27,7 +27,6 @@ ENV :
 AUTRES :
 - protection absolute path pour ./minishell (pour l'instant utilise $PWD, si unset pas de subshell possible)
 - (ls && ls) > file1 syntax error 
-- ligne vide doit mettre $? à 0 
 - exit numeric argument required
 - redirections dans des pipes -> garder toutes les strings de la commande (pas de here_doc possible dans un pipe par ex)
 - cmd1 | cmd2 | -> segfault
