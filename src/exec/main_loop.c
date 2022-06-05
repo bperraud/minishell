@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/06/05 19:33:41 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/05 23:13:40 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ static char	**sh(char *str, char **envp, int fd_save[2], int prev_cmd_mode)
 {
 	t_cmd	*cmd;
 
+	if (!*str)
+	{
+		g_error = 0;
+		return (envp);
+	}
 	while (*str && *skip_spaces(str) != '\0')
 	{
 		cmd = init_cmd(prev_cmd_mode);
