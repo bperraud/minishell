@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 09:05:47 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/26 14:10:57 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/05 22:16:51 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*add_multiple_chars(char *s1, char *s2);
 char	*add_char(char *str1, char c);
 
 /* shell_utils */
-int		has_path(char *cmd, char **envp);
+int		has_path(char **envp);
 int		is_directory(const char *path);
 int		exit_to_bash_code(int exit_code);
 char	*skip_spaces(char *str);
