@@ -45,7 +45,7 @@ char	*ft_itoa(int n)
 		return (zero_case());
 	s = malloc (sizeof(char) * (len + 1));
 	if (!s)
-		return (NULL);
+		exit (12);
 	if (n < 0)
 	{
 		s[0] = '-';
