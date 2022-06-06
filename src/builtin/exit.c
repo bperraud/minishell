@@ -14,13 +14,12 @@
 
 void	ft_exit(t_cmd *cmd)
 {
-	g_error = 0;
 	cmd->fd_in = EXIT_CODE;
 }
 
 void	try_exit(t_cmd *command, char *str, char **envp)
 {
-	int		arg;
+	int	arg;
 
 	if (command->fd_in != EXIT_CODE)
 		return ;
@@ -32,11 +31,11 @@ void	try_exit(t_cmd *command, char *str, char **envp)
 		prompt_error("exit", "too many arguments\n");
 		return ;
 	}
+	if (arg == 2)
+		g_error = ft_atoi(command->cmd[1]);
 	free_t_cmd(command);
 	free(str);
 	free_str_list(envp);
-	if (arg == 2)
-		g_error = ft_atoi(command->cmd[1]);
 	ft_putstr_fd("exit\n", 1);
 	exit(g_error);
 }
