@@ -18,7 +18,9 @@ make
 ```
 # TODO
 ENV :
-- update $PWD (attention l'update sans changer le premier point dans 'AUTRES' enleve les subshells)
-
-AUTRES :
-- protection absolute path pour ./minishell (pour l'instant utilise $PWD, si unset pas de subshell possible)
+- update $PWD (attention l'update sans changer le premier point dans 'AUTRES' enleve les subshells) ! abs path
+- tab
+- cat | ls
+- ctrl-\
+- exit value
+- tmp file pipex not deleted
