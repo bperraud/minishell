@@ -22,6 +22,5 @@ ENV :
 - tab
 - cat | ls
 - ctrl-\
-- exit value
 - tmp file pipex not deleted
 - ls > out | ls
