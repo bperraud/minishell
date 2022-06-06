@@ -21,13 +21,11 @@ int	check_start_or(char *str)
 	if (*str && *str == '|')
 	{
 		ft_putstr_fd("-minishell: syntax error near unexpected token `||'\n", 2);
-		g_error = SYNTAX_ERROR;
 		return (SYNTAX_ERROR);
 	}
 	else
 	{
 		ft_putstr_fd("-minishell: syntax error near unexpected token `|'\n", 2);
-		g_error = SYNTAX_ERROR;
 		return (SYNTAX_ERROR);
 	}
 }
@@ -41,13 +39,11 @@ int	check_start_and(char *str)
 	if (*str && *str == '&')
 	{
 		ft_putstr_fd("-minishell: syntax error near unexpected token `&&'\n", 2);
-		g_error = SYNTAX_ERROR;
 		return (SYNTAX_ERROR);
 	}
 	else
 	{
 		ft_putstr_fd("-minishell: syntax error near unexpected token `&'\n", 2);
-		g_error = SYNTAX_ERROR;
 		return (SYNTAX_ERROR);
 	}
 	return (0);
@@ -68,14 +64,12 @@ static int	check_operator_or(char **str)
 				ft_putstr_fd("unexpected token `&&'\n", 2);
 			else
 				ft_putstr_fd("unexpected token `&'\n", 2);
-			g_error = SYNTAX_ERROR;
 			return (SYNTAX_ERROR);
 		}
 		if (**str && **str == '|')
 		{
 			ft_putstr_fd("-minishell: syntax error near ", 2);
 			ft_putstr_fd("unexpected token `|'\n", 2);
-			g_error = SYNTAX_ERROR;
 			return (SYNTAX_ERROR);
 		}
 	}
@@ -98,14 +92,12 @@ static int	check_operator_and(char **str)
 				ft_putstr_fd("unexpected token `||'\n", 2);
 			else
 				ft_putstr_fd("unexpected token `|'\n", 2);
-			g_error = SYNTAX_ERROR;
 			return (SYNTAX_ERROR);
 		}
 		if (**str && **str == '&')
 		{
 			ft_putstr_fd("-minishell: syntax error near ", 2);
 			ft_putstr_fd("unexpected token `&'\n", 2);
-			g_error = SYNTAX_ERROR;
 			return (SYNTAX_ERROR);
 		}
 	}
@@ -117,16 +109,25 @@ char	*check_syntax_operator(char *str)
 {
 	str = skip_spaces(str);
 	if (check_operators_in_a_row(str))
+	{
+		g_error = SYNTAX_ERROR;
 		return (NULL);
+	}
 	if (*str == '&')
 	{
 		if (check_operator_and(&str))
+		{
+			g_error = SYNTAX_ERROR;
 			return (NULL);
+		}
 	}
 	else if (*str == '|')
 	{
 		if (check_operator_or(&str))
+		{
+			g_error = SYNTAX_ERROR;
 			return (NULL);
+		}
 	}
 	str++;
 	return (str);
