@@ -12,15 +12,28 @@
 
 #include "minishell.h"
 
+static char	**update_last_cmd(char **env, t_cmd *cmd)
+{
+	char	*last_cmd;
+
+	last_cmd = ft_getenv("_", env);
+	if (last_cmd)
+	{
+		env = env_unset("_", env);
+		free(last_cmd);
+	}
+	last_cmd = ft_strjoin("_=", cmd->cmd[0]);
+	if (!last_cmd)
+		exit(ENOMEM);
+	env = env_add(last_cmd, env);
+	free(last_cmd);
+	return (env);
+}
+
 static char	**sh(char *str, char **envp, int fd_save[2], int prev_cmd_mode)
 {
 	t_cmd	*cmd;
 
-	if (!*str)
-	{
-		g_error = 0;
-		return (envp);
-	}
 	while (*str && *skip_spaces(str) != '\0')
 	{
 		cmd = init_cmd(prev_cmd_mode);
@@ -30,6 +43,7 @@ static char	**sh(char *str, char **envp, int fd_save[2], int prev_cmd_mode)
 			free_t_cmd(cmd);
 			return (envp);
 		}
+		envp = update_last_cmd(envp, cmd);
 		pipe_cmd(&str, envp, &cmd);
 		envp = command(cmd, envp);
 		restore_std(fd_save);
@@ -56,6 +70,11 @@ static char	**set_up_sh(char *str, char **envp)
 		prev_cmd_mode = AND;
 	else
 		prev_cmd_mode = OR;
+	if (!*str)
+	{
+		g_error = 0;
+		return (envp);
+	}
 	return (sh(str, envp, fd_save, prev_cmd_mode));
 }
 

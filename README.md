@@ -18,11 +18,7 @@ make
 ```
 # TODO
 ENV :
-- Dans env mettre la derniere commande executee dans la variable _
 - update $PWD (attention l'update sans changer le premier point dans 'AUTRES' enleve les subshells)
 
 AUTRES :
 - protection absolute path pour ./minishell (pour l'instant utilise $PWD, si unset pas de subshell possible)
-- (ls && ls) > rediriger dans le subshell
-- exit numeric argument required
-- redirections dans des pipes -> garder toutes les strings de la commande (pas de here_doc possible dans un pipe par ex)

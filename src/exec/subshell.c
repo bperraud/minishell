@@ -41,7 +41,10 @@ void	subshell(t_cmd *command, char **envp)
 	char	*pwd;
 	char	*full_path;
 
+	redirect(command);
 	pwd = ft_getenv("PWD", envp);
+	if (!pwd)
+		return ;
 	full_path = ft_strjoin(pwd, "/minishell");
 	free(pwd);
 	sh = smalloc(4 * sizeof(char *));

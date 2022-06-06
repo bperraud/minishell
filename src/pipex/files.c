@@ -24,9 +24,14 @@ int	is_cmd_in_path(char *cmd, char **envp)
 	{
 		command = create_path(paths[i], cmd);
 		if (open(command, O_RDONLY) != -1)
+		{
+			free(command);
+			free_str_list(paths);
 			return (1);
+		}
 		free(command);
 	}
+	free_str_list(paths);
 	return (0);
 }
 
@@ -70,10 +75,15 @@ int	here_doc(char *limiter)
 		buf = get_next_line(1);
 		if (buf && (ft_strlen(buf) - 1 != len_limiter
 				|| ft_strncmp(buf, limiter, len_limiter) != 0))
+		{
 			write(f1, buf, ft_strlen(buf));
+			free(buf);
+		}
 		else
 			break ;
 	}
+	if (buf)
+		free(buf);
 	close(f1);
 	f1 = open(HERE_DOC, O_RDONLY);
 	return (f1);

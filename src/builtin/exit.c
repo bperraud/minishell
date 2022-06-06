@@ -14,6 +14,7 @@
 
 void	ft_exit(t_cmd *cmd)
 {
+	g_error = 0;
 	cmd->fd_in = EXIT_CODE;
 }
 
