@@ -24,3 +24,4 @@ ENV :
 - ctrl-\
 - exit value
 - tmp file pipex not deleted
+- ls > out | ls
