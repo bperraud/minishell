@@ -21,5 +21,4 @@ ENV :
 - cat | ls
 - tmp file pipex not deleted
 - ls > out | ls
-- enter on empty line reset error code
-- error code is reset after signal
+- error code is reset after signal 
