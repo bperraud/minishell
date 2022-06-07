@@ -19,6 +19,4 @@ make
 # TODO
 ENV :
 - cat | ls
-- tmp file pipex not deleted
-- ls > out | ls
-- error code is reset after signal 
+- tmp file pipex not deleted (here doc w/ pipes)
