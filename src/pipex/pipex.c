@@ -35,7 +35,8 @@ static void	pipex(t_cmd *command, char **envp)
 	if (pid != 0)
 	{
 		close(pipe_fd[1]);
-		dup2(pipe_fd[0], STDIN);
+		if (command->fd_in == STDIN)
+			dup2(pipe_fd[0], STDIN);
 		if (!has_path(envp) || !is_cmd_in_path(command->cmd[0], envp))
 			waitpid(pid, NULL, 0);
 	}
@@ -51,13 +52,9 @@ static void	pipex(t_cmd *command, char **envp)
 
 static void	multiple_cmd(t_list_cmd *list_cmd, char **envp)
 {
-	if (list_cmd->command->fd_in != STDIN)
-		dup2(list_cmd->command->fd_in, STDIN);
 	while (list_cmd)
 	{
 		pipex(list_cmd->command, envp);
-		if (list_cmd->command->fd_in != STDIN)
-			dup2(list_cmd->command->fd_in, STDIN);
 		if (!list_cmd->next)
 			break ;
 		list_cmd = list_cmd->next;
