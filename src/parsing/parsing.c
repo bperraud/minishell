@@ -52,7 +52,7 @@ static char	*replace_env_var(char *s, char **env, int i, char quote)
 	{
 		if ((s[i] == '\'' || s[i] == '\"') && (quote == s[i] || !quote))
 			quote = change_quote(quote, s[i]);
-		else if (quote != '\'' && s[i] == '$')
+		else if (quote != '\'' && s[i] == '$' && s[i + 1] != '.')
 		{
 			var = ft_strndup(s + i + 1, get_var_len(s + i + 1));
 			i += get_var_len(s + i + 1);

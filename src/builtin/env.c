@@ -22,8 +22,11 @@ void	ft_env(char **env)
 	i = 0;
 	while (env[i])
 	{
-		ft_putstr_fd(env[i], 1);
-		ft_putstr_fd("\n", 1);
+		if (env[i][0] != '.') 
+		{
+			ft_putstr_fd(env[i], 1);
+			ft_putstr_fd("\n", 1);
+		}
 		i++;
 	}
 }
