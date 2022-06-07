@@ -33,6 +33,7 @@ extern int	g_error;
 enum e_error
 {
 	FILE_ERROR = 1,
+	INTERRUPT_NL = 1,
 	NOT_EXECUTABLE = 126,
 	COMMAND_NOT_FOUND = 127,
 	INTERRUPTED = 130,

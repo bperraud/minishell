@@ -16,6 +16,7 @@ static void	handler(int signum)
 {
 	if (signum == SIGINT)
 	{
+		g_error = INTERRUPT_NL;
 		ft_putchar_fd('\n', 1);
 		print_prompt(error_to_color());
 		rl_replace_line("", 0);
