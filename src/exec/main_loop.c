@@ -102,10 +102,7 @@ void	start_shell(char **envp, char *str_c)
 		if (!check_syntax(str))
 			envp = set_up_sh(str, envp);
 		if (str_c)
-		{
-			free_str_list(envp);
 			exit(g_error);
-		}
 	}
 	free_str_list(envp);
 }

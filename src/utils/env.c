@@ -98,6 +98,8 @@ char	**env_add(char *str, char **env)
 char	**env_dup(char **envp)
 {
 	char	**new_env;
+	char	*path;
+	char	*cwd;
 	int		i;
 
 	new_env = smalloc((lst_len(envp) + 1) * sizeof (char *));
@@ -108,5 +110,14 @@ char	**env_dup(char **envp)
 		i++;
 	}
 	new_env[i] = NULL;
+	cwd = getcwd(NULL, 0);
+	new_env = try_unset(".MINISHELL", new_env);
+	path = ft_sstrdup(".MINISHELL=");
+	path = add_multiple_chars(path, cwd);
+	path = add_multiple_chars(path, "/minishell");
+	new_env = env_add(path, new_env);
+	new_env = try_unset("OLDPWD", new_env);
+	free(cwd);
+	free(path);
 	return (new_env);
 }

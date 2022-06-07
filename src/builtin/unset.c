@@ -18,14 +18,15 @@ char	**unset(char **cmd, char **env)
 	int		i;
 
 	i = 0;
-	g_error = 0;
+	g_error = 1;
 	while (cmd[++i])
 	{
 		str = ft_getenv(cmd[i], env);
-		if (str)
+		if (cmd[i][0] != '.' && str)
 		{
 			env = env_unset(cmd[i], env);
 			free(str);
+			g_error = 0;
 		}
 	}
 	return (env);

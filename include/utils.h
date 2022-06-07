@@ -68,6 +68,8 @@ char	**env_dup(char **envp);
 
 /* env utils */
 int		get_var_len(char *s);
+char	**try_unset(char *var, char **env);
+char	**update_pwd(char **env);
 
 /* prompt */
 char	*print_prompt(char *color);

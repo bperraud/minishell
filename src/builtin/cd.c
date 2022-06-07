@@ -53,6 +53,7 @@ static char	**end_dir(t_cmd *command, char *start_dir, int argc, char **env)
 	}
 	free(end_dir);
 	free(start_dir);
+	env = update_pwd(env);
 	return (env);
 }
 

@@ -12,6 +12,19 @@
 
 #include "minishell.h"
 
+char	**try_unset(char *var, char **env)
+{
+	char	*str;
+
+	str = ft_getenv(var, env);
+	if (str)
+	{
+		env = env_unset(var, env);
+		free(str);
+	}
+	return (env);
+}
+
 int	correct_env_variable(char *cmd)
 {
 	if (cmd[0] == '=' || cmd[0] == '?' || ft_isdigit(cmd[0])

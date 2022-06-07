@@ -12,6 +12,21 @@
 
 #include "minishell.h"
 
+char	**update_pwd(char **env)
+{
+	char	*path;
+	char	*var;
+
+	env = try_unset("PWD", env);
+	path = getcwd(NULL, 0);
+	var = ft_sstrdup("PWD=");
+	var = add_multiple_chars(var, path);
+	env = env_add(var, env);
+	free(var);
+	free(path);
+	return (env);
+}
+
 char	**add_string(char **lst1, char *str)
 {
 	char	**lst2;
