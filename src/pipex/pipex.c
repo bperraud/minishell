@@ -36,7 +36,6 @@ static void	pipex(t_cmd *command, char **envp)
 	{
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], 0);
-		command->fd_in = pipe_fd[0];
 		if (!has_path(envp) || !is_cmd_in_path(command->cmd[0], envp))
 			waitpid(pid, NULL, 0);
 	}
@@ -45,9 +44,6 @@ static void	pipex(t_cmd *command, char **envp)
 		close(pipe_fd[0]);
 		if (command->fd_out == 1)
 			dup2(pipe_fd[1], 1);
-		else
-			dup2(command->fd_out, 1);
-		command->fd_out = pipe_fd[1];
 		subshell(command, envp);
 		exit(0);
 	}
