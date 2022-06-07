@@ -24,3 +24,4 @@ ENV :
 - ctrl-\
 - tmp file pipex not deleted
 - ls > out | ls
+- enter on empty line reset error code
