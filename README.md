@@ -17,6 +17,5 @@ make
 ./minishell
 ```
 # TODO
-ENV :
 - cat | ls
 - tmp file pipex not deleted (here doc w/ pipes)
