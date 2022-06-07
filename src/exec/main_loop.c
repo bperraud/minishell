@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/06/06 01:15:59 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/07 14:27:46 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,6 @@ static char	**set_up_sh(char *str, char **envp)
 		prev_cmd_mode = AND;
 	else
 		prev_cmd_mode = OR;
-	if (!*str)
-	{
-		g_error = 0;
-		return (envp);
-	}
 	return (sh(str, envp, fd_save, prev_cmd_mode));
 }
 
