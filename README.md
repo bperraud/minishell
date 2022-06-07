@@ -21,7 +21,7 @@ ENV :
 - update $PWD (attention l'update sans changer le premier point dans 'AUTRES' enleve les subshells) ! abs path
 - tab
 - cat | ls
-- ctrl-\
+- signals error code is reset
 - tmp file pipex not deleted
 - ls > out | ls
 - enter on empty line reset error code
