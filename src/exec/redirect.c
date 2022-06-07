@@ -31,11 +31,11 @@ void	dup_close(int fd, int std)
 void	redirect(t_cmd *command)
 {
 	if (ft_strlen(command->here_doc))
-		dup_close(here_doc(command->here_doc), 0);
-	if (command->fd_in != 0)
-		dup_close(command->fd_in, 0);
-	if (command->fd_out != 1)
-		dup_close(command->fd_out, 1);
+		dup_close(here_doc(command->here_doc), STDIN);
+	if (command->fd_in != STDIN)
+		dup_close(command->fd_in, STDIN);
+	if (command->fd_out != STDOUT)
+		dup_close(command->fd_out, STDOUT);
 }
 
 void	restore_std(int fd_save[2])

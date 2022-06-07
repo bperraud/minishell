@@ -35,7 +35,7 @@ static void	pipex(t_cmd *command, char **envp)
 	if (pid != 0)
 	{
 		close(pipe_fd[1]);
-		dup2(pipe_fd[0], 0);
+		dup2(pipe_fd[0], STDIN);
 		command->fd_in = pipe_fd[0];
 		if (!has_path(envp) || !is_cmd_in_path(command->cmd[0], envp))
 			waitpid(pid, NULL, 0);
@@ -43,10 +43,10 @@ static void	pipex(t_cmd *command, char **envp)
 	else
 	{
 		close(pipe_fd[0]);
-		if (command->fd_out == 1)
-			dup2(pipe_fd[1], 1);
+		if (command->fd_out == STDOUT)
+			dup2(pipe_fd[1], STDOUT);
 		else
-			dup2(command->fd_out, 1);
+			dup2(command->fd_out, STDOUT);
 		command->fd_out = pipe_fd[1];
 		subshell(command, envp);
 		exit(0);
@@ -55,13 +55,13 @@ static void	pipex(t_cmd *command, char **envp)
 
 static void	multiple_cmd(t_list_cmd *list_cmd, char **envp)
 {
-	if (list_cmd->command->fd_in != 0)
-		dup2(list_cmd->command->fd_in, 0);
+	if (list_cmd->command->fd_in != STDIN)
+		dup2(list_cmd->command->fd_in, STDIN);
 	while (list_cmd)
 	{
 		pipex(list_cmd->command, envp);
-		if (list_cmd->command->fd_in != 0)
-			dup2(list_cmd->command->fd_in, 0);
+		if (list_cmd->command->fd_in != STDIN)
+			dup2(list_cmd->command->fd_in, STDIN);
 		if (!list_cmd->next)
 			break ;
 		list_cmd = list_cmd->next;
