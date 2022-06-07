@@ -20,7 +20,7 @@ make
 ENV :
 - update $PWD (attention l'update sans changer le premier point dans 'AUTRES' enleve les subshells) ! abs path
 - cat | ls
-- signals error code is reset
 - tmp file pipex not deleted
 - ls > out | ls
 - enter on empty line reset error code
+- error code is reset after signal
