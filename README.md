@@ -18,7 +18,6 @@ make
 ```
 # TODO
 ENV :
-- update $PWD (attention l'update sans changer le premier point dans 'AUTRES' enleve les subshells) ! abs path
 - cat | ls
 - tmp file pipex not deleted
 - ls > out | ls
