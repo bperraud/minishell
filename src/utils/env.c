@@ -117,6 +117,7 @@ char	**env_dup(char **envp)
 	path = add_multiple_chars(path, "/minishell");
 	new_env = env_add(path, new_env);
 	new_env = try_unset("OLDPWD", new_env);
+	new_env = update_pwd(new_env);
 	free(cwd);
 	free(path);
 	return (new_env);
