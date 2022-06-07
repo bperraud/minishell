@@ -1,4 +1,4 @@
-SRCS		= minishell.c test.c signals.c \
+SRCS		= minishell.c signals.c \
 			  utils/utils.c utils/free.c utils/get_next_line.c utils/get_next_line_utils.c \
 			  utils/prompt.c utils/shell_utils.c utils/list.c utils/env.c utils/env_utils.c \
 			  utils/secured_utils.c \

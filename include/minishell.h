@@ -33,18 +33,18 @@ extern int	g_error;
 enum e_error
 {
 	FILE_ERROR = 1,
-	COMMAND_NOT_FOUND = 127,
 	NOT_EXECUTABLE = 126,
+	COMMAND_NOT_FOUND = 127,
+	INTERRUPTED = 130,
+	QUIT = 131,
 	SYNTAX_ERROR = 258
 };
 
 /* signals */
 void	sig_handler(void);
+void	sig_exit(void);
 void	term_config(void);
 
-/* test */
-void	print_list(char **lst);
-void	print_cmd_args(t_cmd *cmd);
 void	prompt_error(char *str, char *error);
 
 #endif

@@ -18,8 +18,8 @@ static void	handler(int signum)
 	{
 		ft_putchar_fd('\n', 1);
 		print_prompt(error_to_color());
-		rl_on_new_line();
 		rl_replace_line("", 0);
+		rl_on_new_line();
 		rl_redisplay();
 	}
 	else if (signum == SIGQUIT)
@@ -27,10 +27,32 @@ static void	handler(int signum)
 		ft_putstr_fd(GREEN, 1);
 		rl_on_new_line();
 		rl_redisplay();
-		rl_replace_line("", 0);
-		rl_redisplay();
 		ft_putstr_fd(RESET, 1);
 	}
+}
+
+static void	exit_handler(int signum)
+{
+	if (signum == SIGINT)
+	{
+		ft_putstr_fd("^C\n", 1);
+		g_error = INTERRUPTED;
+	}
+	else if (signum == SIGQUIT)
+	{
+		ft_putstr_fd("^\\Quit: 3\n", 1);
+		g_error = QUIT;
+	}
+	return ;
+}
+
+void	sig_exit(void)
+{
+	struct sigaction	sa;
+
+	sa.sa_handler = exit_handler;
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
 }
 
 void	sig_handler(void)

@@ -82,19 +82,23 @@ void	start_shell(char **envp, char *str_c)
 {
 	char	*str;
 
-	sig_handler();
 	term_config();
 	while (1)
 	{
 		if (!str_c)
 		{
+			sig_handler();
 			str = readline(print_prompt(error_to_color()));
 			if (!str)
-				break ;
+			{
+				ft_putstr_fd("exit\n", STDIN_FILENO);
+				exit(g_error);
+			}
 		}
 		else
 			str = ft_strndup(str_c, ft_strlen(str_c));
 		add_history(str);
+		sig_exit();
 		if (!check_syntax(str))
 			envp = set_up_sh(str, envp);
 		if (str_c)

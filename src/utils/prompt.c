@@ -24,6 +24,7 @@ char	*print_prompt(char *color)
 	ft_putstr_fd ("     _/\\/\\/\\_/ /   \n", 1);
 	ft_putstr_fd ("   _|minishell/    \n", 1);
 	ft_putstr_fd (" _|  (  | (  |     \n", 1);
+	(void) color;
 	return ("/__.-'|_|--|_| ~ " RESET);
 }
 
