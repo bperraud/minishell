@@ -53,6 +53,8 @@ void	subshell(t_cmd *command, char **envp)
 		sh[2] = cmd_join(command);
 	sh[3] = NULL;
 	ft_executable(sh, envp);
+	close(0);
+	close(1);
 	free(path_to_minishell);
 	free_str_list(sh);
 }

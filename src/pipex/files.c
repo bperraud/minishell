@@ -17,16 +17,19 @@ int	is_cmd_in_path(char *cmd, char **envp)
 	int		i;
 	char	*command;
 	char	**paths;
+	int		fd;
 
 	i = -1;
 	paths = parsing_path(envp);
 	while (paths[++i])
 	{
 		command = create_path(paths[i], cmd);
-		if (open(command, O_RDONLY) != -1)
+		fd = open(command, O_RDONLY);
+		if (fd != -1)
 		{
 			free(command);
 			free_str_list(paths);
+			close (fd);
 			return (1);
 		}
 		free(command);

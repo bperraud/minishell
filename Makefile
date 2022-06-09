@@ -15,7 +15,7 @@ NAME		= minishell
 CC			= gcc
 MAKE		= make
 RM			= rm -f
-CFLAGS		+= -Wall -Wextra -Werror -Iinclude -Ilibft/include
+CFLAGS		+= -Wall -Wextra -Werror -Iinclude -Ilibft/include -g
 LFLAGS		+= -lreadline libft/libft.a
 
 $(NAME):		$(OBJS)

@@ -37,15 +37,21 @@ static void	pipex(t_cmd *command, char **envp)
 		close(pipe_fd[1]);
 		if (command->fd_in == STDIN)
 			dup2(pipe_fd[0], STDIN);
+		close(pipe_fd[0]);
 		if (!has_path(envp) || !is_cmd_in_path(command->cmd[0], envp))
+		{
 			waitpid(pid, NULL, 0);
+			close(0);
+		}
 	}
 	else
 	{
 		close(pipe_fd[0]);
 		if (command->fd_out == STDOUT)
 			dup2(pipe_fd[1], STDOUT);
+		close(pipe_fd[1]);
 		subshell(command, envp);
+		close(1);
 		exit(0);
 	}
 }
