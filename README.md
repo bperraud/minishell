@@ -21,4 +21,3 @@ make
 - tmp file pipex not deleted (here doc w/ pipes)
 - here_doc dans un pipe
 - lecture d'un un fichier qui n'existe pas dans un pipe
-- ls && (echo salut) -> exit
