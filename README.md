@@ -17,6 +17,3 @@ make
 ./minishell
 ```
 # TODO
-- cat | ls
-- tmp file pipex not deleted (here doc w/ pipes)
-- here_doc sans cmd + dans un pipe (sans cmd dans pipe -> segfault) 
