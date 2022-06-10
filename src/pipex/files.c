@@ -67,18 +67,16 @@ char	*create_path(char *path, char *arg)
 int	here_doc(char *limiter)
 {
 	int		f1;
-	size_t	len_limiter;
 	char	*buf;
 
 	if (!ft_strlen(limiter))
 		return (-1);
-	len_limiter = ft_strlen(limiter);
 	f1 = open(HERE_DOC, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	while (1)
 	{
 		buf = get_next_line(STDIN);
-		if (buf && (ft_strlen(buf) - 1 != len_limiter
-				|| ft_strncmp(buf, limiter, len_limiter) != 0))
+		if (buf && (ft_strlen(buf) - 1 != ft_strlen(limiter)
+				|| ft_strncmp(buf, limiter, ft_strlen(limiter)) != 0))
 		{
 			write(f1, buf, ft_strlen(buf));
 			free(buf);
