@@ -24,6 +24,17 @@ pid_t	fork_protected(void)
 	return (pid);
 }
 
+static void	child_process(int pipe_fd[2], t_cmd *command, char **envp)
+{
+	close(pipe_fd[0]);
+	if (command->fd_out == STDOUT)
+		dup2(pipe_fd[1], STDOUT);
+	close(pipe_fd[1]);
+	subshell(command, envp);
+	close(1);
+	exit(0);
+}
+
 static void	pipex(t_cmd *command, char **envp)
 {
 	pid_t	pid;
@@ -46,13 +57,7 @@ static void	pipex(t_cmd *command, char **envp)
 	}
 	else
 	{
-		close(pipe_fd[0]);
-		if (command->fd_out == STDOUT)
-			dup2(pipe_fd[1], STDOUT);
-		close(pipe_fd[1]);
-		subshell(command, envp);
-		close(1);
-		exit(0);
+		child_process(pipe_fd, command, envp);
 	}
 }
 
