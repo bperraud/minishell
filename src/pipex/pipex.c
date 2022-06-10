@@ -56,7 +56,7 @@ static void	pipex(t_cmd *command, int fd_save[2], char **envp)
 	}
 	else
 	{
-		child_process(pipe_fd, fd_save, command, envp);
+		child_process(pipe_fd, fd_save command, envp);
 	}
 }
 

@@ -19,5 +19,4 @@ make
 # TODO
 - cat | ls
 - tmp file pipex not deleted (here doc w/ pipes)
-- here_doc dans un pipe
-- lecture d'un un fichier qui n'existe pas dans un pipe
+- here_doc sans cmd + dans un pipe (sans cmd dans pipe -> segfault) 

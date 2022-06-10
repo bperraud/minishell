@@ -29,7 +29,7 @@ int	is_cmd_in_path(char *cmd, char **envp)
 		{
 			free(command);
 			free_str_list(paths);
-			close (fd);
+			close(fd);
 			return (1);
 		}
 		free(command);
@@ -90,5 +90,6 @@ int	here_doc(char *limiter)
 		free(buf);
 	close(f1);
 	f1 = open(HERE_DOC, O_RDONLY);
+	unlink(HERE_DOC);
 	return (f1);
 }
