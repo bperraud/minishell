@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:30:25 by jboumal           #+#    #+#             */
-/*   Updated: 2022/06/01 17:53:27 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:20:56 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ static char	*open_infile(t_cmd *cmd, t_split *split, bool heredoc_mode, char *s)
 	else
 	{
 		cmd->fd_in = open(word, O_RDONLY);
-		free(word);
 		if (cmd->fd_in < 0)
-			return (file_error());
+			file_not_found_error(word);
+		free(word);
 	}
 	return (s);
 }

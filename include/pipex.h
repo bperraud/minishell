@@ -28,12 +28,11 @@ typedef struct s_list_cmd	t_list_cmd;
 //pipex
 pid_t		fork_protected(void);
 void		redirect_pipe(t_cmd *command, char **envp);
-void		pipe_cmd(char **str, char **envp, t_cmd **cmd);
+void		pipe_cmd(char **str, char **envp,  int fd_save[2], t_cmd **cmd);
 
 //files
 char		**parsing_path(char **envp);
 char		*create_path(char *path, char *arg);
-int			open_file(char *file);
 int			here_doc(char *limiter);
 int			is_cmd_in_path(char *cmd, char **envp);
 

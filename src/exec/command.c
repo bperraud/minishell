@@ -15,7 +15,7 @@
 /* redirect to appropriate function for a cmd */
 static char	**launch_cmd(t_cmd *command, char **envp)
 {
-	redirect(command);
+	redirect(command, NULL);
 	if (!ft_strcmp(command->cmd[0], "cd"))
 		return (change_directory(command, envp));
 	else if (!ft_strcmp(command->cmd[0], "echo"))
@@ -40,13 +40,13 @@ static char	**launch_cmd(t_cmd *command, char **envp)
 	return (envp);
 }
 
-char	**command(t_cmd *cmd, char **envp)
+char	**command(t_cmd *cmd, int fd_save[2], char **envp)
 {
 	if (!cmd->cmd)
 		return (envp);
 	if (cmd->prev_cmd == PIPE || cmd->cmd[0][0] == '(')
 	{
-		subshell(cmd, envp);
+		subshell(cmd, fd_save, envp);
 		while (wait(NULL) > 0)
 			;
 	}

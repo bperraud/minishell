@@ -24,7 +24,18 @@ pid_t	fork_protected(void)
 	return (pid);
 }
 
-static void	pipex(t_cmd *command, char **envp)
+static void	child_process(int pipe_fd[2], int fd_save[2], t_cmd *command, char **envp)
+{
+	close(pipe_fd[0]);
+	if (command->fd_out == STDOUT)
+		dup2(pipe_fd[1], STDOUT);
+	close(pipe_fd[1]);
+	subshell(command, fd_save, envp);
+	close(1);
+	exit(0);
+}
+
+static void	pipex(t_cmd *command, int fd_save[2], char **envp)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
@@ -35,8 +46,7 @@ static void	pipex(t_cmd *command, char **envp)
 	if (pid != 0)
 	{
 		close(pipe_fd[1]);
-		if (command->fd_in == STDIN)
-			dup2(pipe_fd[0], STDIN);
+		dup2(pipe_fd[0], STDIN);
 		close(pipe_fd[0]);
 		if (!has_path(envp) || !is_cmd_in_path(command->cmd[0], envp))
 		{
@@ -46,28 +56,22 @@ static void	pipex(t_cmd *command, char **envp)
 	}
 	else
 	{
-		close(pipe_fd[0]);
-		if (command->fd_out == STDOUT)
-			dup2(pipe_fd[1], STDOUT);
-		close(pipe_fd[1]);
-		subshell(command, envp);
-		close(1);
-		exit(0);
+		child_process(pipe_fd, fd_save, command, envp);
 	}
 }
 
-static void	multiple_cmd(t_list_cmd *list_cmd, char **envp)
+static void	multiple_cmd(t_list_cmd *list_cmd, int fd_save[2], char **envp)
 {
 	while (list_cmd)
 	{
-		pipex(list_cmd->command, envp);
+		pipex(list_cmd->command, fd_save, envp);
 		if (!list_cmd->next)
 			break ;
 		list_cmd = list_cmd->next;
 	}
 }
 
-void	pipe_cmd(char **str, char **envp, t_cmd **cmd)
+void	pipe_cmd(char **str, char **envp, int fd_save[2], t_cmd **cmd)
 {
 	t_list_cmd	*list_cmd;
 	t_cmd		*f_cmd;
@@ -88,7 +92,7 @@ void	pipe_cmd(char **str, char **envp, t_cmd **cmd)
 		free_list_cmd(list_cmd);
 		return ;
 	}
-	multiple_cmd(list_cmd, envp);
+	multiple_cmd(list_cmd, fd_save, envp);
 	(*cmd)->prev_cmd = PIPE;
 	free_list_cmd(list_cmd);
 }

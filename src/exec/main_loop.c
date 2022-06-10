@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/06/07 14:31:11 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:54:53 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,23 @@ static char	**sh(char *str, char **envp, int fd_save[2], int prev_cmd_mode)
 	{
 		cmd = init_cmd(prev_cmd_mode);
 		str = get_next_cmd(str, envp, cmd);
-		if (!str || !cmd->cmd)
+		if (!str)
 		{
 			free_t_cmd(cmd);
 			return (envp);
 		}
-		envp = update_last_cmd(envp, cmd);
-		pipe_cmd(&str, envp, &cmd);
-		envp = command(cmd, envp);
-		restore_std(fd_save);
-		try_exit(cmd, str, envp);
-		prev_cmd_mode = cmd->mode;
-		free_t_cmd(cmd);
+		if (cmd->cmd)
+		{
+			envp = update_last_cmd(envp, cmd);
+			pipe_cmd(&str, envp, fd_save, &cmd);
+			envp = command(cmd, fd_save, envp);
+			restore_std(fd_save);
+			try_exit(cmd, str, envp);
+			prev_cmd_mode = cmd->mode;
+			free_t_cmd(cmd);
+		}
+		else
+			here_doc(cmd->here_doc);
 	}
 	free(str);
 	return (envp);

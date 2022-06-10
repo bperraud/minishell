@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 08:54:56 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/31 14:53:08 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/10 02:23:50 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int		check_operators_in_a_row(char *str);
 /* parsing utils */
 char	change_quote(char quote, char c);
 char	*file_error(void);
+void	file_not_found_error(char *file);
 void	cmd_list_add_char(t_cmd *cmd, t_split *split, char *s);
 /* wildcards */
 bool	is_indir(char *str);

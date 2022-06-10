@@ -70,12 +70,13 @@ int	here_doc(char *limiter)
 	size_t	len_limiter;
 	char	*buf;
 
+	if (!ft_strlen(limiter))
+		return (-1);
 	len_limiter = ft_strlen(limiter);
 	f1 = open(HERE_DOC, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	while (1)
 	{
-		write(STDIN_FILENO, "> ", 2);
-		buf = get_next_line(1);
+		buf = get_next_line(STDIN);
 		if (buf && (ft_strlen(buf) - 1 != len_limiter
 				|| ft_strncmp(buf, limiter, len_limiter) != 0))
 		{

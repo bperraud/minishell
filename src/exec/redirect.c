@@ -28,13 +28,20 @@ void	dup_close(int fd, int std)
 	close(fd);
 }
 
-void	redirect(t_cmd *command)
+void	redirect(t_cmd *command, int fd_save[2])
 {
+	pid_t	pid;
+	int		status;
+
 	if (ft_strlen(command->here_doc))
+	{
+		if (fd_save)
+			restore_std(fd_save);
 		dup_close(here_doc(command->here_doc), STDIN);
-	if (command->fd_in != STDIN)
+	}
+	if (command->fd_in != STDIN && command->fd_in > 0)
 		dup_close(command->fd_in, STDIN);
-	if (command->fd_out != STDOUT)
+	if (command->fd_out != STDOUT && command->fd_out > 0)
 		dup_close(command->fd_out, STDOUT);
 }
 
@@ -42,6 +49,4 @@ void	restore_std(int fd_save[2])
 {
 	dup2(fd_save[0], STDIN);
 	dup2(fd_save[1], STDOUT);
-	close (fd_save[0]);
-	close (fd_save[1]);
 }

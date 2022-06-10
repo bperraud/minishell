@@ -35,12 +35,12 @@ static char	*cmd_join(t_cmd *command)
 	return (join_cmd);
 }
 
-void	subshell(t_cmd *command, char **envp)
+void	subshell(t_cmd *command, int fd_save[2], char **envp)
 {
 	char	**sh;
 	char	*path_to_minishell;
 
-	redirect(command);
+	redirect(command, fd_save);
 	path_to_minishell = ft_getenv(".MINISHELL", envp);
 	if (!path_to_minishell)
 		return ;
