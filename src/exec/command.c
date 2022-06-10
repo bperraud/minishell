@@ -96,8 +96,6 @@ void	extern_cmd(t_cmd *command, char **envp)
 		exit(COMMAND_NOT_FOUND);
 	}
 	waitpid(pid, &status, 0);
-	if (ft_strlen(command->here_doc))
-		unlink(HERE_DOC);
 	if (g_error == 0)
 		g_error = WEXITSTATUS(status);
 }

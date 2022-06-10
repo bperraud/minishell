@@ -89,5 +89,6 @@ int	here_doc(char *limiter)
 		free(buf);
 	close(f1);
 	f1 = open(HERE_DOC, O_RDONLY);
+	unlink(HERE_DOC);
 	return (f1);
 }
