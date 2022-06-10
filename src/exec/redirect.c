@@ -30,9 +30,6 @@ void	dup_close(int fd, int std)
 
 void	redirect(t_cmd *command, int fd_save[2])
 {
-	pid_t	pid;
-	int		status;
-
 	if (ft_strlen(command->here_doc))
 	{
 		if (fd_save)

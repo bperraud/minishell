@@ -25,7 +25,10 @@ static void	handler(int signum)
 	}
 	else if (signum == SIGQUIT)
 	{
-		ft_putstr_fd(GREEN, 1);
+		if (g_error == 0)
+			ft_putstr_fd(GREEN, 1);
+		else
+			ft_putstr_fd(RED, 1);
 		rl_on_new_line();
 		rl_redisplay();
 		ft_putstr_fd(RESET, 1);
