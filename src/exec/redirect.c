@@ -31,6 +31,7 @@ void	dup_close(int fd, int std)
 void	redirect(t_cmd *command, int fd_save[2])
 {
 	pid_t	pid;
+	int		status;
 
 	if (ft_strlen(command->here_doc))
 	{
@@ -44,7 +45,7 @@ void	redirect(t_cmd *command, int fd_save[2])
 				dup_close(here_doc(command->here_doc), STDIN);
 				exit(0);
 			}
-			waitpid(pid, NULL, 0);
+			waitpid(pid, &status, 0);
 		}
 		else
 			dup_close(here_doc(command->here_doc), STDIN);

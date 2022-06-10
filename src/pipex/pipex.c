@@ -46,7 +46,8 @@ static void	pipex(t_cmd *command, int fd_save[2], char **envp)
 	{
 		close(pipe_fd[1]);
 		dup_close(pipe_fd[0], STDIN);
-		if (!has_path(envp) || !is_cmd_in_path(command->cmd[0], envp))
+		if (!has_path(envp) || !is_cmd_in_path(command->cmd[0], envp)
+			|| ft_strlen(command->here_doc))
 			waitpid(pid, NULL, 0);
 	}
 	else
