@@ -42,10 +42,11 @@ void	redirect(t_cmd *command, int fd_save[2])
 			{
 				if (fd_save)
 					restore_std(fd_save);
-				dup_close(here_doc(command->here_doc), STDIN);
+				here_doc(command->here_doc);
 				exit(0);
 			}
 			waitpid(pid, &status, 0);
+			dup_close(open(HERE_DOC, O_RDONLY), STDIN);
 		}
 		else
 			dup_close(here_doc(command->here_doc), STDIN);

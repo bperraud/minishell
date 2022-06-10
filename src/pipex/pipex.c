@@ -51,9 +51,7 @@ static void	pipex(t_cmd *command, int fd_save[2], char **envp)
 			waitpid(pid, NULL, 0);
 	}
 	else
-	{
 		child_process(pipe_fd, fd_save, command, envp);
-	}
 }
 
 static void	multiple_cmd(t_list_cmd *list_cmd, int fd_save[2], char **envp)
