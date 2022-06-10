@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 19:05:11 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/29 03:17:56 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/10 18:04:34 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**unset(char **cmd, char **env)
 	int		i;
 
 	i = 0;
-	g_error = 1;
+	g_error = 0;
 	while (cmd[++i])
 	{
 		str = ft_getenv(cmd[i], env);
@@ -26,7 +26,6 @@ char	**unset(char **cmd, char **env)
 		{
 			env = env_unset(cmd[i], env);
 			free(str);
-			g_error = 0;
 		}
 	}
 	return (env);
