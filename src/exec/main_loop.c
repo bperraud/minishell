@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/06/10 16:54:53 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/10 19:37:02 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ static char	**update_last_cmd(char **env, t_cmd *cmd)
 	return (env);
 }
 
+static void	try_exit_and_restore(char *str, char **envp, int fd[2], t_cmd *cmd)
+{
+	restore_std(fd);
+	try_exit(cmd, str, envp);
+}
+
 static char	**sh(char *str, char **envp, int fd_save[2], int prev_cmd_mode)
 {
 	t_cmd	*cmd;
@@ -48,8 +54,7 @@ static char	**sh(char *str, char **envp, int fd_save[2], int prev_cmd_mode)
 			envp = update_last_cmd(envp, cmd);
 			pipe_cmd(&str, envp, fd_save, &cmd);
 			envp = command(cmd, fd_save, envp);
-			restore_std(fd_save);
-			try_exit(cmd, str, envp);
+			try_exit_and_restore(str, envp, fd_save, cmd);
 			prev_cmd_mode = cmd->mode;
 			free_t_cmd(cmd);
 		}

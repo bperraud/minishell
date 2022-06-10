@@ -28,8 +28,7 @@ static void	child_process(int pipe_fd[2], int fd[2], t_cmd *cmd, char **envp)
 {
 	close(pipe_fd[0]);
 	if (cmd->fd_out == STDOUT)
-		dup2(pipe_fd[1], STDOUT);
-	close(pipe_fd[1]);
+		dup_close(pipe_fd[1], STDOUT);
 	subshell(cmd, fd, envp);
 	close(1);
 	exit(0);
@@ -46,8 +45,7 @@ static void	pipex(t_cmd *command, int fd_save[2], char **envp)
 	if (pid != 0)
 	{
 		close(pipe_fd[1]);
-		dup2(pipe_fd[0], STDIN);
-		close(pipe_fd[0]);
+		dup_close(pipe_fd[0], STDIN);
 		if (!has_path(envp) || !is_cmd_in_path(command->cmd[0], envp))
 			waitpid(pid, NULL, 0);
 	}
@@ -82,6 +80,7 @@ void	pipe_cmd(char **str, char **envp, int fd_save[2], t_cmd **cmd)
 			add_back(&list_cmd, *cmd);
 		*cmd = init_cmd(0);
 		*str = get_next_cmd(*str, envp, *cmd);
+		(*cmd)->prev_cmd = PIPE;
 	}
 	f_cmd = list_cmd->command;
 	if ((f_cmd->prev_cmd == AND && g_error)

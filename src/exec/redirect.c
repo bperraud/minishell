@@ -30,11 +30,24 @@ void	dup_close(int fd, int std)
 
 void	redirect(t_cmd *command, int fd_save[2])
 {
+	pid_t	pid;
+
 	if (ft_strlen(command->here_doc))
 	{
-		if (fd_save)
-			restore_std(fd_save);
-		dup_close(here_doc(command->here_doc), STDIN);
+		if (command->prev_cmd == PIPE)
+		{
+			pid = fork_protected();
+			if (!pid)
+			{
+				if (fd_save)
+					restore_std(fd_save);
+				dup_close(here_doc(command->here_doc), STDIN);
+				exit(0);
+			}
+			waitpid(pid, NULL, 0);
+		}
+		else
+			dup_close(here_doc(command->here_doc), STDIN);
 	}
 	if (command->fd_in != STDIN && command->fd_in > 0)
 		dup_close(command->fd_in, STDIN);

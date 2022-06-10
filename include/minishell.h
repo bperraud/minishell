@@ -45,7 +45,6 @@ enum e_error
 void	sig_handler(void);
 void	sig_exit(void);
 void	term_config(void);
-
 void	prompt_error(char *str, char *error);
 
 #endif

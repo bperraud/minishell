@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 08:54:56 by jboumal           #+#    #+#             */
-/*   Updated: 2022/06/10 02:23:50 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/10 19:00:54 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,27 +55,33 @@ typedef struct s_list_cmd
 
 /* operators */
 char	*handle_operator(t_cmd *cmd, char *s);
+
 /* redirections */
 char	*handle_in_redirections(t_cmd *cmd, t_split *split, char *s_orig);
 char	*handle_out_redirections(t_cmd *cmd, t_split *split, char *s_orig);
+
 /* init */
 t_error	*init_error(void);
 t_split	*init_split(void);
 t_cmd	*init_cmd(int prev_cmd);
 char	*get_next_cmd(char *s, char **env, t_cmd *cmd);
+
 /* free */
 void	free_t_cmd(t_cmd *cmd);
+
 /* error */
 int		check_syntax(char *str);
 int		check_start_or(char *str);
 int		check_start_and(char *str);
 char	*check_syntax_operator(char *str);
 int		check_operators_in_a_row(char *str);
+
 /* parsing utils */
 char	change_quote(char quote, char c);
 char	*file_error(void);
 void	file_not_found_error(char *file);
 void	cmd_list_add_char(t_cmd *cmd, t_split *split, char *s);
+
 /* wildcards */
 bool	is_indir(char *str);
 bool	expand_wildcards(char *prefix, char **suffix, t_cmd *cmd);

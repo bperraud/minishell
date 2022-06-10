@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 08:55:02 by jboumal           #+#    #+#             */
-/*   Updated: 2022/06/10 16:15:37 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/10 20:15:58 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 typedef struct s_cmd	t_cmd;
 
 /* subshell */
-void	subshell(t_cmd *cmd,  int fd_save[2], char **envp);
-char	**command(t_cmd *cmd,  int fd_save[2], char **envp);
+void	subshell(t_cmd *cmd, int fd_save[2], char **envp);
+char	**command(t_cmd *cmd, int fd_save[2], char **envp);
 
 /* exec */
 void	extern_cmd(t_cmd *command, char**envp);
