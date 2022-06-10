@@ -42,6 +42,4 @@ void	restore_std(int fd_save[2])
 {
 	dup2(fd_save[0], STDIN);
 	dup2(fd_save[1], STDOUT);
-	close (fd_save[0]);
-	close (fd_save[1]);
 }
