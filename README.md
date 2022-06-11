@@ -17,4 +17,3 @@ make
 ./minishell
 ```
 # TODO
-- pwd | << stop wc -c : wc -c compte dans pwd au lieu de here_doc
