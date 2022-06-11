@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 11:39:14 by jboumal           #+#    #+#             */
-/*   Updated: 2022/06/10 18:56:43 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/11 18:29:30 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,11 @@ char	*get_pwd_cut(void)
 
 /* His name is dany ; dany loves cookies */
 /* Dany is a diplodocus-stegosaurus, a very rare kind of dinosaurus */
-char	*print_prompt(char *color)
+char	*print_prompt(void)
 {
 	char	*str;
 
 	str = get_pwd_cut();
-	ft_putstr_fd (color, 1);
 	ft_putstr_fd ("               __  \n", 1);
 	ft_putstr_fd ("              |  | \n", 1);
 	ft_putstr_fd ("             _|__|_\n", 1);
@@ -42,20 +41,8 @@ char	*print_prompt(char *color)
 	ft_putstr_fd (str, 1);
 	ft_putstr_fd ("/    \n", 1);
 	ft_putstr_fd (" _|  (  | (  |     \n", 1);
-	(void) color;
 	free(str);
-	return ("/__.-'|_|--|_| ~ " RESET);
-}
-
-char	*error_to_color(void)
-{
-	char	*color;
-
-	if (g_error == 0 || g_error == OR_MODE_ERROR)
-		color = GREEN;
-	else
-		color = RED;
-	return (color);
+	return ("/__.-'|_|--|_| ~ ");
 }
 
 void	prompt_error(char *str, char *error)

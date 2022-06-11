@@ -33,6 +33,8 @@ static char	**launch_cmd(t_cmd *command, char **envp)
 	else if (!ft_strncmp(command->cmd[0], "./", 2)
 		|| !ft_strncmp(command->cmd[0], "/", 1))
 		ft_executable(command->cmd, envp);
+	else if (command->cmd[0][0] == '(')
+		subshell(command, NULL, envp);
 	else
 		extern_cmd(command, envp);
 	while (wait(NULL) > 0)
@@ -44,7 +46,7 @@ char	**command(t_cmd *cmd, int fd_save[2], char **envp)
 {
 	if (!cmd->cmd)
 		return (envp);
-	if (cmd->prev_cmd == PIPE || cmd->cmd[0][0] == '(')
+	if (cmd->prev_cmd == PIPE)
 	{
 		subshell(cmd, fd_save, envp);
 		while (wait(NULL) > 0)
