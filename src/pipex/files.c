@@ -74,6 +74,7 @@ int	here_doc(char *limiter)
 	f1 = open(HERE_DOC, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	while (1)
 	{
+		write(0, "> ", 2);
 		buf = get_next_line(STDIN);
 		if (buf && (ft_strlen(buf) - 1 != ft_strlen(limiter)
 				|| ft_strncmp(buf, limiter, ft_strlen(limiter)) != 0))
