@@ -6,13 +6,25 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:19:04 by jboumal           #+#    #+#             */
-/*   Updated: 2022/06/02 01:28:46 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/11 14:34:45 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_error = 0;
+
+pid_t	fork_protected(void)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid < 0)
+	{
+		error_file_exit("fork");
+	}
+	return (pid);
+}
 
 static int	inc_lvl(int lvl)
 {

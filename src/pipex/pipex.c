@@ -12,18 +12,6 @@
 
 #include "minishell.h"
 
-pid_t	fork_protected(void)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid < 0)
-	{
-		error_file_exit("fork");
-	}
-	return (pid);
-}
-
 static void	child_process(int pipe_fd[2], int fd[2], t_cmd *cmd, char **envp)
 {
 	close(pipe_fd[0]);
@@ -65,6 +53,22 @@ static void	multiple_cmd(t_list_cmd *list_cmd, int fd_save[2], char **envp)
 	}
 }
 
+static void	add_cmd_pipex(char **s, char **e, t_list_cmd *lst_cmd, t_cmd **cmd)
+{
+	if ((*cmd)->cmd)
+		add_back(&lst_cmd, *cmd);
+	else
+	{
+		(*cmd)->cmd = malloc(2 * sizeof(char *));
+		(*cmd)->cmd[0] = ft_strdup("unset");
+		(*cmd)->cmd[1] = NULL;
+		add_back(&lst_cmd, *cmd);
+	}
+	*cmd = init_cmd(0);
+	*s = get_next_cmd(*s, e, *cmd);
+	(*cmd)->prev_cmd = PIPE;
+}
+
 void	pipe_cmd(char **str, char **envp, int fd_save[2], t_cmd **cmd)
 {
 	t_list_cmd	*list_cmd;
@@ -74,13 +78,7 @@ void	pipe_cmd(char **str, char **envp, int fd_save[2], t_cmd **cmd)
 		return ;
 	list_cmd = init_list();
 	while ((*cmd)->mode == PIPE)
-	{
-		if ((*cmd)->cmd)
-			add_back(&list_cmd, *cmd);
-		*cmd = init_cmd(0);
-		*str = get_next_cmd(*str, envp, *cmd);
-		(*cmd)->prev_cmd = PIPE;
-	}
+		add_cmd_pipex(str, envp, list_cmd, cmd);
 	f_cmd = list_cmd->command;
 	if ((f_cmd->prev_cmd == AND && g_error)
 		|| (f_cmd->prev_cmd == OR && !g_error))

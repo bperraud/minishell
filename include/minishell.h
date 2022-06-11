@@ -41,6 +41,9 @@ enum e_error
 	SYNTAX_ERROR = 258
 };
 
+/* protected */
+pid_t	fork_protected(void);
+
 /* signals */
 void	sig_handler(void);
 void	sig_exit(void);
