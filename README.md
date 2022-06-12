@@ -17,3 +17,4 @@ make
 ./minishell
 ```
 # TODO
+- syntax error dans des guillemets (echo '|')
