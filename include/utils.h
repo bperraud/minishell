@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 09:05:47 by jboumal           #+#    #+#             */
-/*   Updated: 2022/06/05 22:16:51 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/13 17:27:46 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	*smalloc(size_t n_bytes);
 char	**add_string(char **lst1, char *str);
 char	*add_multiple_chars(char *s1, char *s2);
 char	*add_char(char *str1, char c);
+char	*skip_quotation_marks(char *str);
 
 /* shell_utils */
 int		has_path(char **envp);

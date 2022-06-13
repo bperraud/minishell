@@ -6,11 +6,32 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:40:34 by jboumal           #+#    #+#             */
-/*   Updated: 2022/05/24 02:23:42 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/13 17:27:30 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*skip_quotation_marks(char *str)
+{
+	if (*str == '\'')
+	{
+		str++;
+		while (*str != '\'' && *str)
+		{
+			str++;
+		}
+	}
+	else if (*str == '\"')
+	{
+		str++;
+		while (*str != '\"' && str)
+		{
+			str++;
+		}
+	}
+	return (str);
+}
 
 char	**update_pwd(char **env)
 {
