@@ -107,7 +107,9 @@ static int	check_operator_and(char **str)
 
 char	*check_syntax_operator(char *str)
 {
+	str = skip_quotation_marks(str);
 	str = skip_spaces(str);
+	str = skip_quotation_marks(str);
 	if (check_operators_in_a_row(str))
 	{
 		g_error = SYNTAX_ERROR;
@@ -129,6 +131,5 @@ char	*check_syntax_operator(char *str)
 			return (NULL);
 		}
 	}
-	str++;
-	return (str);
+	return (str + 1);
 }

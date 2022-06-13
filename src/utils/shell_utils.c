@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 16:12:19 by jboumal           #+#    #+#             */
-/*   Updated: 2022/06/05 22:16:33 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/13 16:51:56 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	has_path(char **envp)
 char	*skip_spaces(char *str)
 {
 	while (*str == ' ')
-		(str ++);
+		(str++);
 	return (str);
 }
 

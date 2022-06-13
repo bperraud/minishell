@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/06/11 18:29:03 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/13 16:32:52 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	start_shell(char **envp, char *str_c)
 		if (!str_c)
 		{
 			sig_handler();
-			str = readline(print_prompt());
+			str = readline(print_prompt(error_to_color()));
 			if (!str)
 			{
 				ft_putstr_fd("exit\n", STDIN);
