@@ -20,12 +20,12 @@ int	check_start_or(char *str)
 	(str)++;
 	if (*str && *str == '|')
 	{
-		ft_putstr_fd("-minishell: syntax error near unexpected token `||'\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token `||'\n", 2);
 		return (SYNTAX_ERROR);
 	}
 	else
 	{
-		ft_putstr_fd("-minishell: syntax error near unexpected token `|'\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
 		return (SYNTAX_ERROR);
 	}
 }
@@ -38,12 +38,12 @@ int	check_start_and(char *str)
 	(str)++;
 	if (*str && *str == '&')
 	{
-		ft_putstr_fd("-minishell: syntax error near unexpected token `&&'\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token `&&'\n", 2);
 		return (SYNTAX_ERROR);
 	}
 	else
 	{
-		ft_putstr_fd("-minishell: syntax error near unexpected token `&'\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token `&'\n", 2);
 		return (SYNTAX_ERROR);
 	}
 	return (0);
@@ -59,7 +59,7 @@ static int	check_operator_or(char **str)
 		if (**str && **str == '&')
 		{
 			(*str)++;
-			ft_putstr_fd("-minishell: syntax error near ", 2);
+			ft_putstr_fd("minishell: syntax error near ", 2);
 			if (**str == '&')
 				ft_putstr_fd("unexpected token `&&'\n", 2);
 			else
@@ -68,7 +68,7 @@ static int	check_operator_or(char **str)
 		}
 		if (**str && **str == '|')
 		{
-			ft_putstr_fd("-minishell: syntax error near ", 2);
+			ft_putstr_fd("minishell: syntax error near ", 2);
 			ft_putstr_fd("unexpected token `|'\n", 2);
 			return (SYNTAX_ERROR);
 		}
@@ -87,7 +87,7 @@ static int	check_operator_and(char **str)
 		if (**str && **str == '|')
 		{
 			(*str)++;
-			ft_putstr_fd("-minishell: syntax error near ", 2);
+			ft_putstr_fd("minishell: syntax error near ", 2);
 			if (**str == '|')
 				ft_putstr_fd("unexpected token `||'\n", 2);
 			else
@@ -96,7 +96,7 @@ static int	check_operator_and(char **str)
 		}
 		if (**str && **str == '&')
 		{
-			ft_putstr_fd("-minishell: syntax error near ", 2);
+			ft_putstr_fd("minishell: syntax error near ", 2);
 			ft_putstr_fd("unexpected token `&'\n", 2);
 			return (SYNTAX_ERROR);
 		}

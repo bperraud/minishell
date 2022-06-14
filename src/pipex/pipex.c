@@ -55,18 +55,12 @@ static void	multiple_cmd(t_list_cmd *list_cmd, int fd_save[2], char **envp)
 
 static void	add_cmd_pipex(char **s, char **e, t_list_cmd *lst_cmd, t_cmd **cmd)
 {
-	if ((*cmd)->cmd)
-		add_back(&lst_cmd, *cmd);
-	else
-	{
-		(*cmd)->cmd = malloc(2 * sizeof(char *));
-		(*cmd)->cmd[0] = ft_strdup("unset");
-		(*cmd)->cmd[1] = NULL;
-		add_back(&lst_cmd, *cmd);
-	}
+	add_back(&lst_cmd, *cmd);
 	*cmd = init_cmd(0);
 	*s = get_next_cmd(*s, e, *cmd);
 	(*cmd)->prev_cmd = PIPE;
+	if (!(*cmd)->cmd)
+		empty_cmd(cmd);
 }
 
 void	pipe_cmd(char **str, char **envp, int fd_save[2], t_cmd **cmd)
