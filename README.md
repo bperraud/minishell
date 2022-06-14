@@ -18,3 +18,4 @@ make
 ```
 # TODO
 - syntax error dans des guillemets (echo '|')
+- ls | ls >
