@@ -39,6 +39,7 @@ enum e_error
 	QUIT = 131,
 	SYNTAX_ERROR = 258
 };
+
 /* utils */
 void	empty_cmd(t_cmd **cmd);
 

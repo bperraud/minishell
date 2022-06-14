@@ -59,6 +59,6 @@ void	redirect(t_cmd *command, int fd_save[2])
 
 void	restore_std(int fd_save[2])
 {
-	dup2(fd_save[0], STDIN);
-	dup2(fd_save[1], STDOUT);
+	if (dup2(fd_save[0], STDIN) < 0 || dup2(fd_save[1], STDOUT) < 0)
+		error_file_exit("dup2");
 }
