@@ -42,6 +42,7 @@ void	try_exit(t_cmd *command, char *str, char **envp)
 
 	if (command->fd_in != EXIT_CODE)
 		return ;
+	ft_putstr_fd("exit\n", 1);
 	arg = 0;
 	while (command->cmd[arg])
 		arg++;
