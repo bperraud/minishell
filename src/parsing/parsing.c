@@ -113,6 +113,8 @@ char	*get_next_cmd(char *s, char **env, t_cmd *cmd)
 		s = handle_special(cmd, split, s_ini, s);
 		if (!s)
 			return (NULL);
+		if (split->quote && ft_strchr("&|", *s))
+			split->word = add_char(split->word, *s);
 	}
 	cmd->cmd = add_string(cmd->cmd, split->word);
 	if (s && !split->quote)
