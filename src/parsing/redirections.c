@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:30:25 by jboumal           #+#    #+#             */
-/*   Updated: 2022/06/14 23:22:44 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/15 12:13:19 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*open_infile(t_cmd *cmd, t_split *split, bool heredoc_mode, char *s)
 	split->word = NULL;
 	word = get_next_word(&s);
 	if (!word)
-		return (file_error());
+		return (s);
 	if (heredoc_mode)
 		cmd->here_doc = word;
 	else
@@ -74,7 +74,7 @@ static char	*open_outfile(t_cmd *cmd, t_split *split, bool append_mode, char *s)
 	}
 	word = get_next_word(&s);
 	if (!word)
-		return (file_error());
+		return (s);
 	if (test_access(word, WRITE))
 	{
 		free(word);
