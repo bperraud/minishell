@@ -30,7 +30,7 @@ static bool	has_no_digit(char *str)
 
 static void	print_exit(char *str)
 {
-	ft_putstr_fd("-minishell: exit: ", 1);
+	ft_putstr_fd("minishell: exit: ", 1);
 	ft_putstr_fd(str, 1);
 	ft_putstr_fd(": numeric argument required\n", 1);
 	g_error = 255;

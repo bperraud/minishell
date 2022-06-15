@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 10:55:41 by jboumal           #+#    #+#             */
-/*   Updated: 2022/06/10 02:24:08 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/13 23:36:07 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	change_quote(char quote, char c)
 
 void	file_not_found_error(char *file)
 {
-	ft_putstr_fd("-minishell: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(file, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd("No such file or directory\n", 2);
@@ -32,7 +32,7 @@ void	file_not_found_error(char *file)
 
 char	*file_error(void)
 {
-	ft_putstr_fd("-minishell: file error\n", 2);
+	ft_putstr_fd("minishell: file error\n", 2);
 	g_error = FILE_ERROR;
 	return (NULL);
 }

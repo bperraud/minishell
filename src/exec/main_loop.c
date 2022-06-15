@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/06/13 16:32:52 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/14 23:23:41 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	**update_last_cmd(char **env, t_cmd *cmd)
 	return (env);
 }
 
-static void	empty_cmd(t_cmd **cmd)
+void	empty_cmd(t_cmd **cmd)
 {
 	if (!(*cmd)->cmd)
 	{

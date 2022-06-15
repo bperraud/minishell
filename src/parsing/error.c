@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:49:51 by jboumal           #+#    #+#             */
-/*   Updated: 2022/06/13 17:24:39 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/13 23:36:07 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static int	is_unclosed_sentence(int par, char quote)
 {
 	if (par != 0)
 	{
-		ft_putstr_fd("-minishell: unclosed parenthesis\n", 2);
+		ft_putstr_fd("minishell: unclosed parenthesis\n", 2);
 		g_error = SYNTAX_ERROR;
 		return (SYNTAX_ERROR);
 	}
 	if (quote)
 	{
-		ft_putstr_fd("-minishell: unclosed quote\n", 2);
+		ft_putstr_fd("minishell: unclosed quote\n", 2);
 		g_error = SYNTAX_ERROR;
 		return (SYNTAX_ERROR);
 	}
@@ -33,7 +33,7 @@ static int	check_opening_par(t_error *err)
 {
 	if (!err->is_start_of_cmd)
 	{
-		ft_putstr_fd("-minishell: syntax error near unexpected token '('\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token '('\n", 2);
 		g_error = SYNTAX_ERROR;
 		return (SYNTAX_ERROR);
 	}
@@ -47,14 +47,14 @@ static int	check_closing_par(t_error *err, char **str)
 	*str = skip_spaces(*str);
 	if ((**str && !ft_strchr("|&)<>", **str)) || err->is_start_of_cmd)
 	{
-		ft_putstr_fd("-minishell: syntax error near unexpected token ')'\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token ')'\n", 2);
 		g_error = SYNTAX_ERROR;
 		return (SYNTAX_ERROR);
 	}
 	err->par--;
 	if (err->par < 0)
 	{
-		ft_putstr_fd("-minishell: syntax error near unexpected token ')'\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token ')'\n", 2);
 		g_error = SYNTAX_ERROR;
 		return (SYNTAX_ERROR);
 	}
