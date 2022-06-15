@@ -13,9 +13,8 @@
 #include "minishell.h"
 
 /* redirect to appropriate function for a cmd */
-static char	**launch_cmd(t_cmd *command, char **envp)
+static char	**launch_cmd(t_cmd *command, char **envp, int fd_save[2])
 {
-	redirect(command, NULL);
 	if (!ft_strcmp(command->cmd[0], "cd"))
 		return (change_directory(command, envp));
 	else if (!ft_strcmp(command->cmd[0], "echo"))
@@ -34,7 +33,7 @@ static char	**launch_cmd(t_cmd *command, char **envp)
 		|| !ft_strncmp(command->cmd[0], "/", 1))
 		ft_executable(command->cmd, envp);
 	else if (command->cmd[0][0] == '(')
-		subshell(command, NULL, envp);
+		subshell(command, fd_save, envp);
 	else
 		extern_cmd(command, envp);
 	while (wait(NULL) > 0)
@@ -54,7 +53,11 @@ char	**command(t_cmd *cmd, int fd_save[2], char **envp)
 	}
 	else if ((cmd->prev_cmd == AND && !g_error)
 		|| (cmd->prev_cmd == OR && g_error))
-		return (launch_cmd(cmd, envp));
+	{
+		if (cmd->cmd[0][0] != '(')
+			redirect(cmd, NULL);
+		return (launch_cmd(cmd, envp, fd_save));
+	}
 	return (envp);
 }
 
