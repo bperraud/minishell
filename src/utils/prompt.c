@@ -49,7 +49,7 @@ char	*error_to_color(void)
 {
 	char	*color;
 
-	if (g_error == 0 || g_error == OR_MODE_ERROR)
+	if (g_error == 0)
 		color = GREEN;
 	else
 		color = RED;

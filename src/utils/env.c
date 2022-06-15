@@ -33,11 +33,7 @@ char	*ft_getenv(char *str, char **env)
 
 	i = 0;
 	if (ft_strcmp(str, "?") == 0)
-	{
-		if (g_error == OR_MODE_ERROR)
-			return (ft_itoa(g_error + 1));
 		return (ft_itoa(g_error));
-	}
 	while (env[i])
 	{
 		if (env_var_name_cmp(env[i], str))
