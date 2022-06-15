@@ -115,7 +115,7 @@ char	*get_next_cmd(char *s, char **env, t_cmd *cmd)
 			return (NULL);
 	}
 	cmd->cmd = add_string(cmd->cmd, split->word);
-	if (s)
+	if (s && !split->quote)
 		s = handle_operator(cmd, s);
 	handle_wildcards(cmd);
 	if (cmd->cmd)

@@ -110,5 +110,7 @@ int	check_syntax(char *str)
 	}
 	if (is_unclosed_sentence(err->par, err->quote))
 		return (free_and_return(str_ini, err, 1));
+	if (check_empty_redir(str_ini))
+		return (free_and_return(str_ini, err, 1));
 	return (free_and_return(NULL, err, 0));
 }

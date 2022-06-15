@@ -45,16 +45,15 @@ void	try_exit(t_cmd *command, char *str, char **envp)
 	arg = 0;
 	while (command->cmd[arg])
 		arg++;
-	if (arg > 2)
-	{
-		prompt_error("exit", "too many arguments\n");
-		return ;
-	}
-	ft_putstr_fd("exit\n", 1);
-	if (arg == 2)
+	if (arg > 1)
 	{
 		if (!has_no_digit(command->cmd[1]))
 			print_exit(command->cmd[1]);
+		else if (arg > 2)
+		{
+			prompt_error("exit", "too many arguments\n");
+			return ;
+		}
 		else
 			g_error = ft_atoi(command->cmd[1]);
 	}
