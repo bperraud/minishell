@@ -16,6 +16,3 @@ Compile and run
 make
 ./minishell
 ```
-# TODO
-- syntax error dans des guillemets (echo '|')
-- ls | ls >
