@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 11:39:14 by jboumal           #+#    #+#             */
-/*   Updated: 2022/06/13 23:36:07 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/16 00:18:14 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ char	*print_prompt(char *color)
 
 	str = get_pwd_cut();
 	ft_putstr_fd ("               __\n", 1);
-	ft_putstr_fd ("              /o_) \n", 1);
+	ft_putstr_fd ("              /", 1);
+	ft_putstr_fd (color, 1);
+	ft_putstr_fd ("o", 1);
+	ft_putstr_fd (RESET, 1);
+	ft_putstr_fd ("_) \n", 1);
 	ft_putstr_fd ("     _/\\/\\/\\_/ /   \n", 1);
 	ft_putstr_fd ("   _|", 1);
 	ft_putstr_fd (color, 1);
