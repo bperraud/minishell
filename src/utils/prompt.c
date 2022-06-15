@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 11:39:14 by jboumal           #+#    #+#             */
-/*   Updated: 2022/06/13 23:36:07 by bperraud         ###   ########.fr       */
+/*   Updated: 2022/06/15 11:22:43 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*error_to_color(void)
 {
 	char	*color;
 
-	if (g_error == 0 || g_error == OR_MODE_ERROR)
+	if (g_error == 0)
 		color = GREEN;
 	else
 		color = RED;

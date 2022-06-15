@@ -55,8 +55,6 @@ char	**command(t_cmd *cmd, int fd_save[2], char **envp)
 	else if ((cmd->prev_cmd == AND && !g_error)
 		|| (cmd->prev_cmd == OR && g_error))
 		return (launch_cmd(cmd, envp));
-	else if (cmd->prev_cmd == OR && !g_error)
-		g_error = OR_MODE_ERROR;
 	return (envp);
 }
 
