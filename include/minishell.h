@@ -25,7 +25,6 @@
 
 # define STDIN 0
 # define STDOUT 1
-# define OR_MODE_ERROR -1
 
 extern int	g_error;
 
