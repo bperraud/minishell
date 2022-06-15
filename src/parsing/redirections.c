@@ -74,7 +74,7 @@ static char	*open_outfile(t_cmd *cmd, t_split *split, bool append_mode, char *s)
 	}
 	word = get_next_word(&s);
 	if (!word)
-		return (s);
+		return (file_error());
 	if (test_access(word, WRITE))
 	{
 		free(word);

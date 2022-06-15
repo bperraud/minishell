@@ -75,7 +75,6 @@ int		check_start_or(char *str);
 int		check_start_and(char *str);
 char	*check_syntax_operator(char *str);
 int		check_operators_in_a_row(char *str);
-int		check_empty_redir(char *str);
 
 /* parsing utils */
 char	change_quote(char quote, char c);

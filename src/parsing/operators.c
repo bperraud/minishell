@@ -12,34 +12,6 @@
 
 #include "minishell.h"
 
-int	check_empty_redir(char *str)
-{
-	int	squote;
-	int	dquote;
-
-	squote = 0;
-	dquote = 0;
-	while (*str)
-	{
-		if (*str == '\'')
-			squote = (squote + 1) % 2;
-		else if (*str == '\"')
-			dquote = (dquote + 1) % 2;
-		else if ((*str == '<' || *str == '>') && !squote && !dquote)
-		{
-			while ((*str + 1) == ' ')
-				str++;
-			if (!(*str) + 1 || !ft_isascii((*str) + 1))
-			{
-				file_error();
-				return (1);
-			}
-		}
-		str++;
-	}
-	return (0);
-}
-
 int	check_operators_in_a_row(char *str)
 {
 	int		and_op;
