@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2023/07/10 02:20:15 by bperraud         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:14:50 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,38 +87,29 @@ static char	**set_up_sh(char *str, char **envp)
 void	start_shell(char **envp, char *str_c)
 {
 	char	*str;
-	//size_t bufferSize = 0;
 
 	term_config();
 
-	//int pipeFd = open("mypipe", O_RDWR);
-
 	const char* writingPipe = "pipeB";
     const char* readingPipe = "pipeA";
-
 	int writer = open(writingPipe, O_RDWR);
 	int reader = open(readingPipe, O_RDWR);
-
 	if (writer < 0 || reader < 0)
-	{
 		error_file_exit("open");
-	}
 
 	dup2(writer, STDOUT);
-	//close(writer);
-
+	close(writer);
+	bool first = true;
 	while (1)
 	{
 		if (!str_c)
 		{
-			//sig_handler();
-			//str = readline(print_prompt(error_to_color()));
+			if (!first)
+				ft_putchar_fd('\0', STDOUT);
 
-			str = (char*)malloc(1000);
-
-			ssize_t bytesRead = read(reader, str, 1000);
-
-			//str = ft_strdup(str);
+			first = false;
+			str = (char*)malloc(10000 * sizeof(char));
+			ssize_t bytesRead = read(reader, str, 10000 * sizeof(char));
 
 			if (bytesRead != -1) {
 				if (bytesRead == 1)
