@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 01:27:04 by bperraud          #+#    #+#             */
-/*   Updated: 2022/06/14 23:23:41 by bperraud         ###   ########.fr       */
+/*   Updated: 2023/07/10 02:20:15 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,44 @@ static char	**set_up_sh(char *str, char **envp)
 void	start_shell(char **envp, char *str_c)
 {
 	char	*str;
+	//size_t bufferSize = 0;
 
 	term_config();
+
+	//int pipeFd = open("mypipe", O_RDWR);
+
+	const char* writingPipe = "pipeB";
+    const char* readingPipe = "pipeA";
+
+	int writer = open(writingPipe, O_RDWR);
+	int reader = open(readingPipe, O_RDWR);
+
+	if (writer < 0 || reader < 0)
+	{
+		error_file_exit("open");
+	}
+
+	dup2(writer, STDOUT);
+	//close(writer);
+
 	while (1)
 	{
 		if (!str_c)
 		{
-			sig_handler();
-			str = readline(print_prompt(error_to_color()));
+			//sig_handler();
+			//str = readline(print_prompt(error_to_color()));
+
+			str = (char*)malloc(1000);
+
+			ssize_t bytesRead = read(reader, str, 1000);
+
+			//str = ft_strdup(str);
+
+			if (bytesRead != -1) {
+				if (bytesRead == 1)
+					continue;
+				str[bytesRead - 1] = '\0';
+			}
 			if (!str)
 			{
 				ft_putstr_fd("exit\n", STDIN);
@@ -104,7 +134,7 @@ void	start_shell(char **envp, char *str_c)
 		else
 			str = ft_strndup(str_c, ft_strlen(str_c));
 		add_history(str);
-		sig_exit();
+		//sig_exit();
 		if (!check_syntax(str))
 			envp = set_up_sh(str, envp);
 		if (str_c)

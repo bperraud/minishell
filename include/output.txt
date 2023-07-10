@@ -1,0 +1,5 @@
+salut
+saefdsadf: command not found
+/home/bperraud/Documents/minishell/include
+salut
+test

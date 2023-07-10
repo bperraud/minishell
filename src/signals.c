@@ -6,7 +6,7 @@
 /*   By: bperraud <bperraud@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 18:59:49 by jboumal           #+#    #+#             */
-/*   Updated: 2022/06/13 16:32:33 by bperraud         ###   ########.fr       */
+/*   Updated: 2023/07/04 00:48:38 by bperraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	handler(int signum)
 	{
 		g_error = INTERRUPT_NL;
 		ft_putchar_fd('\n', 1);
-		print_prompt((error_to_color()));
+		//print_prompt((error_to_color()));
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
